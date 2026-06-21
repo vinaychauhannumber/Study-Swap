@@ -57,16 +57,33 @@ if (usePostgres) {
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   const dbUrlObj = new URL(process.env.DATABASE_URL);
   
+  let dbUser = decodeURIComponent(dbUrlObj.username);
+  let dbHost = dbUrlObj.hostname;
+  let dbPort = parseInt(dbUrlObj.port) || 5432;
+  
+  // If using Supabase pooler, convert to direct connection
+  // Pooler format: postgres.{projectref}@{region}.pooler.supabase.com:6543
+  // Direct format: postgres@db.{projectref}.supabase.co:5432
+  if (dbHost.includes('pooler.supabase.com') && dbUser.includes('.')) {
+    const projectRef = dbUser.split('.')[1];
+    dbHost = `db.${projectRef}.supabase.co`;
+    dbPort = 5432;
+    dbUser = 'postgres';
+    console.log(`Converted pooler URL to direct connection: ${dbHost}:${dbPort}`);
+  }
+  
   pool = new Pool({
-    user: decodeURIComponent(dbUrlObj.username),
+    user: dbUser,
     password: decodeURIComponent(dbUrlObj.password),
-    host: dbUrlObj.hostname,
-    port: parseInt(dbUrlObj.port) || 5432,
+    host: dbHost,
+    port: dbPort,
     database: dbUrlObj.pathname.slice(1),
-    ssl: { rejectUnauthorized: false }
+    ssl: { rejectUnauthorized: false },
+    // Force IPv4 to avoid ENETUNREACH on some hosting providers
+    connectionTimeoutMillis: 10000
   });
   
-  console.log(`Connecting to PostgreSQL at ${dbUrlObj.hostname}:${dbUrlObj.port} as ${decodeURIComponent(dbUrlObj.username)}`);
+  console.log(`Connecting to PostgreSQL at ${dbHost}:${dbPort} as ${dbUser}`);
 } else {
   console.log('Database Mode: Local SQLite Fallback.');
   const dbPath = path.resolve(__dirname, '../studyswap.db');
