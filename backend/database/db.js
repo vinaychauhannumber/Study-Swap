@@ -53,16 +53,20 @@ function translateSchema(schemaSql) {
 if (usePostgres) {
   console.log('Database Mode: Supabase PostgreSQL Detected.');
   
-  // Strip sslmode from URL to prevent pg from overriding our SSL config
-  const dbUrl = process.env.DATABASE_URL.replace(/[?&]sslmode=[^&]*/g, '');
-  
-  // Allow self-signed certificates from Supabase
+  // Parse DATABASE_URL manually to handle Supabase's dotted username correctly
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+  const dbUrlObj = new URL(process.env.DATABASE_URL);
   
   pool = new Pool({
-    connectionString: dbUrl,
+    user: decodeURIComponent(dbUrlObj.username),
+    password: decodeURIComponent(dbUrlObj.password),
+    host: dbUrlObj.hostname,
+    port: parseInt(dbUrlObj.port) || 5432,
+    database: dbUrlObj.pathname.slice(1),
     ssl: { rejectUnauthorized: false }
   });
+  
+  console.log(`Connecting to PostgreSQL at ${dbUrlObj.hostname}:${dbUrlObj.port} as ${decodeURIComponent(dbUrlObj.username)}`);
 } else {
   console.log('Database Mode: Local SQLite Fallback.');
   const dbPath = path.resolve(__dirname, '../studyswap.db');
