@@ -53,9 +53,14 @@ function translateSchema(schemaSql) {
 if (usePostgres) {
   console.log('Database Mode: Supabase PostgreSQL Detected.');
   
-  // Use connectionString directly — avoids parser issues with dotted usernames
+  // Strip sslmode from URL to prevent pg from overriding our SSL config
+  const dbUrl = process.env.DATABASE_URL.replace(/[?&]sslmode=[^&]*/g, '');
+  
+  // Allow self-signed certificates from Supabase
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+  
   pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
+    connectionString: dbUrl,
     ssl: { rejectUnauthorized: false }
   });
 } else {
