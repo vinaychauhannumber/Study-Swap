@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth, API_BASE } from '../context/AuthContext';
+import { useAuth, API_BASE, BACKEND_URL } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
 import { 
   Send, Paperclip, FileText, CheckCheck, Sparkles, 
@@ -381,7 +381,7 @@ export default function Inbox() {
                   <div className="relative shrink-0">
                     {c.partnerPic ? (
                       <img 
-                        src={`http://localhost:5005${c.partnerPic}`} 
+                        src={`${BACKEND_URL}${c.partnerPic}`} 
                         alt={c.partnerName} 
                         className="w-9 h-9 rounded-full object-cover border border-slate-800"
                       />
@@ -440,7 +440,7 @@ export default function Inbox() {
               <div className="flex items-center space-x-3 min-w-0">
                 {activeConversation.partnerPic ? (
                   <img 
-                    src={`http://localhost:5005${activeConversation.partnerPic}`} 
+                    src={`${BACKEND_URL}${activeConversation.partnerPic}`} 
                     alt={activeConversation.partnerName} 
                     className="w-9 h-9 rounded-full object-cover border border-slate-800"
                   />
@@ -560,7 +560,7 @@ export default function Inbox() {
                         {msg.content && <p className="text-xs leading-relaxed whitespace-pre-wrap">{msg.content}</p>}
                         {msg.file_url && (
                           <a 
-                            href={`http://localhost:5005${msg.file_url}`}
+                            href={`${BACKEND_URL}${msg.file_url}`}
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="flex items-center space-x-2 p-2.5 rounded-xl bg-black/30 text-indigo-300 hover:text-indigo-200 transition text-[10px] font-medium max-w-full"

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { useAuth, API_BASE } from '../context/AuthContext';
+import { useAuth, API_BASE, BACKEND_URL } from '../context/AuthContext';
 import { 
   User, Mail, GraduationCap, Code, FileText, CheckCircle, 
   Star, Settings2, Sparkles, Image, Check, AlertCircle, Award 
@@ -144,7 +144,7 @@ export default function Profile() {
         <div className="relative shrink-0 group">
           {profileUser.profile_picture ? (
             <img 
-              src={`http://localhost:5005${profileUser.profile_picture}`} 
+              src={`${BACKEND_URL}${profileUser.profile_picture}`} 
               alt={profileUser.full_name} 
               className="w-28 h-28 rounded-3xl border border-slate-700 object-cover"
             />
@@ -249,7 +249,7 @@ export default function Profile() {
               {profileUser.handwriting_sample ? (
                 <div className="space-y-3 pt-1">
                   <img 
-                    src={`http://localhost:5005${profileUser.handwriting_sample}`} 
+                    src={`${BACKEND_URL}${profileUser.handwriting_sample}`} 
                     alt="Handwriting Sample" 
                     className="w-full h-40 object-cover rounded-2xl border border-slate-800"
                   />
@@ -396,7 +396,7 @@ export default function Profile() {
                         <div className="flex items-center space-x-2 text-xs font-bold text-slate-200">
                           {rev.reviewer_pic ? (
                             <img 
-                              src={`http://localhost:5005${rev.reviewer_pic}`} 
+                              src={`${BACKEND_URL}${rev.reviewer_pic}`} 
                               alt={rev.reviewer_name} 
                               className="w-5 h-5 rounded-full object-cover border border-slate-800"
                             />

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth, BACKEND_URL } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
 import { Bell, LogOut, User, Menu, X, PlusCircle, CheckCircle, Shield } from 'lucide-react';
 
@@ -156,7 +156,7 @@ export default function Navbar() {
             >
               {user.profile_picture ? (
                 <img 
-                  src={`http://localhost:5005${user.profile_picture}`} 
+                  src={`${BACKEND_URL}${user.profile_picture}`} 
                   alt={user.full_name} 
                   className="w-8 h-8 rounded-full border border-slate-700 object-cover"
                 />

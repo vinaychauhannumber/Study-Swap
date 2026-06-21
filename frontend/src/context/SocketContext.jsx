@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
-import { useAuth, API_BASE } from './AuthContext';
+import { useAuth, API_BASE, BACKEND_URL } from './AuthContext';
 
 const SocketContext = createContext();
 
@@ -48,7 +48,7 @@ export const SocketProvider = ({ children }) => {
     }
 
     // Connect to WebSocket server
-    const newSocket = io('http://localhost:5005', {
+    const newSocket = io(BACKEND_URL, {
       auth: { token }
     });
 

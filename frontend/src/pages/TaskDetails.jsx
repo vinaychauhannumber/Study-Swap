@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { useAuth, API_BASE } from '../context/AuthContext';
+import { useAuth, API_BASE, BACKEND_URL } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
 import { 
   ArrowLeft, Brain, Calendar, FileUp, Sparkles, MessageSquare, 
@@ -412,7 +412,7 @@ export default function TaskDetails() {
                   {fileList.map((url, index) => (
                     <a 
                       key={index}
-                      href={`http://localhost:5005${url}`}
+                      href={`${BACKEND_URL}${url}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center space-x-2.5 p-3 rounded-xl bg-slate-900 border border-slate-800 text-xs text-indigo-400 hover:text-indigo-300 hover:border-indigo-800/50 transition font-medium"
@@ -594,7 +594,7 @@ export default function TaskDetails() {
                           {msg.content && <p className="text-xs leading-relaxed whitespace-pre-wrap">{msg.content}</p>}
                           {msg.file_url && (
                             <a 
-                              href={`http://localhost:5005${msg.file_url}`}
+                              href={`${BACKEND_URL}${msg.file_url}`}
                               target="_blank" 
                               rel="noopener noreferrer"
                               className="flex items-center space-x-2 p-2 rounded-xl bg-black/30 text-indigo-300 hover:text-indigo-200 transition text-[10px] font-medium max-w-full"

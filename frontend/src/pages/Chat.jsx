@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { useAuth, API_BASE } from '../context/AuthContext';
+import { useAuth, API_BASE, BACKEND_URL } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
 import { 
   ArrowLeft, Send, Paperclip, FileText, CheckCheck, Sparkles, 
@@ -301,7 +301,7 @@ export default function Chat() {
               <div className="flex items-center space-x-2.5">
                 {receiver.profile_picture ? (
                   <img 
-                    src={`http://localhost:5005${receiver.profile_picture}`} 
+                    src={`${BACKEND_URL}${receiver.profile_picture}`} 
                     alt={receiver.full_name} 
                     className="w-8 h-8 rounded-full border border-slate-800 object-cover"
                   />
@@ -421,7 +421,7 @@ export default function Chat() {
                     {/* File Attachment */}
                     {msg.file_url && (
                       <a 
-                        href={`http://localhost:5005${msg.file_url}`}
+                        href={`${BACKEND_URL}${msg.file_url}`}
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="flex items-center space-x-2 p-2 rounded-xl bg-black/30 text-indigo-300 hover:text-indigo-200 transition text-[11px] font-medium max-w-full"

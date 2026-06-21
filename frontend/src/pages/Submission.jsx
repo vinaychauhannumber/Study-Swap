@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useAuth, API_BASE } from '../context/AuthContext';
+import { useAuth, API_BASE, BACKEND_URL } from '../context/AuthContext';
 import { 
   ArrowLeft, Brain, FileDown, CheckCircle, RefreshCcw, 
   Sparkles, Award, ShieldCheck, AlertTriangle, MessageSquare, ShieldAlert 
@@ -224,7 +224,7 @@ export default function Submission() {
                   <div className="flex justify-between items-center text-xs">
                     <span className="text-slate-400">File uploaded:</span>
                     <a 
-                      href={`http://localhost:5005${latestSubmission.file_url}`} 
+                      href={`${BACKEND_URL}${latestSubmission.file_url}`} 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="flex items-center space-x-1.5 text-indigo-400 hover:underline font-bold text-xs"
