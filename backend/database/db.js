@@ -53,19 +53,11 @@ function translateSchema(schemaSql) {
 if (usePostgres) {
   console.log('Database Mode: Supabase PostgreSQL Detected.');
   
-  // Parse connection string and override SSL settings to allow self-signed certificates
+  // Parse connection string
   const { parse } = require('pg-connection-string');
   const pgConfig = parse(process.env.DATABASE_URL);
   
-  // If using Supabase Connection Pooler, redirect to direct host (port 5432)
-  if (pgConfig.host && pgConfig.host.endsWith('pooler.supabase.com')) {
-    console.log('Redirecting pooler connection to direct Supabase host (port 5432)...');
-    const projectRef = pgConfig.user.includes('.') ? pgConfig.user.split('.')[1] : pgConfig.user;
-    pgConfig.host = `db.${projectRef}.supabase.co`;
-    pgConfig.port = 5432;
-    pgConfig.user = 'postgres';
-  }
-  
+  // Use the connection string as-is (pooler or direct)
   pgConfig.ssl = pgConfig.host.includes('localhost') || pgConfig.host.includes('127.0.0.1')
     ? false
     : { rejectUnauthorized: false };
