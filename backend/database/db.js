@@ -53,16 +53,11 @@ function translateSchema(schemaSql) {
 if (usePostgres) {
   console.log('Database Mode: Supabase PostgreSQL Detected.');
   
-  // Parse connection string
-  const { parse } = require('pg-connection-string');
-  const pgConfig = parse(process.env.DATABASE_URL);
-  
-  // Use the connection string as-is (pooler or direct)
-  pgConfig.ssl = pgConfig.host.includes('localhost') || pgConfig.host.includes('127.0.0.1')
-    ? false
-    : { rejectUnauthorized: false };
-
-  pool = new Pool(pgConfig);
+  // Use connectionString directly — avoids parser issues with dotted usernames
+  pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }
+  });
 } else {
   console.log('Database Mode: Local SQLite Fallback.');
   const dbPath = path.resolve(__dirname, '../studyswap.db');
