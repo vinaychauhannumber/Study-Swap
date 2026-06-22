@@ -56,8 +56,8 @@ export default function Auth() {
         }
       } else if (authMode === 'forgot') {
         await forgotPassword(email, window.location.origin + '/auth');
-        setSuccessMessage('Password reset link sent! Check your email inbox.');
-        setAuthMode('login');
+        setSuccessMessage('Password reset link sent! Please check your email inbox (and spam folder).');
+        // Do not switch to login so they can clearly see the success message
       } else if (authMode === 'reset') {
         await resetPassword(resetToken, password);
         setSuccessMessage('Password updated successfully! You can now sign in.');
