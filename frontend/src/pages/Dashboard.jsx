@@ -116,8 +116,8 @@ export default function Dashboard() {
 
   if (loading || !user) {
     return (
-      <div className="flex justify-center items-center py-20 text-[#748D92]">
-        <div className="animate-spin rounded-full h-8 w-8 border-4 border-[#124E66] border-t-transparent mr-2"></div>
+      <div className="flex justify-center items-center py-20 text-[#A69080]">
+        <div className="animate-spin rounded-full h-8 w-8 border-4 border-[#3E362E] border-t-transparent mr-2"></div>
         <span className="font-semibold text-sm">Parsing academic workspace...</span>
       </div>
     );
@@ -125,13 +125,13 @@ export default function Dashboard() {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'open': return 'bg-[#212A31]/40 text-[#D3D9D4] border-[#2E3944]/40';
-      case 'bidding': return 'bg-[#212A31]/40 text-amber-300 border-amber-800/40';
-      case 'in_progress': return 'bg-blue-950/40 text-blue-300 border-blue-800/40';
-      case 'submitted': return 'bg-[#212A31]/40 text-[#D3D9D4] border-[#2E3944]/40';
-      case 'completed': return 'bg-[#212A31]/40 text-[#748D92] border-[#2E3944]/40';
-      case 'cancelled': return 'bg-rose-950/40 text-rose-300 border-rose-800/40';
-      default: return 'bg-[#212A31] text-[#748D92] border-[#2E3944]';
+      case 'open': return 'bg-[#FFFAF3]/40 text-[#3E362E] border-[#FFE5BF]/40';
+      case 'bidding': return 'bg-[#FFFAF3]/40 text-amber-300 border-amber-800/40';
+      case 'in_progress': return 'bg-blue-100/40 text-blue-600 border-blue-300/40';
+      case 'submitted': return 'bg-[#FFFAF3]/40 text-[#3E362E] border-[#FFE5BF]/40';
+      case 'completed': return 'bg-[#FFFAF3]/40 text-[#A69080] border-[#FFE5BF]/40';
+      case 'cancelled': return 'bg-rose-100/40 text-rose-600 border-rose-800/40';
+      default: return 'bg-[#FFFAF3] text-[#A69080] border-[#FFE5BF]';
     }
   };
 
@@ -145,18 +145,18 @@ export default function Dashboard() {
   return (
     <div className="space-y-10 py-4 page-enter">
       {/* Header Banner */}
-      <div className="glass p-6 md:p-8 rounded-3xl border border-[#2E3944] flex flex-col md:flex-row justify-between items-start md:items-center gap-6 animate-fade-in-up hover-glow">
+      <div className="glass p-6 md:p-8 rounded-3xl border border-[#FFE5BF] flex flex-col md:flex-row justify-between items-start md:items-center gap-6 animate-fade-in-up hover-glow">
         <div className="space-y-1.5">
-          <div className="text-xs font-semibold text-[#748D92] uppercase tracking-wider">{user.role} workspace</div>
-          <h2 className="text-2xl md:text-3xl font-bold font-display text-white">Hello, {user.full_name}!</h2>
-          <p className="text-xs text-[#748D92] font-medium">
+          <div className="text-xs font-semibold text-[#A69080] uppercase tracking-wider">{user.role} workspace</div>
+          <h2 className="text-2xl md:text-3xl font-bold font-display text-[#3E362E]">Hello, {user.full_name}!</h2>
+          <p className="text-xs text-[#A69080] font-medium">
             {user.college} • {user.course} ({user.academic_year})
           </p>
         </div>
         {user.role === 'client' ? (
           <Link 
             to="/post-task"
-            className="flex items-center space-x-2 px-5 py-2.5 rounded-full bg-[#124E66] hover:bg-[#124E66] text-white font-bold text-xs shadow-lg shadow-[#124E66]/20 transition shrink-0 btn-ripple hover-scale"
+            className="flex items-center space-x-2 px-5 py-2.5 rounded-full bg-[#3E362E] hover:bg-[#3E362E] text-[#3E362E] font-bold text-xs shadow-lg shadow-[#3E362E]/20 transition shrink-0 btn-ripple hover-scale"
           >
             <PlusCircle size={15} />
             <span>Post New Task</span>
@@ -164,7 +164,7 @@ export default function Dashboard() {
         ) : (
           <Link 
             to="/browse"
-            className="flex items-center space-x-2 px-5 py-2.5 rounded-full bg-[#124E66] hover:bg-[#124E66] text-white font-bold text-xs shadow-lg shadow-[#124E66]/20 transition shrink-0 btn-ripple hover-scale"
+            className="flex items-center space-x-2 px-5 py-2.5 rounded-full bg-[#3E362E] hover:bg-[#3E362E] text-[#3E362E] font-bold text-xs shadow-lg shadow-[#3E362E]/20 transition shrink-0 btn-ripple hover-scale"
           >
             <Briefcase size={15} />
             <span>Find Tasks to Bid</span>
@@ -175,58 +175,58 @@ export default function Dashboard() {
       {/* Metrics Row */}
       {user.role === 'client' ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div className="glass p-5 rounded-2xl border border-[#2E3944] flex items-center space-x-4 hover-lift hover-shine animate-fade-in-up delay-200">
-            <div className="p-3.5 rounded-xl bg-[#212A31] border border-[#2E3944] text-[#748D92]">
+          <div className="glass p-5 rounded-2xl border border-[#FFE5BF] flex items-center space-x-4 hover-lift hover-shine animate-fade-in-up delay-200">
+            <div className="p-3.5 rounded-xl bg-[#FFFAF3] border border-[#FFE5BF] text-[#A69080]">
               <Clock size={20} />
             </div>
             <div>
-              <div className="text-xl font-bold font-display text-white">
+              <div className="text-xl font-bold font-display text-[#3E362E]">
                 {tasks.filter(t => ['open', 'bidding', 'in_progress', 'submitted'].includes(t.status)).length}
               </div>
-              <div className="text-[10px] text-[#748D92] font-semibold uppercase">Active / Pending Tasks</div>
+              <div className="text-[10px] text-[#A69080] font-semibold uppercase">Active / Pending Tasks</div>
             </div>
           </div>
-          <div className="glass p-5 rounded-2xl border border-[#2E3944] flex items-center space-x-4 hover-lift hover-shine animate-fade-in-up delay-300">
-            <div className="p-3.5 rounded-xl bg-[#212A31] border border-[#2E3944] text-[#124E66]">
+          <div className="glass p-5 rounded-2xl border border-[#FFE5BF] flex items-center space-x-4 hover-lift hover-shine animate-fade-in-up delay-300">
+            <div className="p-3.5 rounded-xl bg-[#FFFAF3] border border-[#FFE5BF] text-[#3E362E]">
               <CheckCircle size={20} />
             </div>
             <div>
-              <div className="text-xl font-bold font-display text-white">
+              <div className="text-xl font-bold font-display text-[#3E362E]">
                 {tasks.filter(t => t.status === 'completed').length}
               </div>
-              <div className="text-[10px] text-[#748D92] font-semibold uppercase">Completed Tasks</div>
+              <div className="text-[10px] text-[#A69080] font-semibold uppercase">Completed Tasks</div>
             </div>
           </div>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <div className="glass p-5 rounded-2xl border border-[#2E3944] flex items-center space-x-4 hover-lift hover-shine animate-fade-in-up delay-200">
-            <div className="p-3.5 rounded-xl bg-[#212A31] border border-[#2E3944] text-[#124E66]">
+          <div className="glass p-5 rounded-2xl border border-[#FFE5BF] flex items-center space-x-4 hover-lift hover-shine animate-fade-in-up delay-200">
+            <div className="p-3.5 rounded-xl bg-[#FFFAF3] border border-[#FFE5BF] text-[#3E362E]">
               <Award size={20} />
             </div>
             <div>
-              <div className="text-lg font-bold font-display text-white">{user.rating?.toFixed(1)} ★</div>
-              <div className="text-[10px] text-[#748D92] font-semibold uppercase">Overall Rating</div>
+              <div className="text-lg font-bold font-display text-[#3E362E]">{user.rating?.toFixed(1)} ★</div>
+              <div className="text-[10px] text-[#A69080] font-semibold uppercase">Overall Rating</div>
             </div>
           </div>
-          <div className="glass p-5 rounded-2xl border border-[#2E3944] flex items-center space-x-4 hover-lift hover-shine animate-fade-in-up delay-300">
-            <div className="p-3.5 rounded-xl bg-[#212A31] border border-[#2E3944] text-[#748D92]">
+          <div className="glass p-5 rounded-2xl border border-[#FFE5BF] flex items-center space-x-4 hover-lift hover-shine animate-fade-in-up delay-300">
+            <div className="p-3.5 rounded-xl bg-[#FFFAF3] border border-[#FFE5BF] text-[#A69080]">
               <BookmarkCheck size={20} />
             </div>
             <div>
-              <div className="text-lg font-bold font-display text-white">{user.completed_tasks}</div>
-              <div className="text-[10px] text-[#748D92] font-semibold uppercase">Tasks Completed</div>
+              <div className="text-lg font-bold font-display text-[#3E362E]">{user.completed_tasks}</div>
+              <div className="text-[10px] text-[#A69080] font-semibold uppercase">Tasks Completed</div>
             </div>
           </div>
-          <div className="glass p-5 rounded-2xl border border-[#2E3944] flex items-center space-x-4">
-            <div className="p-3.5 rounded-xl bg-[#212A31] border border-[#2E3944] text-[#748D92]">
+          <div className="glass p-5 rounded-2xl border border-[#FFE5BF] flex items-center space-x-4">
+            <div className="p-3.5 rounded-xl bg-[#FFFAF3] border border-[#FFE5BF] text-[#A69080]">
               <Clock size={20} />
             </div>
             <div>
-              <div className="text-lg font-bold font-display text-white">
+              <div className="text-lg font-bold font-display text-[#3E362E]">
                 {tasks.filter(t => t.bid_status === 'pending').length}
               </div>
-              <div className="text-[10px] text-[#748D92] font-semibold uppercase font-display">Active Bids</div>
+              <div className="text-[10px] text-[#A69080] font-semibold uppercase font-display">Active Bids</div>
             </div>
           </div>
         </div>
@@ -235,61 +235,61 @@ export default function Dashboard() {
       {/* Main Task List */}
       <section className="space-y-6">
         {user.role === 'client' ? (
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-[#212A31] pb-3 gap-4">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-[#FFE5BF] pb-3 gap-4">
             <div className="flex items-center space-x-2">
-              <ListCollapse size={18} className="text-[#748D92]" />
-              <h3 className="text-lg font-bold font-display text-white">Client Workspace</h3>
+              <ListCollapse size={18} className="text-[#A69080]" />
+              <h3 className="text-lg font-bold font-display text-[#3E362E]">Client Workspace</h3>
             </div>
-            <div className="flex bg-[#212A31] p-1 rounded-xl border border-[#2E3944] space-x-1 shrink-0">
+            <div className="flex bg-[#FFFAF3] p-1 rounded-xl border border-[#FFE5BF] space-x-1 shrink-0">
               <button
                 type="button"
                 onClick={() => setActiveTab('active')}
-                className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition ${activeTab === 'active' ? 'bg-[#124E66] text-white' : 'text-[#748D92] hover:text-white'}`}
+                className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition ${activeTab === 'active' ? 'bg-[#3E362E] text-[#3E362E]' : 'text-[#A69080] hover:text-[#3E362E]'}`}
               >
                 Active & Pending ({activeTasks.length})
               </button>
               <button
                 type="button"
                 onClick={() => setActiveTab('completed')}
-                className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition ${activeTab === 'completed' ? 'bg-[#124E66] text-white' : 'text-[#748D92] hover:text-white'}`}
+                className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition ${activeTab === 'completed' ? 'bg-[#3E362E] text-[#3E362E]' : 'text-[#A69080] hover:text-[#3E362E]'}`}
               >
                 Completed ({completedTasks.length})
               </button>
             </div>
           </div>
         ) : (
-          <div className="flex justify-between items-center border-b border-[#212A31] pb-3">
+          <div className="flex justify-between items-center border-b border-[#FFE5BF] pb-3">
             <h3 className="text-lg font-bold font-display flex items-center space-x-2">
-              <ListCollapse size={18} className="text-[#748D92]" />
+              <ListCollapse size={18} className="text-[#A69080]" />
               <span>My Bids & Assignments</span>
             </h3>
-            <span className="text-[10px] font-semibold bg-[#212A31] text-[#748D92] px-2 py-0.5 rounded border border-[#2E3944]">
+            <span className="text-[10px] font-semibold bg-[#FFFAF3] text-[#A69080] px-2 py-0.5 rounded border border-[#FFE5BF]">
               {tasks.length} total entries
             </span>
           </div>
         )}
 
         {error && (
-          <div className="p-4 rounded-xl bg-rose-950/20 border border-rose-900/50 flex items-center space-x-2 text-rose-300 text-xs">
+          <div className="p-4 rounded-xl bg-rose-100/20 border border-rose-300/50 flex items-center space-x-2 text-rose-600 text-xs">
             <AlertCircle size={16} />
             <span>{error}</span>
           </div>
         )}
 
         {displayedTasks.length === 0 ? (
-          <div className="glass p-12 text-center rounded-3xl border border-[#2E3944]/80 space-y-4">
-            <div className="text-[#748D92] font-medium text-sm">
+          <div className="glass p-12 text-center rounded-3xl border border-[#FFE5BF]/80 space-y-4">
+            <div className="text-[#A69080] font-medium text-sm">
               {user.role === 'client' 
                 ? (activeTab === 'active' ? 'No active or pending tasks found.' : 'No completed tasks found in your archive.')
                 : 'No tasks found in your workspace log.'}
             </div>
             {user.role === 'client' && activeTab === 'active' && (
-              <Link to="/post-task" className="inline-block text-xs text-[#748D92] hover:underline">
+              <Link to="/post-task" className="inline-block text-xs text-[#A69080] hover:underline">
                 Create a task to get started →
               </Link>
             )}
             {user.role === 'helper' && (
-              <Link to="/browse" className="inline-block text-xs text-[#124E66] hover:underline">
+              <Link to="/browse" className="inline-block text-xs text-[#3E362E] hover:underline">
                 Browse open tasks to bid →
               </Link>
             )}
@@ -299,7 +299,7 @@ export default function Dashboard() {
             {displayedTasks.map((task) => (
               <div 
                 key={task.id} 
-                className="glass p-6 rounded-2xl border border-[#2E3944] flex flex-col justify-between hover:border-[#2E3944]/60 transition group relative overflow-hidden"
+                className="glass p-6 rounded-2xl border border-[#FFE5BF] flex flex-col justify-between hover:border-[#FFE5BF]/60 transition group relative overflow-hidden"
               >
                 {/* Background glow for special tasks */}
                 {task.status === 'submitted' && (
@@ -312,7 +312,7 @@ export default function Dashboard() {
                 <div className="space-y-4">
                   {/* Top line: Category, status, and edit/delete actions */}
                   <div className="flex justify-between items-center">
-                    <span className="text-[10px] font-semibold bg-[#212A31] border border-[#2E3944] text-[#748D92] px-2 py-0.5 rounded">
+                    <span className="text-[10px] font-semibold bg-[#FFFAF3] border border-[#FFE5BF] text-[#A69080] px-2 py-0.5 rounded">
                       {task.category}
                     </span>
                     <div className="flex items-center space-x-2">
@@ -324,8 +324,8 @@ export default function Dashboard() {
                             onClick={() => openEditModal(task)}
                             className={`p-1.5 rounded-lg border transition ${
                               canEditDelete(task.status)
-                                ? 'bg-[#212A31] hover:bg-[#212A31]/50 border-[#2E3944] hover:border-[#2E3944]/50 text-[#748D92] hover:text-[#748D92]'
-                                : 'bg-[#212A31]/50 border-[#2E3944]/50 text-[#748D92] cursor-not-allowed'
+                                ? 'bg-[#FFFAF3] hover:bg-[#FFFAF3]/50 border-[#FFE5BF] hover:border-[#FFE5BF]/50 text-[#A69080] hover:text-[#A69080]'
+                                : 'bg-[#FFFAF3]/50 border-[#FFE5BF]/50 text-[#A69080] cursor-not-allowed'
                             }`}
                             title={canEditDelete(task.status) ? 'Edit Task' : 'Cannot edit — task is in progress'}
                           >
@@ -336,8 +336,8 @@ export default function Dashboard() {
                             onClick={() => handleDeleteTask(task.id, task.status)}
                             className={`p-1.5 rounded-lg border transition ${
                               canEditDelete(task.status)
-                                ? 'bg-[#212A31] hover:bg-rose-950/50 border-[#2E3944] hover:border-rose-800/50 text-[#748D92] hover:text-rose-400'
-                                : 'bg-[#212A31]/50 border-[#2E3944]/50 text-[#748D92] cursor-not-allowed'
+                                ? 'bg-[#FFFAF3] hover:bg-rose-100/50 border-[#FFE5BF] hover:border-rose-800/50 text-[#A69080] hover:text-rose-400'
+                                : 'bg-[#FFFAF3]/50 border-[#FFE5BF]/50 text-[#A69080] cursor-not-allowed'
                             }`}
                             title={canEditDelete(task.status) ? 'Delete Task' : 'Cannot delete — task is in progress'}
                           >
@@ -354,26 +354,26 @@ export default function Dashboard() {
                   {/* Title & Description */}
                   <div className="space-y-1">
                     <Link to={`/tasks/${task.id}`} className="block">
-                      <h4 className="font-bold text-[#D3D9D4] group-hover:text-[#748D92] transition-colors text-sm line-clamp-1">
+                      <h4 className="font-bold text-[#3E362E] group-hover:text-[#A69080] transition-colors text-sm line-clamp-1">
                         {task.title}
                       </h4>
                     </Link>
-                    <p className="text-xs text-[#748D92] line-clamp-2 leading-relaxed">
+                    <p className="text-xs text-[#A69080] line-clamp-2 leading-relaxed">
                       {task.description}
                     </p>
                   </div>
 
                   {/* Helpers bid-specific info */}
                   {user.role === 'helper' && (
-                    <Link to={`/tasks/${task.id}`} className="block hover:opacity-80 transition pt-1 border-t border-[#212A31]">
+                    <Link to={`/tasks/${task.id}`} className="block hover:opacity-80 transition pt-1 border-t border-[#FFE5BF]">
                       <div className="flex items-center space-x-3">
                         <div className="text-[10px]">
-                          <span className="text-[#748D92]">Your Bid:</span>{' '}
-                          <span className="font-bold text-[#D3D9D4]">₹{task.bid_amount}</span>
+                          <span className="text-[#A69080]">Your Bid:</span>{' '}
+                          <span className="font-bold text-[#3E362E]">₹{task.bid_amount}</span>
                         </div>
                         <div className="text-[10px]">
-                          <span className="text-[#748D92]">Bid Status:</span>{' '}
-                          <span className={`font-semibold uppercase ${task.bid_status === 'accepted' ? 'text-[#124E66]' : task.bid_status === 'rejected' ? 'text-rose-400' : 'text-[#748D92]'}`}>
+                          <span className="text-[#A69080]">Bid Status:</span>{' '}
+                          <span className={`font-semibold uppercase ${task.bid_status === 'accepted' ? 'text-[#3E362E]' : task.bid_status === 'rejected' ? 'text-rose-400' : 'text-[#A69080]'}`}>
                             {task.bid_status}
                           </span>
                         </div>
@@ -383,20 +383,20 @@ export default function Dashboard() {
                 </div>
 
                 {/* Bottom line: price, deadline, details button */}
-                <div className="flex justify-between items-center pt-4 mt-4 border-t border-[#212A31]">
+                <div className="flex justify-between items-center pt-4 mt-4 border-t border-[#FFE5BF]">
                   <div className="flex items-center space-x-4">
                     <div>
-                      <div className="text-[9px] text-[#748D92] font-semibold uppercase">Budget</div>
-                      <div className="text-xs font-bold text-[#124E66]">₹{task.budget}</div>
+                      <div className="text-[9px] text-[#A69080] font-semibold uppercase">Budget</div>
+                      <div className="text-xs font-bold text-[#3E362E]">₹{task.budget}</div>
                     </div>
                     <div>
-                      <div className="text-[9px] text-[#748D92] font-semibold uppercase">Deadline</div>
-                      <div className="text-xs font-semibold text-[#D3D9D4]">{task.deadline}</div>
+                      <div className="text-[9px] text-[#A69080] font-semibold uppercase">Deadline</div>
+                      <div className="text-xs font-semibold text-[#3E362E]">{task.deadline}</div>
                     </div>
                     {user.role === 'client' && (
                       <Link to={`/tasks/${task.id}`} className="block hover:opacity-80 transition text-left">
-                        <div className="text-[9px] text-[#748D92] font-semibold uppercase">Bids</div>
-                        <div className="text-xs font-bold text-[#748D92]">{task.bid_count} submitted</div>
+                        <div className="text-[9px] text-[#A69080] font-semibold uppercase">Bids</div>
+                        <div className="text-xs font-bold text-[#A69080]">{task.bid_count} submitted</div>
                       </Link>
                     )}
                   </div>
@@ -405,7 +405,7 @@ export default function Dashboard() {
                     {/* View Details Link */}
                     <Link 
                       to={`/tasks/${task.id}`}
-                      className="p-2 rounded-xl bg-[#212A31] hover:bg-[#212A31] border border-[#2E3944]/80 text-xs text-[#D3D9D4] flex items-center space-x-1.5 transition"
+                      className="p-2 rounded-xl bg-[#FFFAF3] hover:bg-[#FFFAF3] border border-[#FFE5BF]/80 text-xs text-[#3E362E] flex items-center space-x-1.5 transition"
                     >
                       <span>Details</span>
                       <ArrowUpRight size={13} />
@@ -428,17 +428,17 @@ export default function Dashboard() {
           ></div>
           
           {/* Modal */}
-          <div className="relative w-full max-w-lg glass rounded-3xl border border-[#2E3944] p-6 md:p-8 space-y-6 max-h-[90vh] overflow-y-auto animate-fade-in">
+          <div className="relative w-full max-w-lg glass rounded-3xl border border-[#FFE5BF] p-6 md:p-8 space-y-6 max-h-[90vh] overflow-y-auto animate-fade-in">
             {/* Header */}
             <div className="flex justify-between items-center">
               <div className="space-y-1">
-                <h3 className="text-lg font-bold font-display text-white">Edit Task</h3>
-                <p className="text-[10px] text-[#748D92]">Update your task details below</p>
+                <h3 className="text-lg font-bold font-display text-[#3E362E]">Edit Task</h3>
+                <p className="text-[10px] text-[#A69080]">Update your task details below</p>
               </div>
               <button 
                 type="button"
                 onClick={() => setEditingTask(null)}
-                className="p-2 rounded-xl bg-[#212A31] hover:bg-[#2E3944] border border-[#2E3944] text-[#748D92] hover:text-white transition"
+                className="p-2 rounded-xl bg-[#FFFAF3] hover:bg-[#FFF2DB] border border-[#FFE5BF] text-[#A69080] hover:text-[#3E362E] transition"
               >
                 <X size={16} />
               </button>
@@ -447,24 +447,24 @@ export default function Dashboard() {
             <form onSubmit={handleEditSubmit} className="space-y-5">
               {/* Title */}
               <div>
-                <label className="block text-[10px] font-semibold text-[#748D92] uppercase mb-1.5">Task Title</label>
+                <label className="block text-[10px] font-semibold text-[#A69080] uppercase mb-1.5">Task Title</label>
                 <input 
                   type="text"
                   value={editForm.title}
                   onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-white font-medium"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E] font-medium"
                   required
                 />
               </div>
 
               {/* Description */}
               <div>
-                <label className="block text-[10px] font-semibold text-[#748D92] uppercase mb-1.5">Description</label>
+                <label className="block text-[10px] font-semibold text-[#A69080] uppercase mb-1.5">Description</label>
                 <textarea 
                   rows={4}
                   value={editForm.description}
                   onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-white leading-relaxed"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E] leading-relaxed"
                   required
                 />
               </div>
@@ -472,11 +472,11 @@ export default function Dashboard() {
               {/* Category & Budget row */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[10px] font-semibold text-[#748D92] uppercase mb-1.5">Category</label>
+                  <label className="block text-[10px] font-semibold text-[#A69080] uppercase mb-1.5">Category</label>
                   <select
                     value={editForm.category}
                     onChange={(e) => setEditForm({ ...editForm, category: e.target.value })}
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-[#D3D9D4] font-medium"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E] font-medium"
                     required
                   >
                     {categories.map((cat) => (
@@ -485,12 +485,12 @@ export default function Dashboard() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-[10px] font-semibold text-[#748D92] uppercase mb-1.5">Budget (₹)</label>
+                  <label className="block text-[10px] font-semibold text-[#A69080] uppercase mb-1.5">Budget (₹)</label>
                   <input 
                     type="number"
                     value={editForm.budget}
                     onChange={(e) => setEditForm({ ...editForm, budget: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-white font-bold"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E] font-bold"
                     required
                   />
                 </div>
@@ -498,13 +498,13 @@ export default function Dashboard() {
 
               {/* Deadline */}
               <div>
-                <label className="block text-[10px] font-semibold text-[#748D92] uppercase mb-1.5">Deadline</label>
+                <label className="block text-[10px] font-semibold text-[#A69080] uppercase mb-1.5">Deadline</label>
                 <input 
                   type="text"
                   value={editForm.deadline}
                   onChange={(e) => setEditForm({ ...editForm, deadline: e.target.value })}
                   placeholder="e.g. 3 Days, 1 Week"
-                  className="w-full px-4 py-2.5 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-white font-medium"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E] font-medium"
                   required
                 />
               </div>
@@ -514,14 +514,14 @@ export default function Dashboard() {
                 <button 
                   type="submit"
                   disabled={editLoading}
-                  className="flex-1 py-2.5 rounded-xl bg-[#124E66] hover:bg-[#124E66] text-white font-bold text-xs transition disabled:opacity-50"
+                  className="flex-1 py-2.5 rounded-xl bg-[#3E362E] hover:bg-[#3E362E] text-[#3E362E] font-bold text-xs transition disabled:opacity-50"
                 >
                   {editLoading ? 'Saving...' : 'Save Changes'}
                 </button>
                 <button 
                   type="button"
                   onClick={() => setEditingTask(null)}
-                  className="px-5 py-2.5 rounded-xl bg-[#212A31] hover:bg-[#2E3944] border border-[#2E3944] text-[#748D92] hover:text-white text-xs font-semibold transition"
+                  className="px-5 py-2.5 rounded-xl bg-[#FFFAF3] hover:bg-[#FFF2DB] border border-[#FFE5BF] text-[#A69080] hover:text-[#3E362E] text-xs font-semibold transition"
                 >
                   Cancel
                 </button>

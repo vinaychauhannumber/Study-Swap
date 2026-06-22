@@ -10,9 +10,9 @@ export default function LandingPage() {
   const { user } = useAuth();
 
   const stats = [
-    { label: "Helper Rating Avg", value: "4.9★", icon: <Star className="text-[#748D92]" size={18} /> },
-    { label: "Active Student Solvers", value: "1,200+", icon: <Users className="text-[#748D92]" size={18} /> },
-    { label: "Tasks Solved", value: "3,500+", icon: <BookOpen className="text-[#124E66]" size={18} /> },
+    { label: "Helper Rating Avg", value: "4.9★", icon: <Star className="text-[#A69080]" size={18} /> },
+    { label: "Active Student Solvers", value: "1,200+", icon: <Users className="text-[#A69080]" size={18} /> },
+    { label: "Tasks Solved", value: "3,500+", icon: <BookOpen className="text-[#3E362E]" size={18} /> },
   ];
 
   const clientFeatures = [
@@ -51,7 +51,7 @@ export default function LandingPage() {
         <div className="blob-purple -top-10 -right-32 opacity-50" />
         <div className="blob-emerald top-40 left-1/2 -translate-x-1/2 opacity-40" />
 
-        <div className="animate-fade-in-down inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-[#212A31]/45 border border-[#2E3944]/40 text-xs font-semibold text-[#D3D9D4] animate-pulse-glow">
+        <div className="animate-fade-in-down inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-[#FFFAF3]/45 border border-[#FFE5BF]/40 text-xs font-semibold text-[#3E362E] animate-pulse-glow">
           <Sparkles size={13} className="animate-float" />
           <span>Peer-to-Peer Student Academic Assistance Platform</span>
         </div>
@@ -61,21 +61,21 @@ export default function LandingPage() {
           <span className="text-gradient-animated">academic collaboration</span>
         </h1>
         
-        <p className="text-base md:text-lg text-[#748D92] max-w-2xl mx-auto leading-relaxed animate-fade-in-up delay-200">
+        <p className="text-base md:text-lg text-[#A69080] max-w-2xl mx-auto leading-relaxed animate-fade-in-up delay-200">
           Need help preparing seminar reports, designing presentation slides, debugged scripts, or custom tutoring? Post a task and find verified student helpers instantly.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 animate-fade-in-up delay-300">
           <Link 
             to={user ? "/dashboard" : "/auth"}
-            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#124E66] hover:bg-[#124E66] text-white font-bold text-sm shadow-xl shadow-[#124E66]/20 flex items-center justify-center space-x-2 group btn-ripple hover-scale"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#3E362E] hover:bg-[#3E362E] text-[#3E362E] font-bold text-sm shadow-xl shadow-[#3E362E]/20 flex items-center justify-center space-x-2 group btn-ripple hover-scale"
           >
             <span>{user ? 'Go to Dashboard' : 'Get Started Now'}</span>
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </Link>
           <Link 
             to="/browse"
-            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#212A31] hover:bg-[#2E3944] border border-[#2E3944] text-[#D3D9D4] text-sm font-bold flex items-center justify-center space-x-2"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#FFFAF3] hover:bg-[#FFF2DB] border border-[#FFE5BF] text-[#3E362E] text-sm font-bold flex items-center justify-center space-x-2"
           >
             <span>Browse Available Tasks</span>
             <ArrowUpRight size={16} />
@@ -85,13 +85,13 @@ export default function LandingPage() {
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-16 max-w-3xl mx-auto">
           {stats.map((s, idx) => (
-            <div key={idx} className="glass p-5 rounded-2xl border border-[#2E3944] flex items-center space-x-4 hover-lift hover-shine hover-glow animate-fade-in-up" style={{ animationDelay: `${400 + idx * 150}ms` }}>
-              <div className="p-3 rounded-xl bg-[#212A31] border border-[#2E3944]">
+            <div key={idx} className="glass p-5 rounded-2xl border border-[#FFE5BF] flex items-center space-x-4 hover-lift hover-shine hover-glow animate-fade-in-up" style={{ animationDelay: `${400 + idx * 150}ms` }}>
+              <div className="p-3 rounded-xl bg-[#FFFAF3] border border-[#FFE5BF]">
                 {s.icon}
               </div>
               <div className="text-left">
-                <div className="text-xl font-bold font-display text-white">{s.value}</div>
-                <div className="text-xs text-[#748D92] font-medium">{s.label}</div>
+                <div className="text-xl font-bold font-display text-[#3E362E]">{s.value}</div>
+                <div className="text-xs text-[#A69080] font-medium">{s.label}</div>
               </div>
             </div>
           ))}
@@ -102,26 +102,26 @@ export default function LandingPage() {
       <section className="space-y-12">
         <div className="text-center space-y-2 animate-fade-in-up">
           <h2 className="text-3xl font-bold font-display">A Dedicated Ecosystem for Students</h2>
-          <p className="text-sm text-[#748D92]">Whether you need help or want to share your expertise, StudySwap has you covered.</p>
+          <p className="text-sm text-[#A69080]">Whether you need help or want to share your expertise, StudySwap has you covered.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Card 1: Clients */}
-          <div className="glass p-8 rounded-3xl border border-[#2E3944] flex flex-col justify-between hover:border-[#2E3944]/60 transition group hover-lift hover-shine animate-fade-in-left delay-200">
+          <div className="glass p-8 rounded-3xl border border-[#FFE5BF] flex flex-col justify-between hover:border-[#FFE5BF]/60 transition group hover-lift hover-shine animate-fade-in-left delay-200">
             <div className="space-y-6">
-              <div className="h-12 w-12 rounded-2xl bg-[#212A31]/40 border border-[#2E3944]/40 flex items-center justify-center text-[#748D92]">
+              <div className="h-12 w-12 rounded-2xl bg-[#FFFAF3]/40 border border-[#FFE5BF]/40 flex items-center justify-center text-[#A69080]">
                 <BookOpen size={24} />
               </div>
               <div className="space-y-2">
-                <h3 className="text-xl font-bold font-display group-hover:text-[#748D92] transition-colors">Post & Collaborate (Clients)</h3>
-                <p className="text-xs text-[#748D92] leading-relaxed">
+                <h3 className="text-xl font-bold font-display group-hover:text-[#A69080] transition-colors">Post & Collaborate (Clients)</h3>
+                <p className="text-xs text-[#A69080] leading-relaxed">
                   Stuck with assignment reports, presentation layouts, or complex programming debugs? Hire top-rated seniors or peers to guide you.
                 </p>
               </div>
               <ul className="space-y-3 pt-2">
                 {clientFeatures.map((f, i) => (
-                  <li key={i} className="flex items-start space-x-2 text-xs text-[#D3D9D4]">
-                    <CheckCircle2 size={15} className="text-[#748D92] shrink-0 mt-0.5" />
+                  <li key={i} className="flex items-start space-x-2 text-xs text-[#3E362E]">
+                    <CheckCircle2 size={15} className="text-[#A69080] shrink-0 mt-0.5" />
                     <span>{f}</span>
                   </li>
                 ))}
@@ -130,7 +130,7 @@ export default function LandingPage() {
             <div className="pt-8">
               <Link 
                 to={user?.role === 'client' ? '/post-task' : '/auth'}
-                className="inline-flex items-center space-x-2 text-xs font-bold text-[#748D92] hover:text-[#D3D9D4] transition-colors"
+                className="inline-flex items-center space-x-2 text-xs font-bold text-[#A69080] hover:text-[#3E362E] transition-colors"
               >
                 <span>Create your first task posting</span>
                 <ArrowRight size={14} />
@@ -139,21 +139,21 @@ export default function LandingPage() {
           </div>
 
           {/* Card 2: Helpers */}
-          <div className="glass p-8 rounded-3xl border border-[#2E3944] flex flex-col justify-between hover:border-[#2E3944]/60 transition group hover-lift hover-shine animate-fade-in-right delay-300">
+          <div className="glass p-8 rounded-3xl border border-[#FFE5BF] flex flex-col justify-between hover:border-[#FFE5BF]/60 transition group hover-lift hover-shine animate-fade-in-right delay-300">
             <div className="space-y-6">
-              <div className="h-12 w-12 rounded-2xl bg-[#212A31]/40 border border-[#2E3944]/40 flex items-center justify-center text-[#124E66]">
+              <div className="h-12 w-12 rounded-2xl bg-[#FFFAF3]/40 border border-[#FFE5BF]/40 flex items-center justify-center text-[#3E362E]">
                 <MessageSquareCode size={24} />
               </div>
               <div className="space-y-2">
-                <h3 className="text-xl font-bold font-display group-hover:text-[#124E66] transition-colors">Collaborate & Teach (Helpers)</h3>
-                <p className="text-xs text-[#748D92] leading-relaxed">
+                <h3 className="text-xl font-bold font-display group-hover:text-[#3E362E] transition-colors">Collaborate & Teach (Helpers)</h3>
+                <p className="text-xs text-[#A69080] leading-relaxed">
                   Have subject expertise in programming, graphic design, math tutoring, or writing? Help junior peers and build your portfolio.
                 </p>
               </div>
               <ul className="space-y-3 pt-2">
                 {helperFeatures.map((f, i) => (
-                  <li key={i} className="flex items-start space-x-2 text-xs text-[#D3D9D4]">
-                    <CheckCircle2 size={15} className="text-[#124E66] shrink-0 mt-0.5" />
+                  <li key={i} className="flex items-start space-x-2 text-xs text-[#3E362E]">
+                    <CheckCircle2 size={15} className="text-[#3E362E] shrink-0 mt-0.5" />
                     <span>{f}</span>
                   </li>
                 ))}
@@ -162,7 +162,7 @@ export default function LandingPage() {
             <div className="pt-8">
               <Link 
                 to="/browse"
-                className="inline-flex items-center space-x-2 text-xs font-bold text-[#124E66] hover:text-[#748D92] transition-colors"
+                className="inline-flex items-center space-x-2 text-xs font-bold text-[#3E362E] hover:text-[#A69080] transition-colors"
               >
                 <span>Browse available tasks to bid</span>
                 <ArrowRight size={14} />
@@ -176,15 +176,15 @@ export default function LandingPage() {
       <section className="space-y-16">
         <div className="text-center space-y-2 animate-fade-in-up">
           <h2 className="text-3xl font-bold font-display">How StudySwap Works</h2>
-          <p className="text-sm text-[#748D92]">Secure escrow collaboration flow from posting to release.</p>
+          <p className="text-sm text-[#A69080]">Secure escrow collaboration flow from posting to release.</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((s, idx) => (
-            <div key={idx} className="glass p-6 rounded-2xl border border-[#2E3944] relative hover:border-[#2E3944] transition card-3d hover-glow animate-fade-in-up" style={{ animationDelay: `${idx * 150}ms` }}>
-              <div className="text-3xl font-black font-display text-[#124E66]/20 absolute top-4 right-4">{s.step}</div>
-              <h3 className="text-sm font-bold font-display text-[#D3D9D4] mb-2 mt-4">{s.title}</h3>
-              <p className="text-xs text-[#748D92] leading-relaxed">{s.desc}</p>
+            <div key={idx} className="glass p-6 rounded-2xl border border-[#FFE5BF] relative hover:border-[#FFE5BF] transition card-3d hover-glow animate-fade-in-up" style={{ animationDelay: `${idx * 150}ms` }}>
+              <div className="text-3xl font-black font-display text-[#3E362E]/20 absolute top-4 right-4">{s.step}</div>
+              <h3 className="text-sm font-bold font-display text-[#3E362E] mb-2 mt-4">{s.title}</h3>
+              <p className="text-xs text-[#A69080] leading-relaxed">{s.desc}</p>
             </div>
           ))}
         </div>
@@ -195,9 +195,9 @@ export default function LandingPage() {
         <h2 className="text-3xl font-bold font-display text-center animate-fade-in-up">Frequently Asked Questions</h2>
         <div className="space-y-4">
           {faqs.map((faq, i) => (
-            <div key={i} className="glass p-6 rounded-2xl border border-[#2E3944] space-y-2 hover-glow hover-lift animate-fade-in-up" style={{ animationDelay: `${i * 100}ms` }}>
-              <h3 className="font-semibold text-[#D3D9D4] text-sm font-display">{faq.q}</h3>
-              <p className="text-xs text-[#748D92] leading-relaxed">{faq.a}</p>
+            <div key={i} className="glass p-6 rounded-2xl border border-[#FFE5BF] space-y-2 hover-glow hover-lift animate-fade-in-up" style={{ animationDelay: `${i * 100}ms` }}>
+              <h3 className="font-semibold text-[#3E362E] text-sm font-display">{faq.q}</h3>
+              <p className="text-xs text-[#A69080] leading-relaxed">{faq.a}</p>
             </div>
           ))}
         </div>

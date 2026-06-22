@@ -73,21 +73,21 @@ export default function Auth() {
 
   return (
     <div className="max-w-md w-full mx-auto py-10">
-      <div className="glass rounded-3xl p-8 border border-[#2E3944] shadow-2xl space-y-6 animate-scale-in hover-glow">
+      <div className="glass rounded-3xl p-8 border border-[#FFE5BF] shadow-2xl space-y-6 animate-scale-in hover-glow">
         
         {/* Header */}
         <div className="text-center space-y-2 animate-fade-in-up delay-100">
-          <div className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full bg-[#212A31]/40 border border-[#2E3944]/40 text-[10px] font-semibold text-[#D3D9D4] animate-pulse-glow">
+          <div className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full bg-[#FFFAF3]/40 border border-[#FFE5BF]/40 text-[10px] font-semibold text-[#3E362E] animate-pulse-glow">
             <Sparkles size={11} className="animate-float" />
             <span>Secure Credentials Gateway</span>
           </div>
-          <h2 className="text-2xl font-bold font-display text-white">
+          <h2 className="text-2xl font-bold font-display text-[#3E362E]">
             {authMode === 'login' && 'Welcome back'}
             {authMode === 'register' && 'Create an account'}
             {authMode === 'forgot' && 'Reset Password'}
             {authMode === 'reset' && 'Set New Password'}
           </h2>
-          <p className="text-xs text-[#748D92]">
+          <p className="text-xs text-[#A69080]">
             {authMode === 'login' && 'Collaborate with student peers today'}
             {authMode === 'register' && 'Join our educational collaboration hub'}
             {authMode === 'forgot' && 'We will send you a secure reset link'}
@@ -97,18 +97,18 @@ export default function Auth() {
 
         {/* Tab Selector (only for login/register) */}
         {(authMode === 'login' || authMode === 'register') && (
-          <div className="grid grid-cols-2 p-1 rounded-xl bg-[#212A31] border border-[#212A31]">
+          <div className="grid grid-cols-2 p-1 rounded-xl bg-[#FFFAF3] border border-[#FFE5BF]">
             <button 
               type="button"
               onClick={() => { setAuthMode('login'); setLocalError(null); setSuccessMessage(null); }}
-              className={`py-2 rounded-lg text-xs font-semibold transition ${authMode === 'login' ? 'bg-[#124E66] text-white shadow-md' : 'text-[#748D92] hover:text-[#D3D9D4]'}`}
+              className={`py-2 rounded-lg text-xs font-semibold transition ${authMode === 'login' ? 'bg-[#3E362E] text-[#3E362E] shadow-md' : 'text-[#A69080] hover:text-[#3E362E]'}`}
             >
               Sign In
             </button>
             <button 
               type="button"
               onClick={() => { setAuthMode('register'); setLocalError(null); setSuccessMessage(null); }}
-              className={`py-2 rounded-lg text-xs font-semibold transition ${authMode === 'register' ? 'bg-[#124E66] text-white shadow-md' : 'text-[#748D92] hover:text-[#D3D9D4]'}`}
+              className={`py-2 rounded-lg text-xs font-semibold transition ${authMode === 'register' ? 'bg-[#3E362E] text-[#3E362E] shadow-md' : 'text-[#A69080] hover:text-[#3E362E]'}`}
             >
               Create Account
             </button>
@@ -117,14 +117,14 @@ export default function Auth() {
 
         {/* Alerts */}
         {successMessage && (
-          <div className="p-3.5 rounded-xl bg-[#212A31]/20 border border-[#2E3944]/50 flex items-start space-x-2 text-[#748D92] text-xs leading-normal">
-            <ShieldCheck size={16} className="shrink-0 mt-0.5 text-[#124E66]" />
+          <div className="p-3.5 rounded-xl bg-[#FFFAF3]/20 border border-[#FFE5BF]/50 flex items-start space-x-2 text-[#A69080] text-xs leading-normal">
+            <ShieldCheck size={16} className="shrink-0 mt-0.5 text-[#3E362E]" />
             <span>{successMessage}</span>
           </div>
         )}
 
         {(localError || authError) && (
-          <div className="p-3.5 rounded-xl bg-rose-950/20 border border-rose-900/50 flex items-start space-x-2 text-rose-300 text-xs leading-normal animate-pulse">
+          <div className="p-3.5 rounded-xl bg-rose-100/20 border border-rose-300/50 flex items-start space-x-2 text-rose-600 text-xs leading-normal animate-pulse">
             <ShieldAlert size={16} className="shrink-0 mt-0.5" />
             <span>{localError || authError}</span>
           </div>
@@ -136,39 +136,39 @@ export default function Auth() {
           {authMode === 'register' && (
             <>
               <div>
-                <label className="block text-xs font-semibold text-[#748D92] mb-1.5">Full Name</label>
+                <label className="block text-xs font-semibold text-[#A69080] mb-1.5">Full Name</label>
                 <input 
                   type="text" placeholder="e.g. Priyanshu Sharma"
                   value={fullName} onChange={(e) => setFullName(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-white"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E]"
                   required
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-[#748D92] mb-1.5">College</label>
+                  <label className="block text-xs font-semibold text-[#A69080] mb-1.5">College</label>
                   <input 
                     type="text" placeholder="e.g. DTU Delhi"
                     value={college} onChange={(e) => setCollege(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-white"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E]"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[#748D92] mb-1.5">Course</label>
+                  <label className="block text-xs font-semibold text-[#A69080] mb-1.5">Course</label>
                   <input 
                     type="text" placeholder="e.g. B.Tech CSE"
                     value={course} onChange={(e) => setCourse(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-white"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E]"
                     required
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-semibold text-[#748D92] mb-1.5">Academic Year</label>
+                <label className="block text-xs font-semibold text-[#A69080] mb-1.5">Academic Year</label>
                 <select
                   value={academicYear} onChange={(e) => setAcademicYear(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-[#D3D9D4] font-semibold"
+                  className="w-full px-3 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E] font-semibold"
                 >
                   <option value="1st Year">1st Year</option>
                   <option value="2nd Year">2nd Year</option>
@@ -182,11 +182,11 @@ export default function Auth() {
 
           {(authMode === 'login' || authMode === 'register' || authMode === 'forgot') && (
             <div>
-              <label className="block text-xs font-semibold text-[#748D92] mb-1.5">College Email Address</label>
+              <label className="block text-xs font-semibold text-[#A69080] mb-1.5">College Email Address</label>
               <input 
                 type="email" placeholder="name@college.edu"
                 value={email} onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-white"
+                className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E]"
                 required
               />
             </div>
@@ -195,14 +195,14 @@ export default function Auth() {
           {(authMode === 'login' || authMode === 'register' || authMode === 'reset') && (
             <div>
               <div className="flex justify-between items-center mb-1.5">
-                <label className="block text-xs font-semibold text-[#748D92]">
+                <label className="block text-xs font-semibold text-[#A69080]">
                   {authMode === 'reset' ? 'New Password' : 'Password'}
                 </label>
                 {authMode === 'login' && (
                   <button 
                     type="button" 
                     onClick={() => { setAuthMode('forgot'); setLocalError(null); setSuccessMessage(null); }}
-                    className="text-[10px] text-[#748D92] hover:text-[#D3D9D4] transition"
+                    className="text-[10px] text-[#A69080] hover:text-[#3E362E] transition"
                   >
                     Forgot password?
                   </button>
@@ -211,7 +211,7 @@ export default function Auth() {
               <input 
                 type="password" placeholder="••••••••"
                 value={password} onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-white"
+                className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E]"
                 required
               />
             </div>
@@ -219,7 +219,7 @@ export default function Auth() {
 
           <button 
             type="submit" disabled={loading}
-            className="w-full py-3 rounded-full bg-[#124E66] hover:brightness-110 text-white text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow-lg shadow-[#212A31]/40 disabled:opacity-50 mt-6"
+            className="w-full py-3 rounded-full bg-[#3E362E] hover:brightness-110 text-[#3E362E] text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow-lg shadow-[#FFE5BF]/40 disabled:opacity-50 mt-6"
           >
             {authMode === 'login' && <LogIn size={15} />}
             {authMode === 'register' && <UserPlus size={15} />}
@@ -239,7 +239,7 @@ export default function Auth() {
               <button 
                 type="button" 
                 onClick={() => { setAuthMode('login'); setLocalError(null); setSuccessMessage(null); }}
-                className="text-[10px] text-[#748D92] hover:text-[#D3D9D4] transition"
+                className="text-[10px] text-[#A69080] hover:text-[#3E362E] transition"
               >
                 &larr; Back to Sign In
               </button>
