@@ -114,7 +114,7 @@ export default function Dashboard() {
     }
   };
 
-  if (loading) {
+  if (loading || !user) {
     return (
       <div className="flex justify-center items-center py-20 text-[#748D92]">
         <div className="animate-spin rounded-full h-8 w-8 border-4 border-[#124E66] border-t-transparent mr-2"></div>

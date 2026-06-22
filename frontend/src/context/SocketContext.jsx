@@ -62,7 +62,7 @@ export const SocketProvider = ({ children }) => {
       setUnreadNotificationsCount(prev => prev + 1);
 
       // Simple browser notification if permission allowed
-      if (Notification.permission === 'granted') {
+      if ('Notification' in window && Notification.permission === 'granted') {
         new Notification(notification.title, { body: notification.message });
       }
     });
@@ -74,7 +74,7 @@ export const SocketProvider = ({ children }) => {
     setSocket(newSocket);
 
     // Request browser notification permissions
-    if (Notification.permission === 'default') {
+    if ('Notification' in window && Notification.permission === 'default') {
       Notification.requestPermission();
     }
 
