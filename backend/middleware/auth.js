@@ -73,6 +73,12 @@ async function authenticateToken(req, res, next) {
 
       // Fetch corresponding platform database profile
       let dbUser = await db.get('SELECT id, email, full_name, role FROM users WHERE id = ?', [user.id]);
+      
+      // Fallback to checking by email for users registered before Supabase integration
+      if (!dbUser && user.email) {
+        dbUser = await db.get('SELECT id, email, full_name, role FROM users WHERE email = ?', [user.email]);
+      }
+
       if (!dbUser) {
         console.log(`Profile missing in middleware for ${user.email}. Auto-creating profile...`);
         const fullName = user.user_metadata?.full_name || user.email.split('@')[0];
