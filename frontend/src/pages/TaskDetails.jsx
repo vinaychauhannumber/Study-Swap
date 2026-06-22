@@ -603,7 +603,7 @@ export default function TaskDetails() {
                               <span className="truncate">{msg.file_name}</span>
                             </a>
                           )}
-                          <div className="flex items-center justify-end space-x-1 text-[8px] text-black/70/80 pt-0.5">
+                          <div className="flex items-center justify-end space-x-1 text-[8px] text-black/70 pt-0.5">
                             <span>
                               {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                             </span>

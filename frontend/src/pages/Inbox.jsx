@@ -493,7 +493,7 @@ export default function Inbox() {
                       const bidStatus = bidStatuses[proposalData.bidId] || 'pending';
                       return (
                         <div key={msg.id} className="flex justify-center my-4 w-full">
-                          <div className="w-full max-w-md rounded-2xl border border-[#FFE5BF]/30 bg-gradient-to-b from-[#0f142b] to-[#070915] p-5 shadow-2xl shadow-[#FFE5BF]/50 space-y-4 backdrop-blur-xl">
+                          <div className="w-full max-w-md rounded-2xl border border-[#FFE5BF]/30 bg-[#FFF2DB] p-5 shadow-2xl shadow-[#FFE5BF]/50 space-y-4 backdrop-blur-xl">
                             <div className="flex items-center justify-between border-b border-[#FFE5BF]/60 pb-3">
                               <div className="flex items-center space-x-2 text-black/70">
                                 <Sparkles size={16} />
@@ -509,11 +509,11 @@ export default function Inbox() {
                             </div>
 
                             <div className="grid grid-cols-2 gap-3">
-                              <div className="bg-[#0c1024]/80 border border-[#FFE5BF]/40 p-3 rounded-xl space-y-1">
+                              <div className="bg-[#FFFAF3] border border-[#FFE5BF]/40 p-3 rounded-xl space-y-1">
                                 <span className="text-[9px] text-black/70 uppercase block font-bold">Budget Offer</span>
                                 <strong className="text-sm text-black font-extrabold font-display">₹{proposalData.amount}</strong>
                               </div>
-                              <div className="bg-[#0c1024]/80 border border-[#FFE5BF]/40 p-3 rounded-xl space-y-1">
+                              <div className="bg-[#FFFAF3] border border-[#FFE5BF]/40 p-3 rounded-xl space-y-1">
                                 <span className="text-[9px] text-black/70 uppercase block font-bold">Est. Delivery</span>
                                 <strong className="text-sm text-black font-extrabold font-display">{proposalData.deliveryHours} Hours</strong>
                               </div>
@@ -531,7 +531,7 @@ export default function Inbox() {
                                 <button
                                   type="button"
                                   onClick={() => handleAcceptBid(proposalData.bidId)}
-                                  className="flex-1 py-2 rounded-xl bg-gradient-to-r from-black to-teal-600 hover:from-black hover:to-teal-500 text-black text-xs font-bold transition shadow-lg shadow-[#FFE5BF]/30"
+                                  className="flex-1 py-2 rounded-xl bg-[#FFE5BF] hover:bg-[#FFE5BF]/80 text-black text-xs font-bold transition shadow-lg shadow-[#FFE5BF]/30"
                                 >
                                   Accept Proposal
                                 </button>
@@ -569,7 +569,7 @@ export default function Inbox() {
                             <span className="truncate">{msg.file_name}</span>
                           </a>
                         )}
-                        <div className="flex items-center justify-end space-x-1 text-[8px] text-black/70/80 pt-0.5">
+                        <div className="flex items-center justify-end space-x-1 text-[8px] text-black/70 pt-0.5">
                           <span>
                             {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                           </span>
