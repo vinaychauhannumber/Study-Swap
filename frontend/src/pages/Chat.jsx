@@ -413,7 +413,7 @@ export default function Chat() {
 
               return (
                 <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[70%] rounded-2xl p-3.5 space-y-1 ${isMe ? 'bg-black text-black rounded-tr-none' : 'bg-[#FFFAF3] border border-[#FFE5BF] text-black rounded-tl-none'}`}>
+                  <div className={`max-w-[70%] rounded-2xl p-3.5 space-y-1 ${isMe ? 'bg-[#FFE5BF] text-black rounded-tr-none' : 'bg-[#FFFAF3] border border-[#FFE5BF] text-black rounded-tl-none'}`}>
                     
                     {/* Text content */}
                     {msg.content && <p className="text-xs leading-relaxed whitespace-pre-wrap">{msg.content}</p>}
@@ -424,7 +424,7 @@ export default function Chat() {
                         href={`${BACKEND_URL}${msg.file_url}`}
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="flex items-center space-x-2 p-2 rounded-xl bg-black/30 text-black hover:text-black transition text-[11px] font-medium max-w-full"
+                        className="flex items-center space-x-2 p-2 rounded-xl bg-[#FFE5BF]/30 text-black hover:text-black transition text-[11px] font-medium max-w-full"
                       >
                         <FileText size={15} />
                         <span className="truncate">{msg.file_name}</span>
@@ -505,7 +505,7 @@ export default function Chat() {
           <button 
             type="submit"
             disabled={isLocked}
-            className="p-2.5 rounded-xl bg-black hover:bg-black text-black transition shrink-0 disabled:opacity-40 disabled:hover:bg-black"
+            className="p-2.5 rounded-xl bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black transition shrink-0 disabled:opacity-40 disabled:hover:bg-[#FFE5BF]"
           >
             <Send size={18} />
           </button>

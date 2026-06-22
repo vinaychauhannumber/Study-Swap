@@ -156,7 +156,7 @@ export default function Dashboard() {
         {user.role === 'client' ? (
           <Link 
             to="/post-task"
-            className="flex items-center space-x-2 px-5 py-2.5 rounded-full bg-black hover:bg-black text-black font-bold text-xs shadow-lg shadow-black/20 transition shrink-0 btn-ripple hover-scale"
+            className="flex items-center space-x-2 px-5 py-2.5 rounded-full bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black font-bold text-xs shadow-lg shadow-black/20 transition shrink-0 btn-ripple hover-scale"
           >
             <PlusCircle size={15} />
             <span>Post New Task</span>
@@ -164,7 +164,7 @@ export default function Dashboard() {
         ) : (
           <Link 
             to="/browse"
-            className="flex items-center space-x-2 px-5 py-2.5 rounded-full bg-black hover:bg-black text-black font-bold text-xs shadow-lg shadow-black/20 transition shrink-0 btn-ripple hover-scale"
+            className="flex items-center space-x-2 px-5 py-2.5 rounded-full bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black font-bold text-xs shadow-lg shadow-black/20 transition shrink-0 btn-ripple hover-scale"
           >
             <Briefcase size={15} />
             <span>Find Tasks to Bid</span>
@@ -244,14 +244,14 @@ export default function Dashboard() {
               <button
                 type="button"
                 onClick={() => setActiveTab('active')}
-                className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition ${activeTab === 'active' ? 'bg-black text-black' : 'text-black/70 hover:text-black'}`}
+                className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition ${activeTab === 'active' ? 'bg-[#FFE5BF] text-black' : 'text-black/70 hover:text-black'}`}
               >
                 Active & Pending ({activeTasks.length})
               </button>
               <button
                 type="button"
                 onClick={() => setActiveTab('completed')}
-                className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition ${activeTab === 'completed' ? 'bg-black text-black' : 'text-black/70 hover:text-black'}`}
+                className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition ${activeTab === 'completed' ? 'bg-[#FFE5BF] text-black' : 'text-black/70 hover:text-black'}`}
               >
                 Completed ({completedTasks.length})
               </button>
@@ -423,7 +423,7 @@ export default function Dashboard() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           {/* Backdrop */}
           <div 
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-[#FFE5BF]/20 backdrop-blur-sm"
             onClick={() => setEditingTask(null)}
           ></div>
           
@@ -514,7 +514,7 @@ export default function Dashboard() {
                 <button 
                   type="submit"
                   disabled={editLoading}
-                  className="flex-1 py-2.5 rounded-xl bg-black hover:bg-black text-black font-bold text-xs transition disabled:opacity-50"
+                  className="flex-1 py-2.5 rounded-xl bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black font-bold text-xs transition disabled:opacity-50"
                 >
                   {editLoading ? 'Saving...' : 'Save Changes'}
                 </button>

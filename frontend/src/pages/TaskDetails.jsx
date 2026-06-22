@@ -466,7 +466,7 @@ export default function TaskDetails() {
                     onClick={() => {
                       document.getElementById('workspace-chat-box')?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-black hover:bg-black text-black font-semibold text-xs transition animate-pulse-ring"
+                    className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black font-semibold text-xs transition animate-pulse-ring"
                   >
                     <MessageSquare size={14} />
                     <span>Open Real-Time Chat</span>
@@ -477,7 +477,7 @@ export default function TaskDetails() {
                 {user.role === 'helper' && ['in_progress', 'submitted'].includes(task.status) && (
                   <Link 
                     to={`/submission/${task.id}/${task.id}`}
-                    className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-black hover:bg-black text-black font-semibold text-xs transition"
+                    className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black font-semibold text-xs transition"
                   >
                     <CheckCircle size={14} />
                     <span>{task.status === 'submitted' ? 'Submission details / quality check' : 'Submit completed work'}</span>
@@ -488,7 +488,7 @@ export default function TaskDetails() {
                 {user.role === 'client' && task.status === 'submitted' && (
                   <Link 
                     to={`/submission/${task.id}/${task.id}`}
-                    className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-black hover:bg-purple-500 text-black font-semibold text-xs transition"
+                    className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-[#FFE5BF] hover:bg-purple-500 text-black font-semibold text-xs transition"
                   >
                     <CheckCircle size={14} />
                     <span>Verify deliverable & Release escrow</span>
@@ -499,7 +499,7 @@ export default function TaskDetails() {
                 {task.status === 'completed' && !showReviewForm && (
                   <button 
                     onClick={() => setShowReviewForm(true)}
-                    className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-black hover:bg-black text-black font-semibold text-xs transition"
+                    className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black font-semibold text-xs transition"
                   >
                     <Star size={14} />
                     <span>Leave a Review Rating</span>
@@ -542,7 +542,7 @@ export default function TaskDetails() {
                     <button 
                       type="submit" 
                       disabled={submittingReview}
-                      className="px-4 py-2 rounded-lg bg-black hover:bg-black text-black text-xs font-bold transition disabled:opacity-50"
+                      className="px-4 py-2 rounded-lg bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black text-xs font-bold transition disabled:opacity-50"
                     >
                       {submittingReview ? 'Submitting...' : 'Post Review'}
                     </button>
@@ -590,14 +590,14 @@ export default function TaskDetails() {
                     const isMe = String(msg.sender_id) === String(user.id);
                     return (
                       <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`max-w-[75%] rounded-2xl p-3 space-y-1 ${isMe ? 'bg-black text-black rounded-tr-none' : 'bg-[#FFFAF3] border border-[#FFE5BF] text-black rounded-tl-none'}`}>
+                        <div className={`max-w-[75%] rounded-2xl p-3 space-y-1 ${isMe ? 'bg-[#FFE5BF] text-black rounded-tr-none' : 'bg-[#FFFAF3] border border-[#FFE5BF] text-black rounded-tl-none'}`}>
                           {msg.content && <p className="text-xs leading-relaxed whitespace-pre-wrap">{msg.content}</p>}
                           {msg.file_url && (
                             <a 
                               href={`${BACKEND_URL}${msg.file_url}`}
                               target="_blank" 
                               rel="noopener noreferrer"
-                              className="flex items-center space-x-2 p-2 rounded-xl bg-black/30 text-black hover:text-black transition text-[10px] font-medium max-w-full"
+                              className="flex items-center space-x-2 p-2 rounded-xl bg-[#FFE5BF]/30 text-black hover:text-black transition text-[10px] font-medium max-w-full"
                             >
                               <FileText size={13} />
                               <span className="truncate">{msg.file_name}</span>
@@ -658,7 +658,7 @@ export default function TaskDetails() {
                 />
                 <button 
                   type="submit"
-                  className="p-2 rounded-xl bg-black hover:bg-black text-black transition shrink-0"
+                  className="p-2 rounded-xl bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black transition shrink-0"
                 >
                   <Send size={15} />
                 </button>
@@ -706,7 +706,7 @@ export default function TaskDetails() {
                     document.getElementById('workspace-chat-box')?.scrollIntoView({ behavior: 'smooth' });
                   }, 100);
                 }} 
-                className="w-full py-2.5 rounded-xl bg-black hover:bg-black text-black font-bold text-xs flex items-center justify-center space-x-1.5 transition"
+                className="w-full py-2.5 rounded-xl bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black font-bold text-xs flex items-center justify-center space-x-1.5 transition"
               >
                 <MessageSquare size={13} />
                 <span>Chat with Task Owner</span>
@@ -758,7 +758,7 @@ export default function TaskDetails() {
                       <div className="flex gap-2 pt-1.5">
                         <button 
                           onClick={() => handleAcceptBid(bid.id, bid.amount)}
-                          className="flex-1 py-1.5 rounded-xl bg-black hover:bg-black text-black font-bold text-[10px] transition"
+                          className="flex-1 py-1.5 rounded-xl bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black font-bold text-[10px] transition"
                         >
                           Accept Bid
                         </button>
@@ -771,7 +771,7 @@ export default function TaskDetails() {
                               document.getElementById('workspace-chat-box')?.scrollIntoView({ behavior: 'smooth' });
                             }, 100);
                           }}
-                          className={`px-3 py-1.5 rounded-xl border transition flex items-center justify-center ${chatPartnerId === bid.helper_id ? 'bg-black border-black text-black' : 'bg-[#FFFAF3] hover:bg-[#FFFAF3] border-[#FFE5BF] text-black/70 hover:text-black'}`}
+                          className={`px-3 py-1.5 rounded-xl border transition flex items-center justify-center ${chatPartnerId === bid.helper_id ? 'bg-[#FFE5BF] border-black text-black' : 'bg-[#FFFAF3] hover:bg-[#FFFAF3] border-[#FFE5BF] text-black/70 hover:text-black'}`}
                           title={`Chat with ${bid.helper_name}`}
                         >
                           <MessageSquare size={13} />
@@ -847,7 +847,7 @@ export default function TaskDetails() {
                           document.getElementById('workspace-chat-box')?.scrollIntoView({ behavior: 'smooth' });
                         }, 100);
                       }}
-                      className="w-full py-2.5 rounded-xl bg-black hover:bg-black text-black font-bold text-xs flex items-center justify-center space-x-1.5 transition"
+                      className="w-full py-2.5 rounded-xl bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black font-bold text-xs flex items-center justify-center space-x-1.5 transition"
                     >
                       <MessageSquare size={13} />
                       <span>Chat with Task Owner</span>
@@ -917,7 +917,7 @@ export default function TaskDetails() {
                   <button 
                     type="submit"
                     disabled={submittingBid}
-                    className="w-full py-2.5 rounded-full bg-black hover:bg-black text-black font-bold text-xs transition disabled:opacity-50"
+                    className="w-full py-2.5 rounded-full bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black font-bold text-xs transition disabled:opacity-50"
                   >
                     {submittingBid ? 'Registering proposal...' : 'Submit Proposal Bid'}
                   </button>

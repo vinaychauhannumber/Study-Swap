@@ -68,7 +68,7 @@ export default function LandingPage() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 animate-fade-in-up delay-300">
           <Link 
             to={user ? "/dashboard" : "/auth"}
-            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-black hover:bg-black text-black font-bold text-sm shadow-xl shadow-black/20 flex items-center justify-center space-x-2 group btn-ripple hover-scale"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black font-bold text-sm shadow-xl shadow-black/20 flex items-center justify-center space-x-2 group btn-ripple hover-scale"
           >
             <span>{user ? 'Go to Dashboard' : 'Get Started Now'}</span>
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />

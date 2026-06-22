@@ -75,7 +75,7 @@ export default function Navbar() {
                   disabled={switchingRole}
                   className={`px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase transition-all duration-300 ${
                     user.role === 'client'
-                      ? 'bg-black text-black shadow-md'
+                      ? 'bg-[#FFE5BF] text-black shadow-md'
                       : 'text-black/70 hover:text-black'
                   } disabled:opacity-50`}
                 >
@@ -87,7 +87,7 @@ export default function Navbar() {
                   disabled={switchingRole}
                   className={`px-3 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase transition-all duration-300 ${
                     user.role === 'helper'
-                      ? 'bg-black text-black shadow-md'
+                      ? 'bg-[#FFE5BF] text-black shadow-md'
                       : 'text-black/70 hover:text-black'
                   } disabled:opacity-50`}
                 >
@@ -105,7 +105,7 @@ export default function Navbar() {
               >
                 <Bell size={20} />
                 {unreadNotificationsCount > 0 && (
-                  <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-black text-[10px] font-bold text-black animate-pulse">
+                  <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#FFE5BF] text-[10px] font-bold text-black animate-pulse">
                     {unreadNotificationsCount}
                   </span>
                 )}
@@ -180,7 +180,7 @@ export default function Navbar() {
         ) : (
           <div className="flex items-center space-x-3 text-sm font-semibold">
             <Link to="/auth" className="px-4 py-2 text-black hover:text-black transition">Sign In</Link>
-            <Link to="/auth" className="px-4 py-2 rounded-full bg-black text-black hover:bg-black transition shadow-lg shadow-black/20">Get Started</Link>
+            <Link to="/auth" className="px-4 py-2 rounded-full bg-[#FFE5BF] text-black hover:bg-[#FFE5BF] transition shadow-lg shadow-black/20">Get Started</Link>
           </div>
         )}
       </div>
@@ -215,7 +215,7 @@ export default function Navbar() {
                       disabled={switchingRole}
                       className={`px-3.5 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase transition-all duration-300 ${
                         user.role === 'client'
-                          ? 'bg-black text-black'
+                          ? 'bg-[#FFE5BF] text-black'
                           : 'text-black/70 hover:text-black'
                       } disabled:opacity-50`}
                     >
@@ -227,7 +227,7 @@ export default function Navbar() {
                       disabled={switchingRole}
                       className={`px-3.5 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase transition-all duration-300 ${
                         user.role === 'helper'
-                          ? 'bg-black text-black'
+                          ? 'bg-[#FFE5BF] text-black'
                           : 'text-black/70 hover:text-black'
                       } disabled:opacity-50`}
                     >
@@ -257,7 +257,7 @@ export default function Navbar() {
           ) : (
             <div className="flex flex-col space-y-3 pt-2 border-t border-[#FFE5BF]">
               <Link to="/auth" onClick={() => setMobileMenuOpen(false)} className="text-black hover:text-black text-sm font-medium text-center py-2">Sign In</Link>
-              <Link to="/auth" onClick={() => setMobileMenuOpen(false)} className="bg-black hover:bg-black text-black rounded-full text-sm font-medium text-center py-2">Get Started</Link>
+              <Link to="/auth" onClick={() => setMobileMenuOpen(false)} className="bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black rounded-full text-sm font-medium text-center py-2">Get Started</Link>
             </div>
           )}
         </div>

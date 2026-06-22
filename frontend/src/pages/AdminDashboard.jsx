@@ -132,13 +132,13 @@ export default function AdminDashboard() {
       <div className="flex space-x-4 border-b border-[#FFE5BF] pb-3">
         <button 
           onClick={() => setActiveTab('users')}
-          className={`px-4 py-2 text-xs font-bold rounded-xl transition ${activeTab === 'users' ? 'bg-black text-black' : 'bg-[#FFFAF3] text-slate-450 border border-[#FFE5BF] hover:text-black'}`}
+          className={`px-4 py-2 text-xs font-bold rounded-xl transition ${activeTab === 'users' ? 'bg-[#FFE5BF] text-black' : 'bg-[#FFFAF3] text-slate-450 border border-[#FFE5BF] hover:text-black'}`}
         >
           Users Account Control
         </button>
         <button 
           onClick={() => setActiveTab('analytics')}
-          className={`px-4 py-2 text-xs font-bold rounded-xl transition ${activeTab === 'analytics' ? 'bg-black text-black' : 'bg-[#FFFAF3] text-slate-450 border border-[#FFE5BF] hover:text-black'}`}
+          className={`px-4 py-2 text-xs font-bold rounded-xl transition ${activeTab === 'analytics' ? 'bg-[#FFE5BF] text-black' : 'bg-[#FFFAF3] text-slate-450 border border-[#FFE5BF] hover:text-black'}`}
         >
           Categories Share Metrics
         </button>
@@ -200,7 +200,7 @@ export default function AdminDashboard() {
                         <button 
                           onClick={() => handleToggleSuspension(u.id)}
                           className={`p-1.5 rounded-lg border text-xs font-bold transition flex items-center justify-center space-x-1 ml-auto
-                            ${u.is_suspended ? 'bg-[#FFFAF3]/20 text-black border-[#FFE5BF]/40 hover:bg-black' : 'bg-rose-100/20 text-rose-400 border-rose-300/40 hover:bg-rose-600'}`}
+                            ${u.is_suspended ? 'bg-[#FFFAF3]/20 text-black border-[#FFE5BF]/40 hover:bg-[#FFE5BF]' : 'bg-rose-100/20 text-rose-400 border-rose-300/40 hover:bg-rose-600'}`}
                         >
                           <Ban size={12} />
                           <span>{u.is_suspended ? 'Re-activate' : 'Suspend'}</span>
@@ -229,7 +229,7 @@ export default function AdminDashboard() {
                   </div>
                   <div className="w-full bg-[#FFFAF3] rounded-full h-2">
                     <div 
-                      className="bg-black h-2 rounded-full" 
+                      className="bg-[#FFE5BF] h-2 rounded-full" 
                       style={{ width: `${Math.min(100, (cat.count / Math.max(1, analytics.activeTasks)) * 100)}%` }}
                     ></div>
                   </div>

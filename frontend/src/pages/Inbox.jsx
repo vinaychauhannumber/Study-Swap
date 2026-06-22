@@ -373,7 +373,7 @@ export default function Inbox() {
                   onClick={() => setActiveConversation(c)}
                   className={`w-full text-left p-3 rounded-2xl flex items-start space-x-3 transition relative group ${
                     isSelected 
-                      ? 'bg-black/10 border border-black/30' 
+                      ? 'bg-[#FFE5BF]/50 border border-[#FFE5BF]/80' 
                       : 'hover:bg-[#FFFAF3]/40 border border-transparent hover:border-[#FFE5BF]/50'
                   }`}
                 >
@@ -391,7 +391,7 @@ export default function Inbox() {
                       </div>
                     )}
                     <span className={`absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-[#070a13] ${
-                      c.partnerRole === 'helper' ? 'bg-black' : 'bg-black'
+                      c.partnerRole === 'helper' ? 'bg-[#FFE5BF]' : 'bg-[#FFE5BF]'
                     }`} />
                   </div>
 
@@ -420,7 +420,7 @@ export default function Inbox() {
 
                   {/* Unread bubble count */}
                   {c.unreadCount > 0 && (
-                    <span className="absolute right-3 bottom-3 flex h-4.5 min-w-4.5 px-1 items-center justify-center rounded-full bg-black text-[8px] font-bold text-black shadow-lg shadow-[#FFE5BF]/30">
+                    <span className="absolute right-3 bottom-3 flex h-4.5 min-w-4.5 px-1 items-center justify-center rounded-full bg-[#FFE5BF] text-[8px] font-bold text-black shadow-lg shadow-[#FFE5BF]/30">
                       {c.unreadCount}
                     </span>
                   )}
@@ -556,14 +556,14 @@ export default function Inbox() {
 
                   return (
                     <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
-                      <div className={`max-w-[70%] rounded-2xl p-3.5 space-y-1 ${isMe ? 'bg-black text-black rounded-tr-none' : 'bg-[#FFFAF3] border border-[#FFE5BF] text-black rounded-tl-none'}`}>
+                      <div className={`max-w-[70%] rounded-2xl p-3.5 space-y-1 ${isMe ? 'bg-[#FFE5BF] text-black rounded-tr-none' : 'bg-[#FFFAF3] border border-[#FFE5BF] text-black rounded-tl-none'}`}>
                         {msg.content && <p className="text-xs leading-relaxed whitespace-pre-wrap">{msg.content}</p>}
                         {msg.file_url && (
                           <a 
                             href={`${BACKEND_URL}${msg.file_url}`}
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="flex items-center space-x-2 p-2.5 rounded-xl bg-black/30 text-black hover:text-black transition text-[10px] font-medium max-w-full"
+                            className="flex items-center space-x-2 p-2.5 rounded-xl bg-[#FFE5BF]/30 text-black hover:text-black transition text-[10px] font-medium max-w-full"
                           >
                             <FileText size={14} />
                             <span className="truncate">{msg.file_name}</span>
@@ -633,7 +633,7 @@ export default function Inbox() {
               <button 
                 type="submit"
                 disabled={isLocked}
-                className="p-2.5 rounded-xl bg-black hover:bg-black text-black transition shrink-0 disabled:opacity-40 disabled:hover:bg-black"
+                className="p-2.5 rounded-xl bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black transition shrink-0 disabled:opacity-40 disabled:hover:bg-[#FFE5BF]"
               >
                 <Send size={15} />
               </button>

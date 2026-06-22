@@ -101,14 +101,14 @@ export default function Auth() {
             <button 
               type="button"
               onClick={() => { setAuthMode('login'); setLocalError(null); setSuccessMessage(null); }}
-              className={`py-2 rounded-lg text-xs font-semibold transition ${authMode === 'login' ? 'bg-black text-black shadow-md' : 'text-black/70 hover:text-black'}`}
+              className={`py-2 rounded-lg text-xs font-semibold transition ${authMode === 'login' ? 'bg-[#FFE5BF] text-black shadow-md' : 'text-black/70 hover:text-black'}`}
             >
               Sign In
             </button>
             <button 
               type="button"
               onClick={() => { setAuthMode('register'); setLocalError(null); setSuccessMessage(null); }}
-              className={`py-2 rounded-lg text-xs font-semibold transition ${authMode === 'register' ? 'bg-black text-black shadow-md' : 'text-black/70 hover:text-black'}`}
+              className={`py-2 rounded-lg text-xs font-semibold transition ${authMode === 'register' ? 'bg-[#FFE5BF] text-black shadow-md' : 'text-black/70 hover:text-black'}`}
             >
               Create Account
             </button>
@@ -219,7 +219,7 @@ export default function Auth() {
 
           <button 
             type="submit" disabled={loading}
-            className="w-full py-3 rounded-full bg-black hover:brightness-110 text-black text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow-lg shadow-[#FFE5BF]/40 disabled:opacity-50 mt-6"
+            className="w-full py-3 rounded-full bg-[#FFE5BF] hover:brightness-110 text-black text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow-lg shadow-[#FFE5BF]/40 disabled:opacity-50 mt-6"
           >
             {authMode === 'login' && <LogIn size={15} />}
             {authMode === 'register' && <UserPlus size={15} />}

@@ -208,7 +208,7 @@ export default function Submission() {
                 <button 
                   type="submit"
                   disabled={submitting}
-                  className="w-full py-2.5 rounded-full bg-black hover:bg-black text-black font-bold text-xs transition disabled:opacity-50"
+                  className="w-full py-2.5 rounded-full bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black font-bold text-xs transition disabled:opacity-50"
                 >
                   {submitting ? 'Running AI scans & uploading...' : 'Upload Work Deliverables'}
                 </button>
@@ -243,7 +243,7 @@ export default function Submission() {
                   <button 
                     onClick={() => handleApproveSubmission(latestSubmission.id)}
                     disabled={processingAction}
-                    className="flex-1 py-2.5 rounded-full bg-black hover:bg-black text-black font-bold text-xs transition disabled:opacity-50"
+                    className="flex-1 py-2.5 rounded-full bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black font-bold text-xs transition disabled:opacity-50"
                   >
                     Release Escrow Payout
                   </button>
@@ -272,7 +272,7 @@ export default function Submission() {
                     <div className="flex gap-2">
                       <button 
                         type="submit" 
-                        className="px-4 py-2 rounded-lg bg-black hover:bg-black text-black text-xs font-bold transition"
+                        className="px-4 py-2 rounded-lg bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black text-xs font-bold transition"
                       >
                         Submit Revision Feedback
                       </button>

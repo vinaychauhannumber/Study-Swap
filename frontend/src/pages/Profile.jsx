@@ -138,7 +138,7 @@ export default function Profile() {
       <div className="glass p-6 md:p-8 rounded-3xl border border-[#FFE5BF] flex flex-col md:flex-row gap-8 items-center md:items-start relative overflow-hidden">
         
         {/* Glow */}
-        <div className="absolute top-0 right-0 w-48 h-48 bg-black/5 rounded-full blur-3xl -mr-10 -mt-10"></div>
+        <div className="absolute top-0 right-0 w-48 h-48 bg-[#FFE5BF]/5 rounded-full blur-3xl -mr-10 -mt-10"></div>
 
         {/* Profile Pic Widget */}
         <div className="relative shrink-0 group">
@@ -155,7 +155,7 @@ export default function Profile() {
           )}
 
           {isMe && (
-            <label className="absolute inset-0 bg-black/70 rounded-3xl opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center cursor-pointer text-black text-[10px] font-bold">
+            <label className="absolute inset-0 bg-[#FFE5BF]/70 rounded-3xl opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center cursor-pointer text-black text-[10px] font-bold">
               <input 
                 type="file" 
                 onChange={(e) => handleSampleUpload(e, 'profile_picture')}
@@ -364,7 +364,7 @@ export default function Profile() {
               <div className="flex gap-2 pt-2">
                 <button 
                   type="submit"
-                  className="px-4 py-2 rounded-xl bg-black hover:bg-black text-black text-xs font-bold transition flex items-center space-x-1"
+                  className="px-4 py-2 rounded-xl bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black text-xs font-bold transition flex items-center space-x-1"
                 >
                   <Check size={14} />
                   <span>Save Changes</span>

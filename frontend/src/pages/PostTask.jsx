@@ -222,7 +222,7 @@ export default function PostTask() {
           <button 
             type="submit"
             disabled={loading || !!scamAlert}
-            className="w-full py-3.5 rounded-full bg-black hover:bg-black text-black font-bold text-xs flex items-center justify-center space-x-1.5 transition disabled:opacity-50"
+            className="w-full py-3.5 rounded-full bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black font-bold text-xs flex items-center justify-center space-x-1.5 transition disabled:opacity-50"
           >
             <Send size={14} />
             <span>{loading ? 'Securing task posting...' : 'Publish to Marketplace'}</span>

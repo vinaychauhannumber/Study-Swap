@@ -83,13 +83,13 @@ export default function BrowseTasks() {
             placeholder="Search assignments, reports, graphic designs, slide topics..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 rounded-2xl bg-[#FFFAF3]/50 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black"
+            className="w-full pl-12 pr-4 py-3 rounded-2xl placeholder:text-black/40 bg-[#FFFAF3]/50 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black"
           />
         </div>
         <div className="flex w-full sm:w-auto items-center space-x-3">
           <button 
             type="submit"
-            className="flex-1 sm:flex-none px-6 py-3 rounded-2xl bg-black hover:bg-black text-black font-bold text-xs transition"
+            className="flex-1 sm:flex-none px-6 py-3 rounded-2xl bg-[#FFE5BF] hover:bg-[#FFE5BF] text-black font-bold text-xs transition"
           >
             Search
           </button>
@@ -193,7 +193,7 @@ export default function BrowseTasks() {
 
         {/* Mobile Filters Modal */}
         {showMobileFilters && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 lg:hidden">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#FFE5BF]/20 backdrop-blur-sm p-4 lg:hidden">
             <div className="glass max-w-sm w-full rounded-3xl p-6 border border-[#FFE5BF] shadow-2xl relative space-y-6">
               <button 
                 onClick={() => setShowMobileFilters(false)}
@@ -262,7 +262,7 @@ export default function BrowseTasks() {
                 </button>
                 <button 
                   onClick={() => { fetchTasks(); setShowMobileFilters(false); }}
-                  className="flex-1 py-2.5 rounded-full bg-black text-xs font-bold text-black"
+                  className="flex-1 py-2.5 rounded-full bg-[#FFE5BF] text-xs font-bold text-black"
                 >
                   Apply Filters
                 </button>
@@ -294,13 +294,13 @@ export default function BrowseTasks() {
                   key={task.id}
                   className={`glass p-6 rounded-2xl border flex flex-col justify-between transition group relative overflow-hidden ${
                     ['in_progress', 'submitted', 'completed'].includes(task.status)
-                      ? 'border-[#FFE5BF]/40 opacity-60'
+                      ? 'border-[#FFE5BF]/80 bg-[#FFF2DB]/50'
                       : 'border-[#FFE5BF] hover:border-[#FFE5BF]/60'
                   }`}
                 >
                   {/* Locked overlay for tasks with accepted bids */}
                   {['in_progress', 'submitted', 'completed'].includes(task.status) && (
-                    <div className="absolute inset-0 bg-[#FFFAF3]/30 z-10 rounded-2xl flex items-center justify-center">
+                    <div className="absolute inset-0 bg-[#FFFAF3]/40 backdrop-blur-[1px] z-10 rounded-2xl flex items-center justify-center">
                       <div className="flex items-center space-x-2 px-4 py-2 rounded-full bg-rose-100/60 border border-rose-800/50 backdrop-blur-sm">
                         <Lock size={14} className="text-rose-400" />
                         <span className="text-xs font-bold text-rose-600 uppercase tracking-wider">Locked</span>
