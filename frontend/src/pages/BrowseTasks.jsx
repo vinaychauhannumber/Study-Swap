@@ -149,7 +149,6 @@ export default function BrowseTasks() {
               <option value="bidding">Bidding</option>
               <option value="in_progress">In Progress</option>
               <option value="submitted">Submitted</option>
-              <option value="completed">Completed</option>
             </select>
           </div>
 

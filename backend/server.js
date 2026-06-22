@@ -592,7 +592,7 @@ app.get('/api/tasks', async (req, res) => {
     (SELECT COUNT(*) FROM bids b WHERE b.task_id = t.id) as bid_count
     FROM tasks t
     JOIN users u ON t.client_id = u.id
-    WHERE 1=1
+    WHERE t.status != 'completed'
   `;
   const params = [];
 
