@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LogIn, UserPlus, Sparkles, BookOpen, ShieldAlert, ShieldCheck } from 'lucide-react';
+import { LogIn, UserPlus, Sparkles, ShieldAlert, ShieldCheck, Mail, Key } from 'lucide-react';
 
 export default function Auth() {
-  const { login, register, error: authError } = useAuth();
+  const { login, register, forgotPassword, resetPassword, error: authError } = useAuth();
   const navigate = useNavigate();
 
-  const [isLogin, setIsLogin] = useState(true);
+  const [authMode, setAuthMode] = useState('login'); // 'login', 'register', 'forgot', 'reset'
   const [loading, setLoading] = useState(false);
   const [localError, setLocalError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
+  const [resetToken, setResetToken] = useState(null);
 
   // Form states
   const [email, setEmail] = useState('');
@@ -19,7 +20,19 @@ export default function Auth() {
   const [college, setCollege] = useState('');
   const [course, setCourse] = useState('');
   const [academicYear, setAcademicYear] = useState('1st Year');
-  const [role, setRole] = useState('client'); // 'client' or 'helper'
+  const [role, setRole] = useState('client');
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash && hash.includes('access_token') && hash.includes('type=recovery')) {
+      const hashParams = new URLSearchParams(hash.substring(1));
+      const token = hashParams.get('access_token');
+      if (token) {
+        setAuthMode('reset');
+        setResetToken(token);
+      }
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,25 +41,28 @@ export default function Auth() {
     setLoading(true);
 
     try {
-      if (isLogin) {
+      if (authMode === 'login') {
         await login(email, password);
         navigate('/dashboard');
-      } else {
+      } else if (authMode === 'register') {
         const result = await register({
-          email,
-          password,
-          fullName,
-          college,
-          course,
-          academicYear,
-          role
+          email, password, fullName, college, course, academicYear, role
         });
         if (result && result.requiresConfirmation) {
           setSuccessMessage('Registration successful! Please check your email inbox to confirm your account, then sign in.');
-          setIsLogin(true); // Switch to sign in tab
+          setAuthMode('login');
         } else {
           navigate('/dashboard');
         }
+      } else if (authMode === 'forgot') {
+        await forgotPassword(email, window.location.origin + '/auth');
+        setSuccessMessage('Password reset link sent! Check your email inbox.');
+        setAuthMode('login');
+      } else if (authMode === 'reset') {
+        await resetPassword(resetToken, password);
+        setSuccessMessage('Password updated successfully! You can now sign in.');
+        setAuthMode('login');
+        window.history.replaceState(null, '', window.location.pathname); // Clear hash
       }
     } catch (err) {
       setLocalError(err.message || 'Authentication failed. Please verify inputs.');
@@ -54,8 +70,6 @@ export default function Auth() {
       setLoading(false);
     }
   };
-
-
 
   return (
     <div className="max-w-md w-full mx-auto py-10">
@@ -68,30 +82,40 @@ export default function Auth() {
             <span>Secure Credentials Gateway</span>
           </div>
           <h2 className="text-2xl font-bold font-display text-white">
-            {isLogin ? 'Welcome back' : 'Create an account'}
+            {authMode === 'login' && 'Welcome back'}
+            {authMode === 'register' && 'Create an account'}
+            {authMode === 'forgot' && 'Reset Password'}
+            {authMode === 'reset' && 'Set New Password'}
           </h2>
           <p className="text-xs text-[#748D92]">
-            {isLogin ? 'Collaborate with student peers today' : 'Join our educational collaboration hub'}
+            {authMode === 'login' && 'Collaborate with student peers today'}
+            {authMode === 'register' && 'Join our educational collaboration hub'}
+            {authMode === 'forgot' && 'We will send you a secure reset link'}
+            {authMode === 'reset' && 'Enter your new secure password'}
           </p>
         </div>
 
-        {/* Tab Selector */}
-        <div className="grid grid-cols-2 p-1 rounded-xl bg-[#212A31] border border-[#212A31]">
-          <button 
-            onClick={() => { setIsLogin(true); setLocalError(null); setSuccessMessage(null); }}
-            className={`py-2 rounded-lg text-xs font-semibold transition ${isLogin ? 'bg-[#124E66] text-white shadow-md' : 'text-[#748D92] hover:text-[#D3D9D4]'}`}
-          >
-            Sign In
-          </button>
-          <button 
-            onClick={() => { setIsLogin(false); setLocalError(null); setSuccessMessage(null); }}
-            className={`py-2 rounded-lg text-xs font-semibold transition ${!isLogin ? 'bg-[#124E66] text-white shadow-md' : 'text-[#748D92] hover:text-[#D3D9D4]'}`}
-          >
-            Create Account
-          </button>
-        </div>
+        {/* Tab Selector (only for login/register) */}
+        {(authMode === 'login' || authMode === 'register') && (
+          <div className="grid grid-cols-2 p-1 rounded-xl bg-[#212A31] border border-[#212A31]">
+            <button 
+              type="button"
+              onClick={() => { setAuthMode('login'); setLocalError(null); setSuccessMessage(null); }}
+              className={`py-2 rounded-lg text-xs font-semibold transition ${authMode === 'login' ? 'bg-[#124E66] text-white shadow-md' : 'text-[#748D92] hover:text-[#D3D9D4]'}`}
+            >
+              Sign In
+            </button>
+            <button 
+              type="button"
+              onClick={() => { setAuthMode('register'); setLocalError(null); setSuccessMessage(null); }}
+              className={`py-2 rounded-lg text-xs font-semibold transition ${authMode === 'register' ? 'bg-[#124E66] text-white shadow-md' : 'text-[#748D92] hover:text-[#D3D9D4]'}`}
+            >
+              Create Account
+            </button>
+          </div>
+        )}
 
-        {/* Success Alert */}
+        {/* Alerts */}
         {successMessage && (
           <div className="p-3.5 rounded-xl bg-[#212A31]/20 border border-[#2E3944]/50 flex items-start space-x-2 text-[#748D92] text-xs leading-normal">
             <ShieldCheck size={16} className="shrink-0 mt-0.5 text-[#124E66]" />
@@ -99,7 +123,6 @@ export default function Auth() {
           </div>
         )}
 
-        {/* Error Alert */}
         {(localError || authError) && (
           <div className="p-3.5 rounded-xl bg-rose-950/20 border border-rose-900/50 flex items-start space-x-2 text-rose-300 text-xs leading-normal animate-pulse">
             <ShieldAlert size={16} className="shrink-0 mt-0.5" />
@@ -110,30 +133,23 @@ export default function Auth() {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           
-          {!isLogin && (
+          {authMode === 'register' && (
             <>
-              {/* Full Name */}
               <div>
                 <label className="block text-xs font-semibold text-[#748D92] mb-1.5">Full Name</label>
                 <input 
-                  type="text"
-                  placeholder="e.g. Priyanshu Sharma"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
+                  type="text" placeholder="e.g. Priyanshu Sharma"
+                  value={fullName} onChange={(e) => setFullName(e.target.value)}
                   className="w-full px-4 py-2.5 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-white"
                   required
                 />
               </div>
-
-              {/* College & Course */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-[#748D92] mb-1.5">College</label>
                   <input 
-                    type="text"
-                    placeholder="e.g. DTU Delhi"
-                    value={college}
-                    onChange={(e) => setCollege(e.target.value)}
+                    type="text" placeholder="e.g. DTU Delhi"
+                    value={college} onChange={(e) => setCollege(e.target.value)}
                     className="w-full px-4 py-2.5 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-white"
                     required
                   />
@@ -141,22 +157,17 @@ export default function Auth() {
                 <div>
                   <label className="block text-xs font-semibold text-[#748D92] mb-1.5">Course</label>
                   <input 
-                    type="text"
-                    placeholder="e.g. B.Tech CSE"
-                    value={course}
-                    onChange={(e) => setCourse(e.target.value)}
+                    type="text" placeholder="e.g. B.Tech CSE"
+                    value={course} onChange={(e) => setCourse(e.target.value)}
                     className="w-full px-4 py-2.5 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-white"
                     required
                   />
                 </div>
               </div>
-
-              {/* Academic Year Selection */}
               <div>
                 <label className="block text-xs font-semibold text-[#748D92] mb-1.5">Academic Year</label>
                 <select
-                  value={academicYear}
-                  onChange={(e) => setAcademicYear(e.target.value)}
+                  value={academicYear} onChange={(e) => setAcademicYear(e.target.value)}
                   className="w-full px-3 py-2.5 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-[#D3D9D4] font-semibold"
                 >
                   <option value="1st Year">1st Year</option>
@@ -169,43 +180,72 @@ export default function Auth() {
             </>
           )}
 
-          {/* Email */}
-          <div>
-            <label className="block text-xs font-semibold text-[#748D92] mb-1.5">College Email Address</label>
-            <input 
-              type="email"
-              placeholder="name@college.edu"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-white"
-              required
-            />
-          </div>
+          {(authMode === 'login' || authMode === 'register' || authMode === 'forgot') && (
+            <div>
+              <label className="block text-xs font-semibold text-[#748D92] mb-1.5">College Email Address</label>
+              <input 
+                type="email" placeholder="name@college.edu"
+                value={email} onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-2.5 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-white"
+                required
+              />
+            </div>
+          )}
 
-          {/* Password */}
-          <div>
-            <label className="block text-xs font-semibold text-[#748D92] mb-1.5">Password</label>
-            <input 
-              type="password"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-white"
-              required
-            />
-          </div>
+          {(authMode === 'login' || authMode === 'register' || authMode === 'reset') && (
+            <div>
+              <div className="flex justify-between items-center mb-1.5">
+                <label className="block text-xs font-semibold text-[#748D92]">
+                  {authMode === 'reset' ? 'New Password' : 'Password'}
+                </label>
+                {authMode === 'login' && (
+                  <button 
+                    type="button" 
+                    onClick={() => { setAuthMode('forgot'); setLocalError(null); setSuccessMessage(null); }}
+                    className="text-[10px] text-[#748D92] hover:text-[#D3D9D4] transition"
+                  >
+                    Forgot password?
+                  </button>
+                )}
+              </div>
+              <input 
+                type="password" placeholder="••••••••"
+                value={password} onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-2.5 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-white"
+                required
+              />
+            </div>
+          )}
 
-          {/* Submit */}
           <button 
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 rounded-full bg-[#124E66] hover:bg-[#124E66] text-white text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow-lg shadow-[#212A31]/40 disabled:opacity-50 mt-6"
+            type="submit" disabled={loading}
+            className="w-full py-3 rounded-full bg-[#124E66] hover:brightness-110 text-white text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow-lg shadow-[#212A31]/40 disabled:opacity-50 mt-6"
           >
-            {isLogin ? <LogIn size={15} /> : <UserPlus size={15} />}
-            <span>{loading ? 'Validating credentials...' : (isLogin ? 'Sign In to Account' : 'Register Account')}</span>
+            {authMode === 'login' && <LogIn size={15} />}
+            {authMode === 'register' && <UserPlus size={15} />}
+            {authMode === 'forgot' && <Mail size={15} />}
+            {authMode === 'reset' && <Key size={15} />}
+            
+            <span>
+              {loading ? 'Processing...' : 
+                authMode === 'login' ? 'Sign In to Account' : 
+                authMode === 'register' ? 'Register Account' : 
+                authMode === 'forgot' ? 'Send Reset Link' : 'Set New Password'}
+            </span>
           </button>
+          
+          {(authMode === 'forgot' || authMode === 'reset') && (
+            <div className="text-center mt-4">
+              <button 
+                type="button" 
+                onClick={() => { setAuthMode('login'); setLocalError(null); setSuccessMessage(null); }}
+                className="text-[10px] text-[#748D92] hover:text-[#D3D9D4] transition"
+              >
+                &larr; Back to Sign In
+              </button>
+            </div>
+          )}
         </form>
-
 
       </div>
     </div>

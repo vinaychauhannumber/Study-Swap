@@ -368,6 +368,61 @@ app.post('/api/auth/login', async (req, res) => {
   }
 });
 
+app.post('/api/auth/forgot-password', async (req, res) => {
+  const { email, redirectTo } = req.body;
+  if (!email) return res.status(400).json({ error: 'Email is required.' });
+
+  const supabaseClient = authMiddleware.supabaseClient;
+  if (!supabaseClient) {
+    return res.status(501).json({ error: 'Password reset is only supported when Supabase Auth is enabled.' });
+  }
+
+  try {
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+      redirectTo: redirectTo || req.headers.origin || 'http://localhost:5173'
+    });
+    if (error) {
+      return res.status(400).json({ error: error.message });
+    }
+    res.json({ message: 'Password reset email sent.' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/auth/reset-password', async (req, res) => {
+  const { access_token, new_password } = req.body;
+  if (!access_token || !new_password) {
+    return res.status(400).json({ error: 'Access token and new password are required.' });
+  }
+
+  try {
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const anonKey = process.env.SUPABASE_ANON_KEY;
+    
+    // We update the password by calling Supabase Auth REST API with the user's access token
+    const fetch = (await import('node-fetch')).default || global.fetch;
+    const response = await fetch(`${supabaseUrl}/auth/v1/user`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${access_token}`,
+        'apikey': anonKey
+      },
+      body: JSON.stringify({ password: new_password })
+    });
+    
+    const data = await response.json();
+    if (!response.ok) {
+      return res.status(400).json({ error: data.msg || data.message || 'Failed to update password.' });
+    }
+    
+    res.json({ message: 'Password updated successfully.' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.get('/api/auth/me', authMiddleware.authenticateToken, async (req, res) => {
   try {
     const user = await db.get('SELECT id, email, full_name, role, college, course, academic_year, bio, skills, profile_picture, handwriting_sample, rating, completed_tasks, balance, is_suspended FROM users WHERE id = ?', [req.user.id]);
