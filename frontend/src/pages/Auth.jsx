@@ -59,12 +59,12 @@ export default function Auth() {
 
   return (
     <div className="max-w-md w-full mx-auto py-10">
-      <div className="glass rounded-3xl p-8 border border-slate-800 shadow-2xl space-y-6">
+      <div className="glass rounded-3xl p-8 border border-slate-800 shadow-2xl space-y-6 animate-scale-in hover-glow">
         
         {/* Header */}
-        <div className="text-center space-y-2">
-          <div className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full bg-indigo-950/40 border border-indigo-800/40 text-[10px] font-semibold text-indigo-300">
-            <Sparkles size={11} />
+        <div className="text-center space-y-2 animate-fade-in-up delay-100">
+          <div className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full bg-indigo-950/40 border border-indigo-800/40 text-[10px] font-semibold text-indigo-300 animate-pulse-glow">
+            <Sparkles size={11} className="animate-float" />
             <span>Secure Credentials Gateway</span>
           </div>
           <h2 className="text-2xl font-bold font-display text-white">

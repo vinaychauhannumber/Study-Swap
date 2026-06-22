@@ -29,7 +29,7 @@ export default function Navbar() {
 
 
   return (
-    <header className="glass-header sticky top-0 z-50 px-6 py-4 flex items-center justify-between">
+    <header className="glass-header sticky top-0 z-50 px-6 py-4 flex items-center justify-between animate-fade-in-down">
       <div className="flex items-center space-x-3">
         <Link to="/" className="flex flex-col">
           <span className="text-2xl font-bold font-display tracking-tight text-gradient">StudySwap</span>

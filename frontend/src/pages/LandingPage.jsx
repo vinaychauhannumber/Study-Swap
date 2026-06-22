@@ -45,25 +45,30 @@ export default function LandingPage() {
   return (
     <div className="space-y-24 py-6">
       {/* Hero Section */}
-      <section className="relative text-center max-w-4xl mx-auto space-y-8 pt-10">
-        <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-indigo-950/45 border border-indigo-800/40 text-xs font-semibold text-indigo-300">
-          <Sparkles size={13} />
+      <section className="relative text-center max-w-4xl mx-auto space-y-8 pt-10 overflow-hidden">
+        {/* Animated Background Blobs */}
+        <div className="blob-indigo -top-20 -left-40 opacity-60" />
+        <div className="blob-purple -top-10 -right-32 opacity-50" />
+        <div className="blob-emerald top-40 left-1/2 -translate-x-1/2 opacity-40" />
+
+        <div className="animate-fade-in-down inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-indigo-950/45 border border-indigo-800/40 text-xs font-semibold text-indigo-300 animate-pulse-glow">
+          <Sparkles size={13} className="animate-float" />
           <span>Peer-to-Peer Student Academic Assistance Platform</span>
         </div>
         
-        <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-[1.1] font-display">
+        <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-[1.1] font-display animate-fade-in-up delay-100">
           Connect with skilled peers for <br />
-          <span className="text-gradient">academic collaboration</span>
+          <span className="text-gradient-animated">academic collaboration</span>
         </h1>
         
-        <p className="text-base md:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-base md:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed animate-fade-in-up delay-200">
           Need help preparing seminar reports, designing presentation slides, debugged scripts, or custom tutoring? Post a task and find verified student helpers instantly.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 animate-fade-in-up delay-300">
           <Link 
             to={user ? "/dashboard" : "/auth"}
-            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-xl shadow-indigo-600/20 flex items-center justify-center space-x-2 group"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-xl shadow-indigo-600/20 flex items-center justify-center space-x-2 group btn-ripple hover-scale"
           >
             <span>{user ? 'Go to Dashboard' : 'Get Started Now'}</span>
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
@@ -80,7 +85,7 @@ export default function LandingPage() {
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-16 max-w-3xl mx-auto">
           {stats.map((s, idx) => (
-            <div key={idx} className="glass p-5 rounded-2xl border border-slate-800 flex items-center space-x-4">
+            <div key={idx} className="glass p-5 rounded-2xl border border-slate-800 flex items-center space-x-4 hover-lift hover-shine hover-glow animate-fade-in-up" style={{ animationDelay: `${400 + idx * 150}ms` }}>
               <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
                 {s.icon}
               </div>
@@ -95,14 +100,14 @@ export default function LandingPage() {
 
       {/* Pathways / Dual Feature Cards */}
       <section className="space-y-12">
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-2 animate-fade-in-up">
           <h2 className="text-3xl font-bold font-display">A Dedicated Ecosystem for Students</h2>
           <p className="text-sm text-slate-400">Whether you need help or want to share your expertise, StudySwap has you covered.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Card 1: Clients */}
-          <div className="glass p-8 rounded-3xl border border-slate-800 flex flex-col justify-between hover:border-slate-700/60 transition group">
+          <div className="glass p-8 rounded-3xl border border-slate-800 flex flex-col justify-between hover:border-slate-700/60 transition group hover-lift hover-shine animate-fade-in-left delay-200">
             <div className="space-y-6">
               <div className="h-12 w-12 rounded-2xl bg-indigo-950/40 border border-indigo-800/40 flex items-center justify-center text-indigo-400">
                 <BookOpen size={24} />
@@ -134,7 +139,7 @@ export default function LandingPage() {
           </div>
 
           {/* Card 2: Helpers */}
-          <div className="glass p-8 rounded-3xl border border-slate-800 flex flex-col justify-between hover:border-slate-700/60 transition group">
+          <div className="glass p-8 rounded-3xl border border-slate-800 flex flex-col justify-between hover:border-slate-700/60 transition group hover-lift hover-shine animate-fade-in-right delay-300">
             <div className="space-y-6">
               <div className="h-12 w-12 rounded-2xl bg-emerald-950/40 border border-emerald-800/40 flex items-center justify-center text-emerald-400">
                 <MessageSquareCode size={24} />
@@ -169,14 +174,14 @@ export default function LandingPage() {
 
       {/* How it Works */}
       <section className="space-y-16">
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-2 animate-fade-in-up">
           <h2 className="text-3xl font-bold font-display">How StudySwap Works</h2>
           <p className="text-sm text-slate-400">Secure escrow collaboration flow from posting to release.</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((s, idx) => (
-            <div key={idx} className="glass p-6 rounded-2xl border border-slate-800 relative hover:border-slate-700 transition">
+            <div key={idx} className="glass p-6 rounded-2xl border border-slate-800 relative hover:border-slate-700 transition card-3d hover-glow animate-fade-in-up" style={{ animationDelay: `${idx * 150}ms` }}>
               <div className="text-3xl font-black font-display text-indigo-500/20 absolute top-4 right-4">{s.step}</div>
               <h3 className="text-sm font-bold font-display text-slate-200 mb-2 mt-4">{s.title}</h3>
               <p className="text-xs text-slate-400 leading-relaxed">{s.desc}</p>
@@ -187,10 +192,10 @@ export default function LandingPage() {
 
       {/* FAQ */}
       <section className="max-w-3xl mx-auto space-y-8">
-        <h2 className="text-3xl font-bold font-display text-center">Frequently Asked Questions</h2>
+        <h2 className="text-3xl font-bold font-display text-center animate-fade-in-up">Frequently Asked Questions</h2>
         <div className="space-y-4">
           {faqs.map((faq, i) => (
-            <div key={i} className="glass p-6 rounded-2xl border border-slate-800 space-y-2">
+            <div key={i} className="glass p-6 rounded-2xl border border-slate-800 space-y-2 hover-glow hover-lift animate-fade-in-up" style={{ animationDelay: `${i * 100}ms` }}>
               <h3 className="font-semibold text-slate-200 text-sm font-display">{faq.q}</h3>
               <p className="text-xs text-slate-400 leading-relaxed">{faq.a}</p>
             </div>

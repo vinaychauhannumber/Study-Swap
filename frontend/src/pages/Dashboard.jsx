@@ -143,9 +143,9 @@ export default function Dashboard() {
   const canEditDelete = (status) => ['open', 'bidding'].includes(status);
 
   return (
-    <div className="space-y-10 py-4">
+    <div className="space-y-10 py-4 page-enter">
       {/* Header Banner */}
-      <div className="glass p-6 md:p-8 rounded-3xl border border-slate-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+      <div className="glass p-6 md:p-8 rounded-3xl border border-slate-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 animate-fade-in-up hover-glow">
         <div className="space-y-1.5">
           <div className="text-xs font-semibold text-indigo-400 uppercase tracking-wider">{user.role} workspace</div>
           <h2 className="text-2xl md:text-3xl font-bold font-display text-white">Hello, {user.full_name}!</h2>
@@ -156,7 +156,7 @@ export default function Dashboard() {
         {user.role === 'client' ? (
           <Link 
             to="/post-task"
-            className="flex items-center space-x-2 px-5 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-lg shadow-indigo-600/20 transition shrink-0"
+            className="flex items-center space-x-2 px-5 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-lg shadow-indigo-600/20 transition shrink-0 btn-ripple hover-scale"
           >
             <PlusCircle size={15} />
             <span>Post New Task</span>
@@ -164,7 +164,7 @@ export default function Dashboard() {
         ) : (
           <Link 
             to="/browse"
-            className="flex items-center space-x-2 px-5 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-lg shadow-emerald-600/20 transition shrink-0"
+            className="flex items-center space-x-2 px-5 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-lg shadow-emerald-600/20 transition shrink-0 btn-ripple hover-scale"
           >
             <Briefcase size={15} />
             <span>Find Tasks to Bid</span>
@@ -175,7 +175,7 @@ export default function Dashboard() {
       {/* Metrics Row */}
       {user.role === 'client' ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div className="glass p-5 rounded-2xl border border-slate-800 flex items-center space-x-4">
+          <div className="glass p-5 rounded-2xl border border-slate-800 flex items-center space-x-4 hover-lift hover-shine animate-fade-in-up delay-200">
             <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-indigo-400">
               <Clock size={20} />
             </div>
@@ -186,7 +186,7 @@ export default function Dashboard() {
               <div className="text-[10px] text-slate-400 font-semibold uppercase">Active / Pending Tasks</div>
             </div>
           </div>
-          <div className="glass p-5 rounded-2xl border border-slate-800 flex items-center space-x-4">
+          <div className="glass p-5 rounded-2xl border border-slate-800 flex items-center space-x-4 hover-lift hover-shine animate-fade-in-up delay-300">
             <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-emerald-400">
               <CheckCircle size={20} />
             </div>
@@ -200,7 +200,7 @@ export default function Dashboard() {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <div className="glass p-5 rounded-2xl border border-slate-800 flex items-center space-x-4">
+          <div className="glass p-5 rounded-2xl border border-slate-800 flex items-center space-x-4 hover-lift hover-shine animate-fade-in-up delay-200">
             <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-emerald-400">
               <Award size={20} />
             </div>
@@ -209,7 +209,7 @@ export default function Dashboard() {
               <div className="text-[10px] text-slate-400 font-semibold uppercase">Overall Rating</div>
             </div>
           </div>
-          <div className="glass p-5 rounded-2xl border border-slate-800 flex items-center space-x-4">
+          <div className="glass p-5 rounded-2xl border border-slate-800 flex items-center space-x-4 hover-lift hover-shine animate-fade-in-up delay-300">
             <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-indigo-400">
               <BookmarkCheck size={20} />
             </div>
