@@ -245,7 +245,9 @@ export const AuthProvider = ({ children }) => {
       depositWallet,
       refreshUser,
       switchRole,
-      setUser
+      setUser,
+      forgotPassword,
+      resetPassword
     }}>
       {children}
     </AuthContext.Provider>
