@@ -77,26 +77,26 @@ export default function BrowseTasks() {
       {/* Search Header */}
       <form onSubmit={handleSearchSubmit} className="glass p-5 rounded-3xl border border-[#FFE5BF] flex flex-col sm:flex-row items-center gap-4">
         <div className="relative flex-1 w-full">
-          <Search className="absolute left-4 top-3.5 text-[#A69080]" size={18} />
+          <Search className="absolute left-4 top-3.5 text-black/70" size={18} />
           <input 
             type="text"
             placeholder="Search assignments, reports, graphic designs, slide topics..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 rounded-2xl bg-[#FFFAF3]/50 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E]"
+            className="w-full pl-12 pr-4 py-3 rounded-2xl bg-[#FFFAF3]/50 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black"
           />
         </div>
         <div className="flex w-full sm:w-auto items-center space-x-3">
           <button 
             type="submit"
-            className="flex-1 sm:flex-none px-6 py-3 rounded-2xl bg-[#3E362E] hover:bg-[#3E362E] text-[#3E362E] font-bold text-xs transition"
+            className="flex-1 sm:flex-none px-6 py-3 rounded-2xl bg-black hover:bg-black text-black font-bold text-xs transition"
           >
             Search
           </button>
           <button 
             type="button"
             onClick={() => setShowMobileFilters(!showMobileFilters)}
-            className="lg:hidden p-3 rounded-2xl bg-[#FFFAF3] border border-[#FFE5BF] text-[#3E362E]"
+            className="lg:hidden p-3 rounded-2xl bg-[#FFFAF3] border border-[#FFE5BF] text-black"
           >
             <Filter size={18} />
           </button>
@@ -109,13 +109,13 @@ export default function BrowseTasks() {
         {/* Left Side: Filter Sidebar (Desktop) */}
         <aside className="hidden lg:block glass p-6 rounded-3xl border border-[#FFE5BF] space-y-6">
           <div className="flex justify-between items-center pb-3 border-b border-[#FFE5BF]">
-            <h3 className="text-sm font-bold font-display flex items-center space-x-2 text-[#A69080]">
+            <h3 className="text-sm font-bold font-display flex items-center space-x-2 text-black/70">
               <SlidersHorizontal size={15} />
               <span>Filters</span>
             </h3>
             <button 
               onClick={clearFilters}
-              className="text-[10px] text-[#A69080] hover:text-[#3E362E] font-semibold transition"
+              className="text-[10px] text-black/70 hover:text-black font-semibold transition"
             >
               Clear all
             </button>
@@ -123,11 +123,11 @@ export default function BrowseTasks() {
 
           {/* Category */}
           <div className="space-y-2">
-            <label className="block text-xs font-semibold text-[#A69080]">Category</label>
+            <label className="block text-xs font-semibold text-black/70">Category</label>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full px-3 py-2 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E] font-medium"
+              className="w-full px-3 py-2 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black font-medium"
             >
               <option value="">All Categories</option>
               {categories.map((cat, idx) => (
@@ -138,11 +138,11 @@ export default function BrowseTasks() {
 
           {/* Status */}
           <div className="space-y-2">
-            <label className="block text-xs font-semibold text-[#A69080]">Task Status</label>
+            <label className="block text-xs font-semibold text-black/70">Task Status</label>
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value)}
-              className="w-full px-3 py-2 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E] font-medium"
+              className="w-full px-3 py-2 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black font-medium"
             >
               <option value="">Any Status</option>
               <option value="open">Open for Bids</option>
@@ -155,7 +155,7 @@ export default function BrowseTasks() {
 
           {/* Budget Range */}
           <div className="space-y-2">
-            <label className="block text-xs font-semibold text-[#A69080]">Budget (₹)</label>
+            <label className="block text-xs font-semibold text-black/70">Budget (₹)</label>
             <div className="grid grid-cols-2 gap-2">
               <input 
                 type="number"
@@ -163,7 +163,7 @@ export default function BrowseTasks() {
                 value={minBudget}
                 onChange={(e) => setMinBudget(e.target.value)}
                 onBlur={fetchTasks}
-                className="w-full px-3 py-2 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E]"
+                className="w-full px-3 py-2 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black"
               />
               <input 
                 type="number"
@@ -171,18 +171,18 @@ export default function BrowseTasks() {
                 value={maxBudget}
                 onChange={(e) => setMaxBudget(e.target.value)}
                 onBlur={fetchTasks}
-                className="w-full px-3 py-2 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E]"
+                className="w-full px-3 py-2 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black"
               />
             </div>
           </div>
 
           {/* Sorting */}
           <div className="space-y-2">
-            <label className="block text-xs font-semibold text-[#A69080]">Sort By</label>
+            <label className="block text-xs font-semibold text-black/70">Sort By</label>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="w-full px-3 py-2 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E] font-medium"
+              className="w-full px-3 py-2 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black font-medium"
             >
               <option value="newest">Newest First</option>
               <option value="budget_desc">Budget (High to Low)</option>
@@ -197,20 +197,20 @@ export default function BrowseTasks() {
             <div className="glass max-w-sm w-full rounded-3xl p-6 border border-[#FFE5BF] shadow-2xl relative space-y-6">
               <button 
                 onClick={() => setShowMobileFilters(false)}
-                className="absolute top-4 right-4 p-1.5 rounded-full hover:bg-[#FFF2DB] text-[#A69080]"
+                className="absolute top-4 right-4 p-1.5 rounded-full hover:bg-[#FFF2DB] text-black/70"
               >
                 <X size={18} />
               </button>
 
-              <h3 className="text-lg font-bold font-display text-[#A69080]">Filters</h3>
+              <h3 className="text-lg font-bold font-display text-black/70">Filters</h3>
               
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <label className="block text-xs font-semibold text-[#A69080]">Category</label>
+                  <label className="block text-xs font-semibold text-black/70">Category</label>
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] text-xs text-[#3E362E]"
+                    className="w-full px-3 py-2 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] text-xs text-black"
                   >
                     <option value="">All Categories</option>
                     {categories.map((cat, idx) => (
@@ -220,11 +220,11 @@ export default function BrowseTasks() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="block text-xs font-semibold text-[#A69080]">Status</label>
+                  <label className="block text-xs font-semibold text-black/70">Status</label>
                   <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] text-xs text-[#3E362E]"
+                    className="w-full px-3 py-2 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] text-xs text-black"
                   >
                     <option value="">Any Status</option>
                     <option value="open">Open</option>
@@ -233,21 +233,21 @@ export default function BrowseTasks() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="block text-xs font-semibold text-[#A69080]">Budget Range</label>
+                  <label className="block text-xs font-semibold text-black/70">Budget Range</label>
                   <div className="grid grid-cols-2 gap-2">
                     <input 
                       type="number"
                       placeholder="Min"
                       value={minBudget}
                       onChange={(e) => setMinBudget(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] text-xs text-[#3E362E]"
+                      className="w-full px-3 py-2 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] text-xs text-black"
                     />
                     <input 
                       type="number"
                       placeholder="Max"
                       value={maxBudget}
                       onChange={(e) => setMaxBudget(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] text-xs text-[#3E362E]"
+                      className="w-full px-3 py-2 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] text-xs text-black"
                     />
                   </div>
                 </div>
@@ -256,13 +256,13 @@ export default function BrowseTasks() {
               <div className="flex gap-4">
                 <button 
                   onClick={() => { clearFilters(); setShowMobileFilters(false); }}
-                  className="flex-1 py-2.5 rounded-full bg-[#FFFAF3] border border-[#FFE5BF] text-xs font-bold text-[#A69080]"
+                  className="flex-1 py-2.5 rounded-full bg-[#FFFAF3] border border-[#FFE5BF] text-xs font-bold text-black/70"
                 >
                   Clear All
                 </button>
                 <button 
                   onClick={() => { fetchTasks(); setShowMobileFilters(false); }}
-                  className="flex-1 py-2.5 rounded-full bg-[#3E362E] text-xs font-bold text-[#3E362E]"
+                  className="flex-1 py-2.5 rounded-full bg-black text-xs font-bold text-black"
                 >
                   Apply Filters
                 </button>
@@ -274,8 +274,8 @@ export default function BrowseTasks() {
         {/* Right Side: Task Grid */}
         <section className="lg:col-span-3 space-y-6">
           {loading ? (
-            <div className="flex justify-center items-center py-20 text-[#A69080]">
-              <div className="animate-spin rounded-full h-8 w-8 border-4 border-[#3E362E] border-t-transparent mr-2"></div>
+            <div className="flex justify-center items-center py-20 text-black/70">
+              <div className="animate-spin rounded-full h-8 w-8 border-4 border-black border-t-transparent mr-2"></div>
               <span className="font-semibold text-sm">Querying active marketplace...</span>
             </div>
           ) : error ? (
@@ -284,8 +284,8 @@ export default function BrowseTasks() {
             </div>
           ) : tasks.length === 0 ? (
             <div className="glass p-16 text-center rounded-3xl border border-[#FFE5BF]/80 space-y-3">
-              <div className="text-[#A69080] font-semibold text-sm">No tasks matched your search parameters.</div>
-              <p className="text-xs text-[#A69080]">Try adjusting the search criteria or category filter.</p>
+              <div className="text-black/70 font-semibold text-sm">No tasks matched your search parameters.</div>
+              <p className="text-xs text-black/70">Try adjusting the search criteria or category filter.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -310,26 +310,26 @@ export default function BrowseTasks() {
 
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-[10px] font-semibold bg-[#FFFAF3] border border-[#FFE5BF] text-[#A69080] px-2 py-0.5 rounded">
+                      <span className="text-[10px] font-semibold bg-[#FFFAF3] border border-[#FFE5BF] text-black/70 px-2 py-0.5 rounded">
                         {task.category}
                       </span>
-                      <span className="text-[10px] text-[#A69080] font-semibold flex items-center space-x-1">
-                        <MessageSquare size={12} className="text-[#A69080]" />
+                      <span className="text-[10px] text-black/70 font-semibold flex items-center space-x-1">
+                        <MessageSquare size={12} className="text-black/70" />
                         <span>{task.bid_count} bids</span>
                       </span>
                     </div>
 
                     <div className="space-y-1.5">
-                      <h4 className="font-bold text-[#3E362E] group-hover:text-[#A69080] transition-colors text-sm line-clamp-1">
+                      <h4 className="font-bold text-black group-hover:text-black/70 transition-colors text-sm line-clamp-1">
                         {task.title}
                       </h4>
-                      <p className="text-xs text-[#A69080] line-clamp-2 leading-relaxed">
+                      <p className="text-xs text-black/70 line-clamp-2 leading-relaxed">
                         {task.description}
                       </p>
                     </div>
 
-                    <div className="flex items-center space-x-2 text-[10px] text-[#A69080]">
-                      <GraduationCap size={13} className="text-[#A69080] shrink-0" />
+                    <div className="flex items-center space-x-2 text-[10px] text-black/70">
+                      <GraduationCap size={13} className="text-black/70 shrink-0" />
                       <span className="truncate">{task.client_name} ({task.client_college})</span>
                     </div>
                   </div>
@@ -337,16 +337,16 @@ export default function BrowseTasks() {
                   <div className="flex justify-between items-center pt-4 mt-4 border-t border-[#FFE5BF]">
                     <div className="flex items-center space-x-4">
                       <div>
-                        <div className="text-[9px] text-[#A69080] font-semibold uppercase">Budget</div>
-                        <div className="text-xs font-bold text-[#3E362E] flex items-center">
+                        <div className="text-[9px] text-black/70 font-semibold uppercase">Budget</div>
+                        <div className="text-xs font-bold text-black flex items-center">
                           <IndianRupee size={12} />
                           <span>{task.budget}</span>
                         </div>
                       </div>
                       <div>
-                        <div className="text-[9px] text-[#A69080] font-semibold uppercase">Time left</div>
-                        <div className="text-xs font-semibold text-[#3E362E] flex items-center space-x-1">
-                          <Clock size={12} className="text-[#A69080]" />
+                        <div className="text-[9px] text-black/70 font-semibold uppercase">Time left</div>
+                        <div className="text-xs font-semibold text-black flex items-center space-x-1">
+                          <Clock size={12} className="text-black/70" />
                           <span>{task.deadline}</span>
                         </div>
                       </div>
@@ -360,7 +360,7 @@ export default function BrowseTasks() {
                     ) : (
                       <Link 
                         to={`/tasks/${task.id}`}
-                        className="p-2 rounded-xl bg-[#FFFAF3] hover:bg-[#FFFAF3] border border-[#FFE5BF] text-xs font-bold text-[#3E362E] flex items-center space-x-1.5 transition"
+                        className="p-2 rounded-xl bg-[#FFFAF3] hover:bg-[#FFFAF3] border border-[#FFE5BF] text-xs font-bold text-black flex items-center space-x-1.5 transition"
                       >
                         <span>Bid Details</span>
                         <ArrowUpRight size={13} />

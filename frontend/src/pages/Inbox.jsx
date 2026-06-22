@@ -333,19 +333,19 @@ export default function Inbox() {
         
         {/* Search header */}
         <div className="p-4 border-b border-[#FFE5BF] space-y-3.5">
-          <h2 className="text-base font-bold text-[#3E362E] font-display flex items-center space-x-2">
-            <MessageCircle size={18} className="text-[#A69080]" />
+          <h2 className="text-base font-bold text-black font-display flex items-center space-x-2">
+            <MessageCircle size={18} className="text-black/70" />
             <span>Chat Workspace</span>
           </h2>
           
           <div className="relative">
-            <Search size={14} className="absolute left-3.5 top-3 text-[#A69080]" />
+            <Search size={14} className="absolute left-3.5 top-3 text-black/70" />
             <input 
               type="text"
               placeholder="Search chat or task..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] text-xs text-[#3E362E] focus:outline-none focus:border-[#3E362E] transition placeholder:text-[#A69080]"
+              className="w-full pl-9 pr-4 py-2 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] text-xs text-black focus:outline-none focus:border-black transition placeholder:text-black/70"
             />
           </div>
         </div>
@@ -353,12 +353,12 @@ export default function Inbox() {
         {/* Conversation List */}
         <div className="flex-1 overflow-y-auto p-2 space-y-1">
           {loadingConv ? (
-            <div className="text-center py-10 text-[#A69080]">
-              <div className="animate-spin rounded-full h-5 w-5 border-2 border-[#3E362E] border-t-transparent mx-auto mb-2"></div>
+            <div className="text-center py-10 text-black/70">
+              <div className="animate-spin rounded-full h-5 w-5 border-2 border-black border-t-transparent mx-auto mb-2"></div>
               <span className="text-[10px] font-semibold">Loading inbox...</span>
             </div>
           ) : filteredConversations.length === 0 ? (
-            <div className="text-center py-12 text-[#A69080] text-xs px-4">
+            <div className="text-center py-12 text-black/70 text-xs px-4">
               {searchQuery ? 'No matching conversations' : 'No active chats found. Browse tasks and submit proposal bids to start.'}
             </div>
           ) : (
@@ -373,7 +373,7 @@ export default function Inbox() {
                   onClick={() => setActiveConversation(c)}
                   className={`w-full text-left p-3 rounded-2xl flex items-start space-x-3 transition relative group ${
                     isSelected 
-                      ? 'bg-[#3E362E]/10 border border-[#3E362E]/30' 
+                      ? 'bg-black/10 border border-black/30' 
                       : 'hover:bg-[#FFFAF3]/40 border border-transparent hover:border-[#FFE5BF]/50'
                   }`}
                 >
@@ -386,41 +386,41 @@ export default function Inbox() {
                         className="w-9 h-9 rounded-full object-cover border border-[#FFE5BF]"
                       />
                     ) : (
-                      <div className="w-9 h-9 rounded-full bg-[#FFFAF3]/40 border border-[#FFE5BF] flex items-center justify-center text-[#A69080] font-bold text-xs">
+                      <div className="w-9 h-9 rounded-full bg-[#FFFAF3]/40 border border-[#FFE5BF] flex items-center justify-center text-black/70 font-bold text-xs">
                         {c.partnerName.charAt(0)}
                       </div>
                     )}
                     <span className={`absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-[#070a13] ${
-                      c.partnerRole === 'helper' ? 'bg-[#3E362E]' : 'bg-[#3E362E]'
+                      c.partnerRole === 'helper' ? 'bg-black' : 'bg-black'
                     }`} />
                   </div>
 
                   {/* Context preview */}
                   <div className="flex-1 min-w-0 space-y-0.5">
                     <div className="flex justify-between items-baseline gap-1">
-                      <h4 className="text-xs font-bold text-[#3E362E] truncate group-hover:text-[#A69080] transition-colors">
+                      <h4 className="text-xs font-bold text-black truncate group-hover:text-black/70 transition-colors">
                         {c.partnerName}
                       </h4>
-                      <span className="text-[8px] text-[#A69080] font-medium whitespace-nowrap">
+                      <span className="text-[8px] text-black/70 font-medium whitespace-nowrap">
                         {new Date(c.lastMessageTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </span>
                     </div>
                     
                     {/* Task Title */}
-                    <div className="text-[9px] text-[#A69080] font-medium truncate flex items-center space-x-1">
-                      <Folder size={9} className="text-[#A69080]/70" />
+                    <div className="text-[9px] text-black/70 font-medium truncate flex items-center space-x-1">
+                      <Folder size={9} className="text-black/70/70" />
                       <span>{c.taskTitle}</span>
                     </div>
 
                     {/* Preview text */}
-                    <p className={`text-[10px] truncate leading-normal ${c.unreadCount > 0 ? 'text-[#3E362E] font-semibold' : 'text-[#A69080]'}`}>
+                    <p className={`text-[10px] truncate leading-normal ${c.unreadCount > 0 ? 'text-black font-semibold' : 'text-black/70'}`}>
                       {c.lastSenderId === user.id ? 'You: ' : ''}{c.lastMessage}
                     </p>
                   </div>
 
                   {/* Unread bubble count */}
                   {c.unreadCount > 0 && (
-                    <span className="absolute right-3 bottom-3 flex h-4.5 min-w-4.5 px-1 items-center justify-center rounded-full bg-[#3E362E] text-[8px] font-bold text-[#3E362E] shadow-lg shadow-[#FFE5BF]/30">
+                    <span className="absolute right-3 bottom-3 flex h-4.5 min-w-4.5 px-1 items-center justify-center rounded-full bg-black text-[8px] font-bold text-black shadow-lg shadow-[#FFE5BF]/30">
                       {c.unreadCount}
                     </span>
                   )}
@@ -445,20 +445,20 @@ export default function Inbox() {
                     className="w-9 h-9 rounded-full object-cover border border-[#FFE5BF]"
                   />
                 ) : (
-                  <div className="w-9 h-9 rounded-full bg-[#FFFAF3]/40 border border-[#FFE5BF] flex items-center justify-center text-[#A69080] font-bold text-xs">
+                  <div className="w-9 h-9 rounded-full bg-[#FFFAF3]/40 border border-[#FFE5BF] flex items-center justify-center text-black/70 font-bold text-xs">
                     {activeConversation.partnerName.charAt(0)}
                   </div>
                 )}
                 <div className="space-y-0.5 min-w-0">
-                  <h3 className="text-xs font-bold text-[#3E362E] truncate">{activeConversation.partnerName}</h3>
-                  <Link to={`/tasks/${activeConversation.taskId}`} className="text-[10px] text-[#A69080] hover:underline hover:text-[#3E362E] transition flex items-center space-x-1">
-                    <Folder size={10} className="text-[#A69080]" />
+                  <h3 className="text-xs font-bold text-black truncate">{activeConversation.partnerName}</h3>
+                  <Link to={`/tasks/${activeConversation.taskId}`} className="text-[10px] text-black/70 hover:underline hover:text-black transition flex items-center space-x-1">
+                    <Folder size={10} className="text-black/70" />
                     <span className="truncate">Regarding: {activeConversation.taskTitle}</span>
                   </Link>
                 </div>
               </div>
 
-              <div className="text-[9px] text-[#A69080] bg-[#FFFAF3]/30 px-2 py-0.5 rounded font-bold uppercase tracking-wider shrink-0">
+              <div className="text-[9px] text-black/70 bg-[#FFFAF3]/30 px-2 py-0.5 rounded font-bold uppercase tracking-wider shrink-0">
                 Secure Escrow Chat
               </div>
             </div>
@@ -466,12 +466,12 @@ export default function Inbox() {
             {/* Message Thread */}
             <div className="flex-1 p-5 overflow-y-auto space-y-3 bg-[#FFFAF3]/10">
               {loadingMessages ? (
-                <div className="text-center py-20 text-[#A69080]">
-                  <div className="animate-spin rounded-full h-6 w-6 border-2 border-[#3E362E] border-t-transparent mx-auto mb-2"></div>
+                <div className="text-center py-20 text-black/70">
+                  <div className="animate-spin rounded-full h-6 w-6 border-2 border-black border-t-transparent mx-auto mb-2"></div>
                   <span className="text-xs">Fetching message history...</span>
                 </div>
               ) : messages.length === 0 ? (
-                <div className="text-center py-20 text-[#A69080] text-xs font-medium space-y-2">
+                <div className="text-center py-20 text-black/70 text-xs font-medium space-y-2">
                   <MessageSquare size={20} className="mx-auto text-[#FFE5BF] animate-bounce" />
                   <p>Send a secure message to initiate discussion.</p>
                 </div>
@@ -495,14 +495,14 @@ export default function Inbox() {
                         <div key={msg.id} className="flex justify-center my-4 w-full">
                           <div className="w-full max-w-md rounded-2xl border border-[#FFE5BF]/30 bg-gradient-to-b from-[#0f142b] to-[#070915] p-5 shadow-2xl shadow-[#FFE5BF]/50 space-y-4 backdrop-blur-xl">
                             <div className="flex items-center justify-between border-b border-[#FFE5BF]/60 pb-3">
-                              <div className="flex items-center space-x-2 text-[#A69080]">
+                              <div className="flex items-center space-x-2 text-black/70">
                                 <Sparkles size={16} />
                                 <span className="text-[10px] font-bold tracking-wider uppercase font-display">Study Proposal Received</span>
                               </div>
                               <span className={`text-[9px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider ${
-                                bidStatus === 'accepted' ? 'bg-[#FFFAF3]/50 text-[#3E362E] border border-[#FFE5BF]/50' :
+                                bidStatus === 'accepted' ? 'bg-[#FFFAF3]/50 text-black border border-[#FFE5BF]/50' :
                                 bidStatus === 'rejected' ? 'bg-red-950/50 text-red-400 border border-red-900/50' :
-                                'bg-[#FFFAF3]/50 text-[#A69080] border border-[#FFE5BF]/50'
+                                'bg-[#FFFAF3]/50 text-black/70 border border-[#FFE5BF]/50'
                               }`}>
                                 {bidStatus === 'pending' ? '⏳ Pending' : bidStatus === 'accepted' ? '✅ Accepted' : '❌ Declined'}
                               </span>
@@ -510,18 +510,18 @@ export default function Inbox() {
 
                             <div className="grid grid-cols-2 gap-3">
                               <div className="bg-[#0c1024]/80 border border-[#FFE5BF]/40 p-3 rounded-xl space-y-1">
-                                <span className="text-[9px] text-[#A69080] uppercase block font-bold">Budget Offer</span>
-                                <strong className="text-sm text-[#3E362E] font-extrabold font-display">₹{proposalData.amount}</strong>
+                                <span className="text-[9px] text-black/70 uppercase block font-bold">Budget Offer</span>
+                                <strong className="text-sm text-black font-extrabold font-display">₹{proposalData.amount}</strong>
                               </div>
                               <div className="bg-[#0c1024]/80 border border-[#FFE5BF]/40 p-3 rounded-xl space-y-1">
-                                <span className="text-[9px] text-[#A69080] uppercase block font-bold">Est. Delivery</span>
-                                <strong className="text-sm text-[#3E362E] font-extrabold font-display">{proposalData.deliveryHours} Hours</strong>
+                                <span className="text-[9px] text-black/70 uppercase block font-bold">Est. Delivery</span>
+                                <strong className="text-sm text-black font-extrabold font-display">{proposalData.deliveryHours} Hours</strong>
                               </div>
                             </div>
 
                             <div className="space-y-1.5">
-                              <span className="text-[9px] text-[#A69080] uppercase block font-bold">Proposal Statement</span>
-                              <p className="text-xs text-[#3E362E] bg-[#FFFAF3]/30 border border-[#FFE5BF]/40 p-3 rounded-xl leading-relaxed italic">
+                              <span className="text-[9px] text-black/70 uppercase block font-bold">Proposal Statement</span>
+                              <p className="text-xs text-black bg-[#FFFAF3]/30 border border-[#FFE5BF]/40 p-3 rounded-xl leading-relaxed italic">
                                 "{proposalData.proposalMessage}"
                               </p>
                             </div>
@@ -531,7 +531,7 @@ export default function Inbox() {
                                 <button
                                   type="button"
                                   onClick={() => handleAcceptBid(proposalData.bidId)}
-                                  className="flex-1 py-2 rounded-xl bg-gradient-to-r from-[#3E362E] to-teal-600 hover:from-[#3E362E] hover:to-teal-500 text-[#3E362E] text-xs font-bold transition shadow-lg shadow-[#FFE5BF]/30"
+                                  className="flex-1 py-2 rounded-xl bg-gradient-to-r from-black to-teal-600 hover:from-black hover:to-teal-500 text-black text-xs font-bold transition shadow-lg shadow-[#FFE5BF]/30"
                                 >
                                   Accept Proposal
                                 </button>
@@ -545,7 +545,7 @@ export default function Inbox() {
                               </div>
                             )}
                             
-                            <div className="text-[8px] text-[#A69080] text-center font-medium">
+                            <div className="text-[8px] text-black/70 text-center font-medium">
                               Submitted at {new Date(msg.created_at).toLocaleString()}
                             </div>
                           </div>
@@ -556,27 +556,27 @@ export default function Inbox() {
 
                   return (
                     <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
-                      <div className={`max-w-[70%] rounded-2xl p-3.5 space-y-1 ${isMe ? 'bg-[#3E362E] text-[#3E362E] rounded-tr-none' : 'bg-[#FFFAF3] border border-[#FFE5BF] text-[#3E362E] rounded-tl-none'}`}>
+                      <div className={`max-w-[70%] rounded-2xl p-3.5 space-y-1 ${isMe ? 'bg-black text-black rounded-tr-none' : 'bg-[#FFFAF3] border border-[#FFE5BF] text-black rounded-tl-none'}`}>
                         {msg.content && <p className="text-xs leading-relaxed whitespace-pre-wrap">{msg.content}</p>}
                         {msg.file_url && (
                           <a 
                             href={`${BACKEND_URL}${msg.file_url}`}
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="flex items-center space-x-2 p-2.5 rounded-xl bg-black/30 text-[#3E362E] hover:text-[#3E362E] transition text-[10px] font-medium max-w-full"
+                            className="flex items-center space-x-2 p-2.5 rounded-xl bg-black/30 text-black hover:text-black transition text-[10px] font-medium max-w-full"
                           >
                             <FileText size={14} />
                             <span className="truncate">{msg.file_name}</span>
                           </a>
                         )}
-                        <div className="flex items-center justify-end space-x-1 text-[8px] text-[#A69080]/80 pt-0.5">
+                        <div className="flex items-center justify-end space-x-1 text-[8px] text-black/70/80 pt-0.5">
                           <span>
                             {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                           </span>
                           {isMe && (
                             <CheckCheck 
                               size={11} 
-                              className={msg.is_read ? 'text-[#3E362E]' : 'text-[#A69080]'} 
+                              className={msg.is_read ? 'text-black' : 'text-black/70'} 
                             />
                           )}
                         </div>
@@ -616,7 +616,7 @@ export default function Inbox() {
                 <button 
                   type="button" 
                   disabled={uploading || isLocked}
-                  className="p-2.5 rounded-xl hover:bg-[#FFFAF3] border border-[#FFE5BF] text-[#A69080] hover:text-[#A69080] transition disabled:opacity-40 disabled:hover:text-[#A69080]"
+                  className="p-2.5 rounded-xl hover:bg-[#FFFAF3] border border-[#FFE5BF] text-black/70 hover:text-black/70 transition disabled:opacity-40 disabled:hover:text-black/70"
                   title="Share Reference file"
                 >
                   <Paperclip size={16} />
@@ -628,12 +628,12 @@ export default function Inbox() {
                 value={newMessage}
                 onChange={handleInputChange}
                 disabled={uploading || isLocked}
-                className="flex-1 px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-[11px] text-[#3E362E] disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-[11px] text-black disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <button 
                 type="submit"
                 disabled={isLocked}
-                className="p-2.5 rounded-xl bg-[#3E362E] hover:bg-[#3E362E] text-[#3E362E] transition shrink-0 disabled:opacity-40 disabled:hover:bg-[#3E362E]"
+                className="p-2.5 rounded-xl bg-black hover:bg-black text-black transition shrink-0 disabled:opacity-40 disabled:hover:bg-black"
               >
                 <Send size={15} />
               </button>
@@ -641,12 +641,12 @@ export default function Inbox() {
           </>
         ) : (
           <div className="flex-1 flex flex-col justify-center items-center p-8 text-center space-y-4">
-            <div className="w-16 h-16 rounded-full bg-[#FFFAF3]/30 border border-[#FFE5BF] flex items-center justify-center text-[#A69080] shadow-xl shadow-[#FFE5BF]/20 animate-pulse">
+            <div className="w-16 h-16 rounded-full bg-[#FFFAF3]/30 border border-[#FFE5BF] flex items-center justify-center text-black/70 shadow-xl shadow-[#FFE5BF]/20 animate-pulse">
               <MessageSquare size={28} />
             </div>
             <div className="space-y-1 max-w-sm">
-              <h3 className="text-sm font-bold text-[#3E362E] font-display">Select a conversation</h3>
-              <p className="text-xs text-[#A69080] leading-normal">
+              <h3 className="text-sm font-bold text-black font-display">Select a conversation</h3>
+              <p className="text-xs text-black/70 leading-normal">
                 Choose a conversation thread from the left list to start real-time messaging, review document attachments, and check progress details.
               </p>
             </div>

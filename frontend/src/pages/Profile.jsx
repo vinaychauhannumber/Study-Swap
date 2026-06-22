@@ -108,8 +108,8 @@ export default function Profile() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center py-20 text-[#A69080]">
-        <div className="animate-spin rounded-full h-8 w-8 border-4 border-[#3E362E] border-t-transparent mr-2"></div>
+      <div className="flex justify-center items-center py-20 text-black/70">
+        <div className="animate-spin rounded-full h-8 w-8 border-4 border-black border-t-transparent mr-2"></div>
         <span className="font-semibold text-sm">Mapping scholar records...</span>
       </div>
     );
@@ -121,7 +121,7 @@ export default function Profile() {
         <div className="p-4 rounded-xl bg-rose-100/20 border border-rose-300/50 text-rose-600 text-xs">
           {error || 'User profile not found.'}
         </div>
-        <Link to="/" className="inline-block text-xs text-[#A69080] hover:underline">
+        <Link to="/" className="inline-block text-xs text-black/70 hover:underline">
           Return to dashboard
         </Link>
       </div>
@@ -138,7 +138,7 @@ export default function Profile() {
       <div className="glass p-6 md:p-8 rounded-3xl border border-[#FFE5BF] flex flex-col md:flex-row gap-8 items-center md:items-start relative overflow-hidden">
         
         {/* Glow */}
-        <div className="absolute top-0 right-0 w-48 h-48 bg-[#3E362E]/5 rounded-full blur-3xl -mr-10 -mt-10"></div>
+        <div className="absolute top-0 right-0 w-48 h-48 bg-black/5 rounded-full blur-3xl -mr-10 -mt-10"></div>
 
         {/* Profile Pic Widget */}
         <div className="relative shrink-0 group">
@@ -149,20 +149,20 @@ export default function Profile() {
               className="w-28 h-28 rounded-3xl border border-[#FFE5BF] object-cover"
             />
           ) : (
-            <div className="w-28 h-28 rounded-3xl bg-[#FFFAF3]/50 border border-[#FFE5BF] flex items-center justify-center text-[#A69080] text-3xl font-black font-display">
+            <div className="w-28 h-28 rounded-3xl bg-[#FFFAF3]/50 border border-[#FFE5BF] flex items-center justify-center text-black/70 text-3xl font-black font-display">
               {profileUser.full_name.charAt(0)}
             </div>
           )}
 
           {isMe && (
-            <label className="absolute inset-0 bg-black/70 rounded-3xl opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center cursor-pointer text-[#3E362E] text-[10px] font-bold">
+            <label className="absolute inset-0 bg-black/70 rounded-3xl opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center cursor-pointer text-black text-[10px] font-bold">
               <input 
                 type="file" 
                 onChange={(e) => handleSampleUpload(e, 'profile_picture')}
                 className="hidden"
                 disabled={uploadingPic}
               />
-              <Image size={16} className="mb-1 text-[#A69080]" />
+              <Image size={16} className="mb-1 text-black/70" />
               <span>{uploadingPic ? 'Uploading...' : 'Update Avatar'}</span>
             </label>
           )}
@@ -172,19 +172,19 @@ export default function Profile() {
         <div className="flex-1 space-y-4 text-center md:text-left">
           <div className="space-y-1">
             <div className="flex flex-col md:flex-row items-center gap-3">
-              <h2 className="text-2xl font-bold font-display text-[#3E362E]">{profileUser.full_name}</h2>
-              <span className="text-[9px] font-bold bg-[#FFFAF3] border border-[#FFE5BF] text-[#A69080] px-2 py-0.5 rounded uppercase tracking-wider">
+              <h2 className="text-2xl font-bold font-display text-black">{profileUser.full_name}</h2>
+              <span className="text-[9px] font-bold bg-[#FFFAF3] border border-[#FFE5BF] text-black/70 px-2 py-0.5 rounded uppercase tracking-wider">
                 {profileUser.role} Account
               </span>
             </div>
             
-            <p className="text-xs text-[#3E362E] font-semibold flex items-center justify-center md:justify-start space-x-1">
+            <p className="text-xs text-black font-semibold flex items-center justify-center md:justify-start space-x-1">
               <GraduationCap size={15} />
               <span>{profileUser.college} • {profileUser.course} ({profileUser.academic_year})</span>
             </p>
           </div>
 
-          <p className="text-xs text-[#A69080] max-w-2xl leading-relaxed whitespace-pre-wrap">
+          <p className="text-xs text-black/70 max-w-2xl leading-relaxed whitespace-pre-wrap">
             {profileUser.bio || 'This student has not updated their bio details yet.'}
           </p>
 
@@ -192,7 +192,7 @@ export default function Profile() {
           {isMe && !isEditing && (
             <button 
               onClick={() => setIsEditing(true)}
-              className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-[#FFFAF3] hover:bg-[#FFFAF3] border border-[#FFE5BF] text-xs font-semibold text-[#3E362E] hover:text-[#3E362E] transition"
+              className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-[#FFFAF3] hover:bg-[#FFFAF3] border border-[#FFE5BF] text-xs font-semibold text-black hover:text-black transition"
             >
               <Settings2 size={13} />
               <span>Edit Scholar Profile</span>
@@ -203,13 +203,13 @@ export default function Profile() {
         {/* Rating Testimonials Score */}
         <div className="flex flex-row md:flex-col items-center justify-center gap-4 shrink-0 p-4 rounded-2xl bg-[#FFFAF3]/60 border border-slate-850">
           <div className="text-center">
-            <div className="text-2xl font-black font-display text-[#3E362E]">{profileUser.rating?.toFixed(1)} ★</div>
-            <div className="text-[9px] text-[#A69080] font-semibold uppercase tracking-wider">Average Rating</div>
+            <div className="text-2xl font-black font-display text-black">{profileUser.rating?.toFixed(1)} ★</div>
+            <div className="text-[9px] text-black/70 font-semibold uppercase tracking-wider">Average Rating</div>
           </div>
           <div className="w-px md:w-8 h-8 md:h-px bg-[#FFF2DB]"></div>
           <div className="text-center">
-            <div className="text-xl font-bold font-display text-[#3E362E]">{profileUser.completed_tasks}</div>
-            <div className="text-[9px] text-[#A69080] font-semibold uppercase tracking-wider">Tasks Done</div>
+            <div className="text-xl font-bold font-display text-black">{profileUser.completed_tasks}</div>
+            <div className="text-[9px] text-black/70 font-semibold uppercase tracking-wider">Tasks Done</div>
           </div>
         </div>
       </div>
@@ -221,16 +221,16 @@ export default function Profile() {
         <section className="space-y-6">
           {/* Skills list */}
           <div className="glass p-6 rounded-3xl border border-[#FFE5BF] space-y-4">
-            <h3 className="text-xs font-bold font-display text-[#A69080] uppercase tracking-wider flex items-center space-x-2 pb-2 border-b border-[#FFE5BF]">
+            <h3 className="text-xs font-bold font-display text-black/70 uppercase tracking-wider flex items-center space-x-2 pb-2 border-b border-[#FFE5BF]">
               <Code size={14} />
               <span>Subject Expertise</span>
             </h3>
             <div className="flex flex-wrap gap-2 pt-1">
               {skillsArray.length === 0 ? (
-                <span className="text-xs text-[#A69080]">No skill areas verified.</span>
+                <span className="text-xs text-black/70">No skill areas verified.</span>
               ) : (
                 skillsArray.map((skill, idx) => (
-                  <span key={idx} className="text-[10px] font-medium bg-[#FFFAF3]/20 border border-[#FFE5BF]/30 text-[#3E362E] px-2.5 py-1 rounded-full">
+                  <span key={idx} className="text-[10px] font-medium bg-[#FFFAF3]/20 border border-[#FFE5BF]/30 text-black px-2.5 py-1 rounded-full">
                     {skill}
                   </span>
                 ))
@@ -241,7 +241,7 @@ export default function Profile() {
           {/* Handwriting Verification (crucial for exam notes, paper reports) */}
           {profileUser.role === 'helper' && (
             <div className="glass p-6 rounded-3xl border border-[#FFE5BF] space-y-4">
-              <h3 className="text-xs font-bold font-display text-[#A69080] uppercase tracking-wider flex items-center space-x-2 pb-2 border-b border-[#FFE5BF]">
+              <h3 className="text-xs font-bold font-display text-black/70 uppercase tracking-wider flex items-center space-x-2 pb-2 border-b border-[#FFE5BF]">
                 <FileText size={14} />
                 <span>Handwriting authenticity sample</span>
               </h3>
@@ -254,7 +254,7 @@ export default function Profile() {
                     className="w-full h-40 object-cover rounded-2xl border border-[#FFE5BF]"
                   />
                   {isMe && (
-                    <label className="block text-center text-[10px] font-semibold text-[#A69080] hover:text-[#3E362E] cursor-pointer pt-1">
+                    <label className="block text-center text-[10px] font-semibold text-black/70 hover:text-black cursor-pointer pt-1">
                       <input 
                         type="file" 
                         onChange={(e) => handleSampleUpload(e, 'handwriting_sample')}
@@ -267,9 +267,9 @@ export default function Profile() {
                 </div>
               ) : (
                 <div className="text-center py-6 border border-dashed border-slate-850 rounded-2xl space-y-3">
-                  <span className="text-[11px] text-[#A69080] block font-medium">No handwriting sample verified.</span>
+                  <span className="text-[11px] text-black/70 block font-medium">No handwriting sample verified.</span>
                   {isMe && (
-                    <label className="inline-block px-4 py-2 rounded-xl bg-[#FFFAF3] hover:bg-[#FFFAF3] border border-[#FFE5BF] text-[10px] font-bold text-[#3E362E] hover:text-[#3E362E] cursor-pointer transition">
+                    <label className="inline-block px-4 py-2 rounded-xl bg-[#FFFAF3] hover:bg-[#FFFAF3] border border-[#FFE5BF] text-[10px] font-bold text-black hover:text-black cursor-pointer transition">
                       <input 
                         type="file" 
                         onChange={(e) => handleSampleUpload(e, 'handwriting_sample')}
@@ -289,58 +289,58 @@ export default function Profile() {
         <section className="lg:col-span-2 space-y-6">
           {isEditing ? (
             <form onSubmit={handleProfileSave} className="glass p-6 md:p-8 rounded-3xl border border-[#FFE5BF]/30 space-y-4">
-              <h3 className="text-sm font-bold font-display text-[#A69080]">Edit Scholar Profile details</h3>
+              <h3 className="text-sm font-bold font-display text-black/70">Edit Scholar Profile details</h3>
               
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[10px] font-semibold text-[#A69080] mb-1">Full Name</label>
+                  <label className="block text-[10px] font-semibold text-black/70 mb-1">Full Name</label>
                   <input 
                     type="text"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="w-full px-3 py-1.5 rounded-xl bg-[#FFFAF3] border border-[#FFE5BF] text-xs text-[#3E362E] focus:outline-none"
+                    className="w-full px-3 py-1.5 rounded-xl bg-[#FFFAF3] border border-[#FFE5BF] text-xs text-black focus:outline-none"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-semibold text-[#A69080] mb-1">Subject Skills (Comma-separated)</label>
+                  <label className="block text-[10px] font-semibold text-black/70 mb-1">Subject Skills (Comma-separated)</label>
                   <input 
                     type="text"
                     value={skills}
                     placeholder="React, Excel, PowerPoint, Solidworks"
                     onChange={(e) => setSkills(e.target.value)}
-                    className="w-full px-3 py-1.5 rounded-xl bg-[#FFFAF3] border border-[#FFE5BF] text-xs text-[#3E362E] focus:outline-none"
+                    className="w-full px-3 py-1.5 rounded-xl bg-[#FFFAF3] border border-[#FFE5BF] text-xs text-black focus:outline-none"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-[10px] font-semibold text-[#A69080] mb-1">College</label>
+                  <label className="block text-[10px] font-semibold text-black/70 mb-1">College</label>
                   <input 
                     type="text"
                     value={college}
                     onChange={(e) => setCollege(e.target.value)}
-                    className="w-full px-3 py-1.5 rounded-xl bg-[#FFFAF3] border border-[#FFE5BF] text-xs text-[#3E362E] focus:outline-none"
+                    className="w-full px-3 py-1.5 rounded-xl bg-[#FFFAF3] border border-[#FFE5BF] text-xs text-black focus:outline-none"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-semibold text-[#A69080] mb-1">Course</label>
+                  <label className="block text-[10px] font-semibold text-black/70 mb-1">Course</label>
                   <input 
                     type="text"
                     value={course}
                     onChange={(e) => setCourse(e.target.value)}
-                    className="w-full px-3 py-1.5 rounded-xl bg-[#FFFAF3] border border-[#FFE5BF] text-xs text-[#3E362E] focus:outline-none"
+                    className="w-full px-3 py-1.5 rounded-xl bg-[#FFFAF3] border border-[#FFE5BF] text-xs text-black focus:outline-none"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-semibold text-[#A69080] mb-1">Academic Year</label>
+                  <label className="block text-[10px] font-semibold text-black/70 mb-1">Academic Year</label>
                   <select
                     value={academicYear}
                     onChange={(e) => setAcademicYear(e.target.value)}
-                    className="w-full px-2 py-1.5 rounded-xl bg-[#FFFAF3] border border-[#FFE5BF] text-xs text-[#3E362E]"
+                    className="w-full px-2 py-1.5 rounded-xl bg-[#FFFAF3] border border-[#FFE5BF] text-xs text-black"
                   >
                     <option value="1st Year">1st Year</option>
                     <option value="2nd Year">2nd Year</option>
@@ -352,19 +352,19 @@ export default function Profile() {
               </div>
 
               <div>
-                <label className="block text-[10px] font-semibold text-[#A69080] mb-1">Personal Bio</label>
+                <label className="block text-[10px] font-semibold text-black/70 mb-1">Personal Bio</label>
                 <textarea 
                   rows={4}
                   value={bio}
                   onChange={(e) => setBio(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-[#FFFAF3] border border-[#FFE5BF] text-xs text-[#3E362E] focus:outline-none leading-relaxed"
+                  className="w-full px-3 py-2 rounded-xl bg-[#FFFAF3] border border-[#FFE5BF] text-xs text-black focus:outline-none leading-relaxed"
                 />
               </div>
 
               <div className="flex gap-2 pt-2">
                 <button 
                   type="submit"
-                  className="px-4 py-2 rounded-xl bg-[#3E362E] hover:bg-[#3E362E] text-[#3E362E] text-xs font-bold transition flex items-center space-x-1"
+                  className="px-4 py-2 rounded-xl bg-black hover:bg-black text-black text-xs font-bold transition flex items-center space-x-1"
                 >
                   <Check size={14} />
                   <span>Save Changes</span>
@@ -372,7 +372,7 @@ export default function Profile() {
                 <button 
                   type="button"
                   onClick={() => setIsEditing(false)}
-                  className="px-4 py-2 rounded-xl bg-[#FFFAF3] border border-[#FFE5BF] text-xs text-[#A69080] hover:text-[#3E362E]"
+                  className="px-4 py-2 rounded-xl bg-[#FFFAF3] border border-[#FFE5BF] text-xs text-black/70 hover:text-black"
                 >
                   Cancel
                 </button>
@@ -380,12 +380,12 @@ export default function Profile() {
             </form>
           ) : (
             <div className="glass p-6 md:p-8 rounded-3xl border border-[#FFE5BF] space-y-6">
-              <h3 className="text-xs font-bold font-display text-[#A69080] uppercase tracking-wider pb-2 border-b border-[#FFE5BF]">
+              <h3 className="text-xs font-bold font-display text-black/70 uppercase tracking-wider pb-2 border-b border-[#FFE5BF]">
                 Collaboration reviews ({reviews.length})
               </h3>
               
               {reviews.length === 0 ? (
-                <div className="text-center py-10 text-[#A69080] text-xs font-medium">
+                <div className="text-center py-10 text-black/70 text-xs font-medium">
                   No review feedback registered yet.
                 </div>
               ) : (
@@ -393,7 +393,7 @@ export default function Profile() {
                   {reviews.map((rev) => (
                     <div key={rev.id} className="p-4 rounded-2xl bg-[#FFFAF3] border border-slate-850 space-y-2.5">
                       <div className="flex justify-between items-center">
-                        <div className="flex items-center space-x-2 text-xs font-bold text-[#3E362E]">
+                        <div className="flex items-center space-x-2 text-xs font-bold text-black">
                           {rev.reviewer_pic ? (
                             <img 
                               src={`${BACKEND_URL}${rev.reviewer_pic}`} 
@@ -401,21 +401,21 @@ export default function Profile() {
                               className="w-5 h-5 rounded-full object-cover border border-[#FFE5BF]"
                             />
                           ) : (
-                            <div className="w-5 h-5 rounded-full bg-[#FFFAF3]/50 border border-[#FFE5BF] flex items-center justify-center text-[10px] text-[#A69080]">
+                            <div className="w-5 h-5 rounded-full bg-[#FFFAF3]/50 border border-[#FFE5BF] flex items-center justify-center text-[10px] text-black/70">
                               {rev.reviewer_name.charAt(0)}
                             </div>
                           )}
                           <span>{rev.reviewer_name}</span>
                         </div>
-                        <div className="flex items-center space-x-1 text-xs text-[#A69080] font-bold">
+                        <div className="flex items-center space-x-1 text-xs text-black/70 font-bold">
                           <span>{rev.rating}</span>
                           <Star size={11} className="fill-[#A69080]" />
                         </div>
                       </div>
-                      <p className="text-xs text-[#A69080] italic leading-relaxed">
+                      <p className="text-xs text-black/70 italic leading-relaxed">
                         "{rev.comment || 'Collaborative project completed successfully.'}"
                       </p>
-                      <div className="text-[9px] text-[#A69080] text-right">
+                      <div className="text-[9px] text-black/70 text-right">
                         {new Date(rev.created_at).toLocaleDateString()}
                       </div>
                     </div>

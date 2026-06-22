@@ -255,34 +255,34 @@ export default function Chat() {
       {/* Left panel: Task metadata card */}
       <div className="hidden lg:block glass p-5 rounded-3xl border border-[#FFE5BF] space-y-6 flex flex-col justify-between">
         <div className="space-y-6">
-          <Link to={`/tasks/${taskId}`} className="inline-flex items-center space-x-1 text-xs text-[#A69080] hover:text-[#3E362E] transition">
+          <Link to={`/tasks/${taskId}`} className="inline-flex items-center space-x-1 text-xs text-black/70 hover:text-black transition">
             <ArrowLeft size={13} />
             <span>Task details</span>
           </Link>
           
           {task && (
             <div className="space-y-4">
-              <span className="text-[9px] font-semibold bg-[#FFFAF3] border border-[#FFE5BF] text-[#A69080] px-2 py-0.5 rounded uppercase">
+              <span className="text-[9px] font-semibold bg-[#FFFAF3] border border-[#FFE5BF] text-black/70 px-2 py-0.5 rounded uppercase">
                 {task.category}
               </span>
-              <h3 className="text-sm font-bold text-[#3E362E] line-clamp-2 leading-relaxed">{task.title}</h3>
-              <p className="text-[11px] text-[#A69080] line-clamp-4 leading-relaxed">{task.description}</p>
+              <h3 className="text-sm font-bold text-black line-clamp-2 leading-relaxed">{task.title}</h3>
+              <p className="text-[11px] text-black/70 line-clamp-4 leading-relaxed">{task.description}</p>
               
               <div className="space-y-2.5 pt-4 border-t border-[#FFE5BF] text-xs">
                 <div className="flex justify-between">
-                  <span className="text-[#A69080]">Escrow budget:</span>
-                  <strong className="text-[#3E362E]">₹{task.budget}</strong>
+                  <span className="text-black/70">Escrow budget:</span>
+                  <strong className="text-black">₹{task.budget}</strong>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#A69080]">Target timeline:</span>
-                  <strong className="text-[#3E362E]">{task.deadline}</strong>
+                  <span className="text-black/70">Target timeline:</span>
+                  <strong className="text-black">{task.deadline}</strong>
                 </div>
               </div>
             </div>
           )}
         </div>
 
-        <div className="p-3.5 rounded-2xl bg-[#FFFAF3]/20 border border-[#FFE5BF]/40 text-[10px] text-[#3E362E] leading-normal flex items-start space-x-1.5 font-medium">
+        <div className="p-3.5 rounded-2xl bg-[#FFFAF3]/20 border border-[#FFE5BF]/40 text-[10px] text-black leading-normal flex items-start space-x-1.5 font-medium">
           <Sparkles size={14} className="shrink-0 mt-0.5" />
           <span>All chat exchanges are monitored for fair academic guidelines validation.</span>
         </div>
@@ -294,7 +294,7 @@ export default function Chat() {
         {/* Chat header */}
         <div className="p-4 bg-[#FFFAF3]/40 border-b border-[#FFE5BF] flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <Link to="/dashboard" className="p-1.5 rounded-lg hover:bg-[#FFFAF3] border border-transparent hover:border-[#FFE5BF] text-[#A69080] lg:hidden shrink-0">
+            <Link to="/dashboard" className="p-1.5 rounded-lg hover:bg-[#FFFAF3] border border-transparent hover:border-[#FFE5BF] text-black/70 lg:hidden shrink-0">
               <ArrowLeft size={16} />
             </Link>
             {receiver ? (
@@ -306,21 +306,21 @@ export default function Chat() {
                     className="w-8 h-8 rounded-full border border-[#FFE5BF] object-cover"
                   />
                 ) : (
-                  <div className="w-8 h-8 rounded-full bg-[#FFFAF3]/50 border border-[#FFE5BF] flex items-center justify-center text-[#A69080] text-xs font-bold font-display">
+                  <div className="w-8 h-8 rounded-full bg-[#FFFAF3]/50 border border-[#FFE5BF] flex items-center justify-center text-black/70 text-xs font-bold font-display">
                     {receiver.full_name.charAt(0)}
                   </div>
                 )}
                 <div className="space-y-0.5">
-                  <h4 className="text-xs font-bold text-[#3E362E]">{receiver.full_name}</h4>
-                  <span className="text-[9px] text-[#A69080] block truncate">{receiver.college} • {receiver.role}</span>
+                  <h4 className="text-xs font-bold text-black">{receiver.full_name}</h4>
+                  <span className="text-[9px] text-black/70 block truncate">{receiver.college} • {receiver.role}</span>
                 </div>
               </div>
             ) : (
-              <span className="text-xs font-semibold text-[#A69080]">Connecting peer session...</span>
+              <span className="text-xs font-semibold text-black/70">Connecting peer session...</span>
             )}
           </div>
           
-          <div className="text-[10px] text-[#A69080] bg-[#FFFAF3]/30 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
+          <div className="text-[10px] text-black/70 bg-[#FFFAF3]/30 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
             Secure Channel
           </div>
         </div>
@@ -328,7 +328,7 @@ export default function Chat() {
         {/* Message Thread */}
         <div className="flex-1 p-6 overflow-y-auto space-y-4 bg-[#FFFAF3]/10">
           {messages.length === 0 ? (
-            <div className="text-center py-20 text-[#A69080] text-xs font-medium space-y-2">
+            <div className="text-center py-20 text-black/70 text-xs font-medium space-y-2">
               <MessageSquare size={24} className="mx-auto text-[#FFE5BF] animate-bounce" />
               <p>No chat history. Send a secure greeting to initiate collaboration.</p>
             </div>
@@ -352,14 +352,14 @@ export default function Chat() {
                     <div key={msg.id} className="flex justify-center my-4 w-full">
                       <div className="w-full max-w-md rounded-2xl border border-[#FFE5BF]/30 bg-gradient-to-b from-[#0f142b] to-[#070915] p-5 shadow-2xl shadow-[#FFE5BF]/50 space-y-4 backdrop-blur-xl">
                         <div className="flex items-center justify-between border-b border-[#FFE5BF]/60 pb-3">
-                          <div className="flex items-center space-x-2 text-[#A69080]">
+                          <div className="flex items-center space-x-2 text-black/70">
                             <Sparkles size={16} />
                             <span className="text-[10px] font-bold tracking-wider uppercase font-display">Study Proposal Received</span>
                           </div>
                           <span className={`text-[9px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider ${
-                            bidStatus === 'accepted' ? 'bg-[#FFFAF3]/50 text-[#3E362E] border border-[#FFE5BF]/50' :
+                            bidStatus === 'accepted' ? 'bg-[#FFFAF3]/50 text-black border border-[#FFE5BF]/50' :
                             bidStatus === 'rejected' ? 'bg-red-950/50 text-red-400 border border-red-900/50' :
-                            'bg-[#FFFAF3]/50 text-[#A69080] border border-[#FFE5BF]/50'
+                            'bg-[#FFFAF3]/50 text-black/70 border border-[#FFE5BF]/50'
                           }`}>
                             {bidStatus === 'pending' ? '⏳ Pending' : bidStatus === 'accepted' ? '✅ Accepted' : '❌ Declined'}
                           </span>
@@ -367,18 +367,18 @@ export default function Chat() {
 
                         <div className="grid grid-cols-2 gap-3">
                           <div className="bg-[#0c1024]/80 border border-[#FFE5BF]/40 p-3 rounded-xl space-y-1">
-                            <span className="text-[9px] text-[#A69080] uppercase block font-bold">Budget Offer</span>
-                            <strong className="text-sm text-[#3E362E] font-extrabold font-display">₹{proposalData.amount}</strong>
+                            <span className="text-[9px] text-black/70 uppercase block font-bold">Budget Offer</span>
+                            <strong className="text-sm text-black font-extrabold font-display">₹{proposalData.amount}</strong>
                           </div>
                           <div className="bg-[#0c1024]/80 border border-[#FFE5BF]/40 p-3 rounded-xl space-y-1">
-                            <span className="text-[9px] text-[#A69080] uppercase block font-bold">Est. Delivery</span>
-                            <strong className="text-sm text-[#3E362E] font-extrabold font-display">{proposalData.deliveryHours} Hours</strong>
+                            <span className="text-[9px] text-black/70 uppercase block font-bold">Est. Delivery</span>
+                            <strong className="text-sm text-black font-extrabold font-display">{proposalData.deliveryHours} Hours</strong>
                           </div>
                         </div>
 
                         <div className="space-y-1.5">
-                          <span className="text-[9px] text-[#A69080] uppercase block font-bold">Proposal Statement</span>
-                          <p className="text-xs text-[#3E362E] bg-[#FFFAF3]/30 border border-[#FFE5BF]/40 p-3 rounded-xl leading-relaxed italic">
+                          <span className="text-[9px] text-black/70 uppercase block font-bold">Proposal Statement</span>
+                          <p className="text-xs text-black bg-[#FFFAF3]/30 border border-[#FFE5BF]/40 p-3 rounded-xl leading-relaxed italic">
                             "{proposalData.proposalMessage}"
                           </p>
                         </div>
@@ -388,7 +388,7 @@ export default function Chat() {
                             <button
                               type="button"
                               onClick={() => handleAcceptBid(proposalData.bidId)}
-                              className="flex-1 py-2 rounded-xl bg-gradient-to-r from-[#3E362E] to-teal-600 hover:from-[#3E362E] hover:to-teal-500 text-[#3E362E] text-xs font-bold transition shadow-lg shadow-[#FFE5BF]/30"
+                              className="flex-1 py-2 rounded-xl bg-gradient-to-r from-black to-teal-600 hover:from-black hover:to-teal-500 text-black text-xs font-bold transition shadow-lg shadow-[#FFE5BF]/30"
                             >
                               Accept Proposal
                             </button>
@@ -402,7 +402,7 @@ export default function Chat() {
                           </div>
                         )}
                         
-                        <div className="text-[8px] text-[#A69080] text-center font-medium">
+                        <div className="text-[8px] text-black/70 text-center font-medium">
                           Submitted at {new Date(msg.created_at).toLocaleString()}
                         </div>
                       </div>
@@ -413,7 +413,7 @@ export default function Chat() {
 
               return (
                 <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[70%] rounded-2xl p-3.5 space-y-1 ${isMe ? 'bg-[#3E362E] text-[#3E362E] rounded-tr-none' : 'bg-[#FFFAF3] border border-[#FFE5BF] text-[#3E362E] rounded-tl-none'}`}>
+                  <div className={`max-w-[70%] rounded-2xl p-3.5 space-y-1 ${isMe ? 'bg-black text-black rounded-tr-none' : 'bg-[#FFFAF3] border border-[#FFE5BF] text-black rounded-tl-none'}`}>
                     
                     {/* Text content */}
                     {msg.content && <p className="text-xs leading-relaxed whitespace-pre-wrap">{msg.content}</p>}
@@ -424,7 +424,7 @@ export default function Chat() {
                         href={`${BACKEND_URL}${msg.file_url}`}
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="flex items-center space-x-2 p-2 rounded-xl bg-black/30 text-[#3E362E] hover:text-[#3E362E] transition text-[11px] font-medium max-w-full"
+                        className="flex items-center space-x-2 p-2 rounded-xl bg-black/30 text-black hover:text-black transition text-[11px] font-medium max-w-full"
                       >
                         <FileText size={15} />
                         <span className="truncate">{msg.file_name}</span>
@@ -432,14 +432,14 @@ export default function Chat() {
                     )}
 
                     {/* Time & Read Receipts */}
-                    <div className="flex items-center justify-end space-x-1 text-[9px] text-[#A69080]/80 pt-1">
+                    <div className="flex items-center justify-end space-x-1 text-[9px] text-black/70/80 pt-1">
                       <span>
                         {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </span>
                       {isMe && (
                         <CheckCheck 
                           size={13} 
-                          className={msg.is_read ? 'text-[#3E362E]' : 'text-[#A69080]'} 
+                          className={msg.is_read ? 'text-black' : 'text-black/70'} 
                         />
                       )}
                     </div>
@@ -484,7 +484,7 @@ export default function Chat() {
             <button 
               type="button" 
               disabled={uploading || isLocked}
-              className="p-2.5 rounded-xl hover:bg-[#FFFAF3] border border-[#FFE5BF] text-[#A69080] hover:text-[#A69080] transition disabled:opacity-40 disabled:hover:text-[#A69080]"
+              className="p-2.5 rounded-xl hover:bg-[#FFFAF3] border border-[#FFE5BF] text-black/70 hover:text-black/70 transition disabled:opacity-40 disabled:hover:text-black/70"
               title="Share File (PDF, DOCX, ZIP)"
             >
               <Paperclip size={18} />
@@ -498,14 +498,14 @@ export default function Chat() {
             value={newMessage}
             onChange={handleInputChange}
             disabled={uploading || isLocked}
-            className="flex-1 px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E] disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-1 px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black disabled:opacity-50 disabled:cursor-not-allowed"
           />
 
           {/* Send Icon */}
           <button 
             type="submit"
             disabled={isLocked}
-            className="p-2.5 rounded-xl bg-[#3E362E] hover:bg-[#3E362E] text-[#3E362E] transition shrink-0 disabled:opacity-40 disabled:hover:bg-[#3E362E]"
+            className="p-2.5 rounded-xl bg-black hover:bg-black text-black transition shrink-0 disabled:opacity-40 disabled:hover:bg-black"
           >
             <Send size={18} />
           </button>

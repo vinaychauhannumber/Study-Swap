@@ -20,13 +20,13 @@
 @layer base {
   body {
     background-color: #FFFAF3;
-    color: #3E362E;
+    color: black;
     font-family: var(--font-sans);
   }
   
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    color: #3E362E;
+    color: black;
   }
 }
 
@@ -63,7 +63,7 @@
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #A69080 0%, #3E362E 100%);
+  background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, black 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

@@ -117,8 +117,8 @@ export default function PostTask() {
     <div className="max-w-4xl mx-auto py-4 space-y-8">
       {/* Page Header */}
       <div className="glass p-6 md:p-8 rounded-3xl border border-[#FFE5BF] space-y-1.5">
-        <h2 className="text-2xl font-bold font-display text-[#3E362E]">Post Academic Task</h2>
-        <p className="text-xs text-[#A69080]">Describe the study support requirements, allocate virtual budget, and leverage AI estimates.</p>
+        <h2 className="text-2xl font-bold font-display text-black">Post Academic Task</h2>
+        <p className="text-xs text-black/70">Describe the study support requirements, allocate virtual budget, and leverage AI estimates.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
@@ -135,26 +135,26 @@ export default function PostTask() {
           <div className="space-y-4">
             {/* Title */}
             <div>
-              <label className="block text-xs font-semibold text-[#A69080] mb-1.5">Task Title</label>
+              <label className="block text-xs font-semibold text-black/70 mb-1.5">Task Title</label>
               <input 
                 type="text"
                 placeholder="e.g. React.js Dynamic Dashboard Assignment"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E]"
+                className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black"
                 required
               />
             </div>
 
             {/* Description */}
             <div>
-              <label className="block text-xs font-semibold text-[#A69080] mb-1.5">Detailed Requirements & Context</label>
+              <label className="block text-xs font-semibold text-black/70 mb-1.5">Detailed Requirements & Context</label>
               <textarea 
                 rows={6}
                 placeholder="Explain the problem statements, required structure, grading criteria, and specific styling preferences..."
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E] leading-relaxed"
+                className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black leading-relaxed"
                 required
               />
             </div>
@@ -162,11 +162,11 @@ export default function PostTask() {
             {/* Category & Deadline */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-[#A69080] mb-1.5">Subject Category</label>
+                <label className="block text-xs font-semibold text-black/70 mb-1.5">Subject Category</label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E] font-semibold"
+                  className="w-full px-3 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black font-semibold"
                 >
                   {categories.map((cat, idx) => (
                     <option key={idx} value={cat}>{cat}</option>
@@ -175,13 +175,13 @@ export default function PostTask() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#A69080] mb-1.5">Completion Deadline</label>
+                <label className="block text-xs font-semibold text-black/70 mb-1.5">Completion Deadline</label>
                 <input 
                   type="text"
                   placeholder="e.g. 2 Days, 24 Hours, or 2026-06-30"
                   value={deadline}
                   onChange={(e) => setDeadline(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E]"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black"
                   required
                 />
               </div>
@@ -190,19 +190,19 @@ export default function PostTask() {
             {/* Budget & Attachments */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-[#A69080] mb-1.5">Budget Allocated (₹)</label>
+                <label className="block text-xs font-semibold text-black/70 mb-1.5">Budget Allocated (₹)</label>
                 <input 
                   type="number"
                   placeholder="e.g. 1000"
                   value={budget}
                   onChange={(e) => setBudget(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-[#3E362E] focus:outline-none text-xs text-[#3E362E] font-semibold"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black font-semibold"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#A69080] mb-1.5">Reference Documents</label>
+                <label className="block text-xs font-semibold text-black/70 mb-1.5">Reference Documents</label>
                 <div className="relative w-full">
                   <input 
                     type="file"
@@ -210,7 +210,7 @@ export default function PostTask() {
                     onChange={handleFileChange}
                     className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
                   />
-                  <div className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] text-xs text-[#A69080] flex items-center justify-between pointer-events-none">
+                  <div className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] text-xs text-black/70 flex items-center justify-between pointer-events-none">
                     <span>{attachments.length > 0 ? `${attachments.length} files selected` : 'Choose files (PDF, ZIP, DOCX)'}</span>
                     <FileUp size={15} />
                   </div>
@@ -222,7 +222,7 @@ export default function PostTask() {
           <button 
             type="submit"
             disabled={loading || !!scamAlert}
-            className="w-full py-3.5 rounded-full bg-[#3E362E] hover:bg-[#3E362E] text-[#3E362E] font-bold text-xs flex items-center justify-center space-x-1.5 transition disabled:opacity-50"
+            className="w-full py-3.5 rounded-full bg-black hover:bg-black text-black font-bold text-xs flex items-center justify-center space-x-1.5 transition disabled:opacity-50"
           >
             <Send size={14} />
             <span>{loading ? 'Securing task posting...' : 'Publish to Marketplace'}</span>
@@ -231,7 +231,7 @@ export default function PostTask() {
 
         {/* Right Side: AI Assistant Panel */}
         <div className="glass p-6 rounded-3xl border border-[#FFE5BF] space-y-6">
-          <h3 className="text-sm font-bold font-display flex items-center space-x-2 text-[#A69080] pb-2 border-b border-[#FFE5BF]">
+          <h3 className="text-sm font-bold font-display flex items-center space-x-2 text-black/70 pb-2 border-b border-[#FFE5BF]">
             <Brain size={16} />
             <span>AI Assist Desk</span>
           </h3>
@@ -247,8 +247,8 @@ export default function PostTask() {
             </div>
           ) : (
             title && description && (
-              <div className="p-4 rounded-2xl bg-[#FFFAF3]/25 border border-[#FFE5BF]/40 flex items-start space-x-2 text-[#A69080] text-xs">
-                <ShieldCheck size={16} className="shrink-0 mt-0.5 text-[#3E362E]" />
+              <div className="p-4 rounded-2xl bg-[#FFFAF3]/25 border border-[#FFE5BF]/40 flex items-start space-x-2 text-black/70 text-xs">
+                <ShieldCheck size={16} className="shrink-0 mt-0.5 text-black" />
                 <span>Descriptive contents are compliant with peer collaboration guidelines.</span>
               </div>
             )
@@ -256,35 +256,35 @@ export default function PostTask() {
 
           {/* Dynamic Estimates */}
           {aiAnalyzing ? (
-            <div className="flex items-center space-x-2 text-[#A69080] text-xs py-4">
+            <div className="flex items-center space-x-2 text-black/70 text-xs py-4">
               <div className="animate-spin rounded-full h-4 w-4 border-2 border-[#748D92] border-t-transparent"></div>
               <span>AI running text check...</span>
             </div>
           ) : aiReport ? (
             <div className="space-y-4 pt-1">
               <div>
-                <span className="text-[10px] text-[#A69080] font-semibold uppercase block">Assessed Difficulty</span>
-                <span className={`text-xs font-bold ${aiReport.difficulty === 'Hard' ? 'text-rose-400' : aiReport.difficulty === 'Medium' ? 'text-[#A69080]' : 'text-[#3E362E]'}`}>
+                <span className="text-[10px] text-black/70 font-semibold uppercase block">Assessed Difficulty</span>
+                <span className={`text-xs font-bold ${aiReport.difficulty === 'Hard' ? 'text-rose-400' : aiReport.difficulty === 'Medium' ? 'text-black/70' : 'text-black'}`}>
                   {aiReport.difficulty} Level
                 </span>
               </div>
 
               <div>
-                <span className="text-[10px] text-[#A69080] font-semibold uppercase block">Suggested Budget</span>
-                <span className="text-xs font-bold text-[#3E362E]">{aiReport.est_budget}</span>
+                <span className="text-[10px] text-black/70 font-semibold uppercase block">Suggested Budget</span>
+                <span className="text-xs font-bold text-black">{aiReport.est_budget}</span>
               </div>
 
               <div>
-                <span className="text-[10px] text-[#A69080] font-semibold uppercase block">Estimated Effort</span>
-                <span className="text-xs font-bold text-[#3E362E]">{aiReport.est_time}</span>
+                <span className="text-[10px] text-black/70 font-semibold uppercase block">Estimated Effort</span>
+                <span className="text-xs font-bold text-black">{aiReport.est_time}</span>
               </div>
 
-              <div className="text-[10px] text-[#A69080] leading-relaxed pt-2 border-t border-[#FFE5BF] font-medium">
+              <div className="text-[10px] text-black/70 leading-relaxed pt-2 border-t border-[#FFE5BF] font-medium">
                 Note: Estimations are based on historic completion metrics of academic tasks of similar scope.
               </div>
             </div>
           ) : (
-            <div className="text-[#A69080] text-xs text-center py-10">
+            <div className="text-black/70 text-xs text-center py-10">
               Provide task title and description to activate AI estimator and scam scanner.
             </div>
           )}
