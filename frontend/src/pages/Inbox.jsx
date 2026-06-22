@@ -326,26 +326,26 @@ export default function Inbox() {
   );
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-0 h-[calc(100vh-150px)] border border-slate-800 rounded-3xl bg-[#080d1a]/40 backdrop-blur-xl overflow-hidden items-stretch">
+    <div className="grid grid-cols-1 lg:grid-cols-4 gap-0 h-[calc(100vh-150px)] border border-[#3E362E] rounded-3xl bg-[#080d1a]/40 backdrop-blur-xl overflow-hidden items-stretch">
       
       {/* Left Pane: Conversation Threads */}
-      <div className="lg:col-span-1 border-r border-slate-800 flex flex-col bg-slate-950/20">
+      <div className="lg:col-span-1 border-r border-[#3E362E] flex flex-col bg-[#1A1714]/20">
         
         {/* Search header */}
-        <div className="p-4 border-b border-slate-900 space-y-3.5">
+        <div className="p-4 border-b border-[#2A2420] space-y-3.5">
           <h2 className="text-base font-bold text-white font-display flex items-center space-x-2">
-            <MessageCircle size={18} className="text-indigo-400" />
+            <MessageCircle size={18} className="text-[#AC8968]" />
             <span>Chat Workspace</span>
           </h2>
           
           <div className="relative">
-            <Search size={14} className="absolute left-3.5 top-3 text-slate-500" />
+            <Search size={14} className="absolute left-3.5 top-3 text-[#A69080]" />
             <input 
               type="text"
               placeholder="Search chat or task..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 rounded-xl bg-slate-900/60 border border-slate-950 text-xs text-white focus:outline-none focus:border-indigo-500 transition placeholder:text-slate-600"
+              className="w-full pl-9 pr-4 py-2 rounded-xl bg-[#2A2420]/60 border border-[#1A1714] text-xs text-white focus:outline-none focus:border-[#93785B] transition placeholder:text-[#A69080]"
             />
           </div>
         </div>
@@ -353,12 +353,12 @@ export default function Inbox() {
         {/* Conversation List */}
         <div className="flex-1 overflow-y-auto p-2 space-y-1">
           {loadingConv ? (
-            <div className="text-center py-10 text-indigo-400">
-              <div className="animate-spin rounded-full h-5 w-5 border-2 border-indigo-500 border-t-transparent mx-auto mb-2"></div>
+            <div className="text-center py-10 text-[#AC8968]">
+              <div className="animate-spin rounded-full h-5 w-5 border-2 border-[#93785B] border-t-transparent mx-auto mb-2"></div>
               <span className="text-[10px] font-semibold">Loading inbox...</span>
             </div>
           ) : filteredConversations.length === 0 ? (
-            <div className="text-center py-12 text-slate-500 text-xs px-4">
+            <div className="text-center py-12 text-[#A69080] text-xs px-4">
               {searchQuery ? 'No matching conversations' : 'No active chats found. Browse tasks and submit proposal bids to start.'}
             </div>
           ) : (
@@ -373,8 +373,8 @@ export default function Inbox() {
                   onClick={() => setActiveConversation(c)}
                   className={`w-full text-left p-3 rounded-2xl flex items-start space-x-3 transition relative group ${
                     isSelected 
-                      ? 'bg-indigo-600/10 border border-indigo-500/30' 
-                      : 'hover:bg-slate-900/40 border border-transparent hover:border-slate-800/50'
+                      ? 'bg-[#865D36]/10 border border-[#93785B]/30' 
+                      : 'hover:bg-[#2A2420]/40 border border-transparent hover:border-[#3E362E]/50'
                   }`}
                 >
                   {/* Partner Avatar */}
@@ -383,44 +383,44 @@ export default function Inbox() {
                       <img 
                         src={`${BACKEND_URL}${c.partnerPic}`} 
                         alt={c.partnerName} 
-                        className="w-9 h-9 rounded-full object-cover border border-slate-800"
+                        className="w-9 h-9 rounded-full object-cover border border-[#3E362E]"
                       />
                     ) : (
-                      <div className="w-9 h-9 rounded-full bg-indigo-950/40 border border-slate-800 flex items-center justify-center text-indigo-400 font-bold text-xs">
+                      <div className="w-9 h-9 rounded-full bg-[#1A1714]/40 border border-[#3E362E] flex items-center justify-center text-[#AC8968] font-bold text-xs">
                         {c.partnerName.charAt(0)}
                       </div>
                     )}
                     <span className={`absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-[#070a13] ${
-                      c.partnerRole === 'helper' ? 'bg-emerald-500' : 'bg-indigo-500'
+                      c.partnerRole === 'helper' ? 'bg-[#865D36]' : 'bg-[#93785B]'
                     }`} />
                   </div>
 
                   {/* Context preview */}
                   <div className="flex-1 min-w-0 space-y-0.5">
                     <div className="flex justify-between items-baseline gap-1">
-                      <h4 className="text-xs font-bold text-slate-200 truncate group-hover:text-indigo-400 transition-colors">
+                      <h4 className="text-xs font-bold text-[#E8DDD0] truncate group-hover:text-[#AC8968] transition-colors">
                         {c.partnerName}
                       </h4>
-                      <span className="text-[8px] text-slate-500 font-medium whitespace-nowrap">
+                      <span className="text-[8px] text-[#A69080] font-medium whitespace-nowrap">
                         {new Date(c.lastMessageTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </span>
                     </div>
                     
                     {/* Task Title */}
-                    <div className="text-[9px] text-slate-400 font-medium truncate flex items-center space-x-1">
-                      <Folder size={9} className="text-indigo-400/70" />
+                    <div className="text-[9px] text-[#A69080] font-medium truncate flex items-center space-x-1">
+                      <Folder size={9} className="text-[#AC8968]/70" />
                       <span>{c.taskTitle}</span>
                     </div>
 
                     {/* Preview text */}
-                    <p className={`text-[10px] truncate leading-normal ${c.unreadCount > 0 ? 'text-slate-200 font-semibold' : 'text-slate-500'}`}>
+                    <p className={`text-[10px] truncate leading-normal ${c.unreadCount > 0 ? 'text-[#E8DDD0] font-semibold' : 'text-[#A69080]'}`}>
                       {c.lastSenderId === user.id ? 'You: ' : ''}{c.lastMessage}
                     </p>
                   </div>
 
                   {/* Unread bubble count */}
                   {c.unreadCount > 0 && (
-                    <span className="absolute right-3 bottom-3 flex h-4.5 min-w-4.5 px-1 items-center justify-center rounded-full bg-indigo-600 text-[8px] font-bold text-white shadow-lg shadow-indigo-900/30">
+                    <span className="absolute right-3 bottom-3 flex h-4.5 min-w-4.5 px-1 items-center justify-center rounded-full bg-[#865D36] text-[8px] font-bold text-white shadow-lg shadow-[#1A1714]/30">
                       {c.unreadCount}
                     </span>
                   )}
@@ -432,47 +432,47 @@ export default function Inbox() {
       </div>
 
       {/* Right Pane: Message Workspace */}
-      <div className="lg:col-span-3 flex flex-col justify-between overflow-hidden bg-slate-950/5">
+      <div className="lg:col-span-3 flex flex-col justify-between overflow-hidden bg-[#1A1714]/5">
         {activeConversation ? (
           <>
             {/* Header info */}
-            <div className="p-4 bg-slate-950/40 border-b border-slate-900 flex items-center justify-between">
+            <div className="p-4 bg-[#1A1714]/40 border-b border-[#2A2420] flex items-center justify-between">
               <div className="flex items-center space-x-3 min-w-0">
                 {activeConversation.partnerPic ? (
                   <img 
                     src={`${BACKEND_URL}${activeConversation.partnerPic}`} 
                     alt={activeConversation.partnerName} 
-                    className="w-9 h-9 rounded-full object-cover border border-slate-800"
+                    className="w-9 h-9 rounded-full object-cover border border-[#3E362E]"
                   />
                 ) : (
-                  <div className="w-9 h-9 rounded-full bg-indigo-950/40 border border-slate-800 flex items-center justify-center text-indigo-400 font-bold text-xs">
+                  <div className="w-9 h-9 rounded-full bg-[#1A1714]/40 border border-[#3E362E] flex items-center justify-center text-[#AC8968] font-bold text-xs">
                     {activeConversation.partnerName.charAt(0)}
                   </div>
                 )}
                 <div className="space-y-0.5 min-w-0">
-                  <h3 className="text-xs font-bold text-slate-200 truncate">{activeConversation.partnerName}</h3>
-                  <Link to={`/tasks/${activeConversation.taskId}`} className="text-[10px] text-indigo-400 hover:underline hover:text-indigo-300 transition flex items-center space-x-1">
-                    <Folder size={10} className="text-indigo-400" />
+                  <h3 className="text-xs font-bold text-[#E8DDD0] truncate">{activeConversation.partnerName}</h3>
+                  <Link to={`/tasks/${activeConversation.taskId}`} className="text-[10px] text-[#AC8968] hover:underline hover:text-[#D4C4B0] transition flex items-center space-x-1">
+                    <Folder size={10} className="text-[#AC8968]" />
                     <span className="truncate">Regarding: {activeConversation.taskTitle}</span>
                   </Link>
                 </div>
               </div>
 
-              <div className="text-[9px] text-indigo-400 bg-indigo-950/30 px-2 py-0.5 rounded font-bold uppercase tracking-wider shrink-0">
+              <div className="text-[9px] text-[#AC8968] bg-[#1A1714]/30 px-2 py-0.5 rounded font-bold uppercase tracking-wider shrink-0">
                 Secure Escrow Chat
               </div>
             </div>
 
             {/* Message Thread */}
-            <div className="flex-1 p-5 overflow-y-auto space-y-3 bg-slate-950/10">
+            <div className="flex-1 p-5 overflow-y-auto space-y-3 bg-[#1A1714]/10">
               {loadingMessages ? (
-                <div className="text-center py-20 text-indigo-400">
-                  <div className="animate-spin rounded-full h-6 w-6 border-2 border-indigo-500 border-t-transparent mx-auto mb-2"></div>
+                <div className="text-center py-20 text-[#AC8968]">
+                  <div className="animate-spin rounded-full h-6 w-6 border-2 border-[#93785B] border-t-transparent mx-auto mb-2"></div>
                   <span className="text-xs">Fetching message history...</span>
                 </div>
               ) : messages.length === 0 ? (
-                <div className="text-center py-20 text-slate-500 text-xs font-medium space-y-2">
-                  <MessageSquare size={20} className="mx-auto text-slate-700 animate-bounce" />
+                <div className="text-center py-20 text-[#A69080] text-xs font-medium space-y-2">
+                  <MessageSquare size={20} className="mx-auto text-[#573D23] animate-bounce" />
                   <p>Send a secure message to initiate discussion.</p>
                 </div>
               ) : (
@@ -493,35 +493,35 @@ export default function Inbox() {
                       const bidStatus = bidStatuses[proposalData.bidId] || 'pending';
                       return (
                         <div key={msg.id} className="flex justify-center my-4 w-full">
-                          <div className="w-full max-w-md rounded-2xl border border-indigo-900/30 bg-gradient-to-b from-[#0f142b] to-[#070915] p-5 shadow-2xl shadow-indigo-950/50 space-y-4 backdrop-blur-xl">
-                            <div className="flex items-center justify-between border-b border-indigo-950/60 pb-3">
-                              <div className="flex items-center space-x-2 text-indigo-400">
+                          <div className="w-full max-w-md rounded-2xl border border-[#1A1714]/30 bg-gradient-to-b from-[#0f142b] to-[#070915] p-5 shadow-2xl shadow-[#1A1714]/50 space-y-4 backdrop-blur-xl">
+                            <div className="flex items-center justify-between border-b border-[#1A1714]/60 pb-3">
+                              <div className="flex items-center space-x-2 text-[#AC8968]">
                                 <Sparkles size={16} />
                                 <span className="text-[10px] font-bold tracking-wider uppercase font-display">Study Proposal Received</span>
                               </div>
                               <span className={`text-[9px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider ${
-                                bidStatus === 'accepted' ? 'bg-emerald-950/50 text-emerald-400 border border-emerald-900/50' :
+                                bidStatus === 'accepted' ? 'bg-[#1A1714]/50 text-[#93785B] border border-[#1A1714]/50' :
                                 bidStatus === 'rejected' ? 'bg-red-950/50 text-red-400 border border-red-900/50' :
-                                'bg-amber-950/50 text-amber-400 border border-amber-900/50'
+                                'bg-[#1A1714]/50 text-[#AC8968] border border-[#3E362E]/50'
                               }`}>
                                 {bidStatus === 'pending' ? '⏳ Pending' : bidStatus === 'accepted' ? '✅ Accepted' : '❌ Declined'}
                               </span>
                             </div>
 
                             <div className="grid grid-cols-2 gap-3">
-                              <div className="bg-[#0c1024]/80 border border-indigo-950/40 p-3 rounded-xl space-y-1">
-                                <span className="text-[9px] text-slate-500 uppercase block font-bold">Budget Offer</span>
-                                <strong className="text-sm text-emerald-400 font-extrabold font-display">₹{proposalData.amount}</strong>
+                              <div className="bg-[#0c1024]/80 border border-[#1A1714]/40 p-3 rounded-xl space-y-1">
+                                <span className="text-[9px] text-[#A69080] uppercase block font-bold">Budget Offer</span>
+                                <strong className="text-sm text-[#93785B] font-extrabold font-display">₹{proposalData.amount}</strong>
                               </div>
-                              <div className="bg-[#0c1024]/80 border border-indigo-950/40 p-3 rounded-xl space-y-1">
-                                <span className="text-[9px] text-slate-500 uppercase block font-bold">Est. Delivery</span>
-                                <strong className="text-sm text-indigo-300 font-extrabold font-display">{proposalData.deliveryHours} Hours</strong>
+                              <div className="bg-[#0c1024]/80 border border-[#1A1714]/40 p-3 rounded-xl space-y-1">
+                                <span className="text-[9px] text-[#A69080] uppercase block font-bold">Est. Delivery</span>
+                                <strong className="text-sm text-[#D4C4B0] font-extrabold font-display">{proposalData.deliveryHours} Hours</strong>
                               </div>
                             </div>
 
                             <div className="space-y-1.5">
-                              <span className="text-[9px] text-slate-500 uppercase block font-bold">Proposal Statement</span>
-                              <p className="text-xs text-slate-300 bg-slate-950/30 border border-slate-900/40 p-3 rounded-xl leading-relaxed italic">
+                              <span className="text-[9px] text-[#A69080] uppercase block font-bold">Proposal Statement</span>
+                              <p className="text-xs text-[#D4C4B0] bg-[#1A1714]/30 border border-[#2A2420]/40 p-3 rounded-xl leading-relaxed italic">
                                 "{proposalData.proposalMessage}"
                               </p>
                             </div>
@@ -531,7 +531,7 @@ export default function Inbox() {
                                 <button
                                   type="button"
                                   onClick={() => handleAcceptBid(proposalData.bidId)}
-                                  className="flex-1 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold transition shadow-lg shadow-emerald-950/30"
+                                  className="flex-1 py-2 rounded-xl bg-gradient-to-r from-[#93785B] to-teal-600 hover:from-[#865D36] hover:to-teal-500 text-white text-xs font-bold transition shadow-lg shadow-[#1A1714]/30"
                                 >
                                   Accept Proposal
                                 </button>
@@ -545,7 +545,7 @@ export default function Inbox() {
                               </div>
                             )}
                             
-                            <div className="text-[8px] text-slate-600 text-center font-medium">
+                            <div className="text-[8px] text-[#A69080] text-center font-medium">
                               Submitted at {new Date(msg.created_at).toLocaleString()}
                             </div>
                           </div>
@@ -556,27 +556,27 @@ export default function Inbox() {
 
                   return (
                     <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
-                      <div className={`max-w-[70%] rounded-2xl p-3.5 space-y-1 ${isMe ? 'bg-indigo-600 text-white rounded-tr-none' : 'bg-slate-900 border border-slate-800 text-slate-200 rounded-tl-none'}`}>
+                      <div className={`max-w-[70%] rounded-2xl p-3.5 space-y-1 ${isMe ? 'bg-[#865D36] text-white rounded-tr-none' : 'bg-[#2A2420] border border-[#3E362E] text-[#E8DDD0] rounded-tl-none'}`}>
                         {msg.content && <p className="text-xs leading-relaxed whitespace-pre-wrap">{msg.content}</p>}
                         {msg.file_url && (
                           <a 
                             href={`${BACKEND_URL}${msg.file_url}`}
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="flex items-center space-x-2 p-2.5 rounded-xl bg-black/30 text-indigo-300 hover:text-indigo-200 transition text-[10px] font-medium max-w-full"
+                            className="flex items-center space-x-2 p-2.5 rounded-xl bg-black/30 text-[#D4C4B0] hover:text-[#E8DDD0] transition text-[10px] font-medium max-w-full"
                           >
                             <FileText size={14} />
                             <span className="truncate">{msg.file_name}</span>
                           </a>
                         )}
-                        <div className="flex items-center justify-end space-x-1 text-[8px] text-slate-400/80 pt-0.5">
+                        <div className="flex items-center justify-end space-x-1 text-[8px] text-[#A69080]/80 pt-0.5">
                           <span>
                             {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                           </span>
                           {isMe && (
                             <CheckCheck 
                               size={11} 
-                              className={msg.is_read ? 'text-indigo-300' : 'text-slate-500'} 
+                              className={msg.is_read ? 'text-[#D4C4B0]' : 'text-[#A69080]'} 
                             />
                           )}
                         </div>
@@ -587,10 +587,10 @@ export default function Inbox() {
               )}
               {peerTyping && (
                 <div className="flex justify-start">
-                  <div className="bg-slate-900 border border-slate-800 rounded-xl rounded-tl-none px-3.5 py-2 flex items-center space-x-1">
-                    <div className="h-1.5 w-1.5 bg-slate-500 rounded-full typing-dot"></div>
-                    <div className="h-1.5 w-1.5 bg-slate-500 rounded-full typing-dot"></div>
-                    <div className="h-1.5 w-1.5 bg-slate-500 rounded-full typing-dot"></div>
+                  <div className="bg-[#2A2420] border border-[#3E362E] rounded-xl rounded-tl-none px-3.5 py-2 flex items-center space-x-1">
+                    <div className="h-1.5 w-1.5 bg-[#A69080] rounded-full typing-dot"></div>
+                    <div className="h-1.5 w-1.5 bg-[#A69080] rounded-full typing-dot"></div>
+                    <div className="h-1.5 w-1.5 bg-[#A69080] rounded-full typing-dot"></div>
                   </div>
                 </div>
               )}
@@ -605,7 +605,7 @@ export default function Inbox() {
             )}
 
             {/* Input area */}
-            <form onSubmit={handleSendMessage} className="p-3 bg-slate-950/40 border-t border-slate-900 flex items-center space-x-2.5">
+            <form onSubmit={handleSendMessage} className="p-3 bg-[#1A1714]/40 border-t border-[#2A2420] flex items-center space-x-2.5">
               <div className="relative">
                 <input 
                   type="file" 
@@ -616,7 +616,7 @@ export default function Inbox() {
                 <button 
                   type="button" 
                   disabled={uploading || isLocked}
-                  className="p-2.5 rounded-xl hover:bg-slate-900 border border-slate-900 text-slate-400 hover:text-indigo-400 transition disabled:opacity-40 disabled:hover:text-slate-400"
+                  className="p-2.5 rounded-xl hover:bg-[#2A2420] border border-[#2A2420] text-[#A69080] hover:text-[#AC8968] transition disabled:opacity-40 disabled:hover:text-[#A69080]"
                   title="Share Reference file"
                 >
                   <Paperclip size={16} />
@@ -628,12 +628,12 @@ export default function Inbox() {
                 value={newMessage}
                 onChange={handleInputChange}
                 disabled={uploading || isLocked}
-                className="flex-1 px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-950 focus:border-indigo-500 focus:outline-none text-[11px] text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-4 py-2.5 rounded-xl bg-[#2A2420]/60 border border-[#1A1714] focus:border-[#93785B] focus:outline-none text-[11px] text-white disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <button 
                 type="submit"
                 disabled={isLocked}
-                className="p-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition shrink-0 disabled:opacity-40 disabled:hover:bg-indigo-600"
+                className="p-2.5 rounded-xl bg-[#865D36] hover:bg-[#93785B] text-white transition shrink-0 disabled:opacity-40 disabled:hover:bg-[#865D36]"
               >
                 <Send size={15} />
               </button>
@@ -641,12 +641,12 @@ export default function Inbox() {
           </>
         ) : (
           <div className="flex-1 flex flex-col justify-center items-center p-8 text-center space-y-4">
-            <div className="w-16 h-16 rounded-full bg-indigo-950/30 border border-slate-800 flex items-center justify-center text-indigo-400 shadow-xl shadow-indigo-950/20 animate-pulse">
+            <div className="w-16 h-16 rounded-full bg-[#1A1714]/30 border border-[#3E362E] flex items-center justify-center text-[#AC8968] shadow-xl shadow-[#1A1714]/20 animate-pulse">
               <MessageSquare size={28} />
             </div>
             <div className="space-y-1 max-w-sm">
-              <h3 className="text-sm font-bold text-slate-200 font-display">Select a conversation</h3>
-              <p className="text-xs text-slate-500 leading-normal">
+              <h3 className="text-sm font-bold text-[#E8DDD0] font-display">Select a conversation</h3>
+              <p className="text-xs text-[#A69080] leading-normal">
                 Choose a conversation thread from the left list to start real-time messaging, review document attachments, and check progress details.
               </p>
             </div>

@@ -323,8 +323,8 @@ export default function TaskDetails() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center py-20 text-indigo-400">
-        <div className="animate-spin rounded-full h-8 w-8 border-4 border-indigo-500 border-t-transparent mr-2"></div>
+      <div className="flex justify-center items-center py-20 text-[#AC8968]">
+        <div className="animate-spin rounded-full h-8 w-8 border-4 border-[#93785B] border-t-transparent mr-2"></div>
         <span className="font-semibold text-sm">Securing network handshake...</span>
       </div>
     );
@@ -336,7 +336,7 @@ export default function TaskDetails() {
         <div className="p-4 rounded-xl bg-rose-950/20 border border-rose-900/50 text-rose-300 text-xs">
           {error}
         </div>
-        <Link to="/browse" className="inline-flex items-center space-x-1 text-xs text-indigo-400 hover:underline">
+        <Link to="/browse" className="inline-flex items-center space-x-1 text-xs text-[#AC8968] hover:underline">
           <ArrowLeft size={14} />
           <span>Return to marketplace</span>
         </Link>
@@ -363,7 +363,7 @@ export default function TaskDetails() {
   return (
     <div className="max-w-5xl mx-auto py-4 space-y-8">
       {/* Back button */}
-      <Link to="/browse" className="inline-flex items-center space-x-1.5 text-xs text-slate-400 hover:text-white transition">
+      <Link to="/browse" className="inline-flex items-center space-x-1.5 text-xs text-[#A69080] hover:text-white transition">
         <ArrowLeft size={14} />
         <span>Return to Marketplace</span>
       </Link>
@@ -372,27 +372,27 @@ export default function TaskDetails() {
         
         {/* Left column: Task details */}
         <section className="lg:col-span-2 space-y-6">
-          <div className="glass p-6 md:p-8 rounded-3xl border border-slate-800 space-y-6">
+          <div className="glass p-6 md:p-8 rounded-3xl border border-[#3E362E] space-y-6">
             
             {/* Header info */}
             <div className="flex justify-between items-start gap-4">
               <div className="space-y-2">
-                <span className="text-[10px] font-semibold bg-slate-900 border border-slate-800 text-slate-400 px-2 py-0.5 rounded">
+                <span className="text-[10px] font-semibold bg-[#2A2420] border border-[#3E362E] text-[#A69080] px-2 py-0.5 rounded">
                   {task.category}
                 </span>
                 <h2 className="text-2xl font-bold font-display text-white">{task.title}</h2>
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] text-slate-400 font-medium">
-                  <span>Posted by: <strong className="text-slate-300">{task.client_name}</strong></span>
-                  <span>College: <strong className="text-slate-300">{task.client_college}</strong></span>
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] text-[#A69080] font-medium">
+                  <span>Posted by: <strong className="text-[#D4C4B0]">{task.client_name}</strong></span>
+                  <span>College: <strong className="text-[#D4C4B0]">{task.client_college}</strong></span>
                 </div>
               </div>
 
               {/* Status Badge */}
               <span className={`text-[10px] font-bold px-2 py-0.5 rounded border capitalize shrink-0
-                ${task.status === 'completed' ? 'bg-emerald-950/40 text-emerald-300 border-emerald-800/40' :
+                ${task.status === 'completed' ? 'bg-[#1A1714]/40 text-[#AC8968] border-[#3E362E]/40' :
                   task.status === 'in_progress' ? 'bg-blue-950/40 text-blue-300 border-blue-800/40' :
-                  task.status === 'submitted' ? 'bg-purple-950/40 text-purple-300 border-purple-800/40' :
-                  'bg-indigo-950/40 text-indigo-300 border-indigo-800/40'}`}
+                  task.status === 'submitted' ? 'bg-[#1A1714]/40 text-[#E8DDD0] border-[#3E362E]/40' :
+                  'bg-[#1A1714]/40 text-[#D4C4B0] border-[#3E362E]/40'}`}
               >
                 {task.status === 'in_progress' ? 'In Progress' : task.status}
               </span>
@@ -400,14 +400,14 @@ export default function TaskDetails() {
 
             {/* Description details */}
             <div className="space-y-2">
-              <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Requirements</h3>
-              <p className="text-xs text-slate-300 leading-relaxed whitespace-pre-line">{task.description}</p>
+              <h3 className="text-xs font-semibold text-[#A69080] uppercase tracking-wider">Requirements</h3>
+              <p className="text-xs text-[#D4C4B0] leading-relaxed whitespace-pre-line">{task.description}</p>
             </div>
 
             {/* File attachments */}
             {fileList.length > 0 && (
               <div className="space-y-3 pt-2">
-                <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Attachments</h3>
+                <h3 className="text-xs font-semibold text-[#A69080] uppercase tracking-wider">Attachments</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {fileList.map((url, index) => (
                     <a 
@@ -415,7 +415,7 @@ export default function TaskDetails() {
                       href={`${BACKEND_URL}${url}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center space-x-2.5 p-3 rounded-xl bg-slate-900 border border-slate-800 text-xs text-indigo-400 hover:text-indigo-300 hover:border-indigo-800/50 transition font-medium"
+                      className="flex items-center space-x-2.5 p-3 rounded-xl bg-[#2A2420] border border-[#3E362E] text-xs text-[#AC8968] hover:text-[#D4C4B0] hover:border-[#3E362E]/50 transition font-medium"
                     >
                       <FileUp size={16} />
                       <span className="truncate">Reference Document {index + 1}</span>
@@ -428,23 +428,23 @@ export default function TaskDetails() {
 
           {/* AI estimates review block */}
           {task.difficulty_level && (
-            <div className="glass p-6 rounded-3xl border border-slate-800 space-y-4">
-              <h3 className="text-xs font-bold font-display text-indigo-400 flex items-center space-x-2">
+            <div className="glass p-6 rounded-3xl border border-[#3E362E] space-y-4">
+              <h3 className="text-xs font-bold font-display text-[#AC8968] flex items-center space-x-2">
                 <Brain size={15} />
                 <span>AI Marketplace Assessment</span>
               </h3>
               <div className="grid grid-cols-3 gap-4 text-center">
-                <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
-                  <div className="text-[9px] text-slate-500 font-semibold uppercase">Difficulty</div>
-                  <div className="text-xs font-bold text-slate-200 mt-0.5">{task.difficulty_level}</div>
+                <div className="p-3 rounded-xl bg-[#2A2420]/60 border border-[#3E362E]">
+                  <div className="text-[9px] text-[#A69080] font-semibold uppercase">Difficulty</div>
+                  <div className="text-xs font-bold text-[#E8DDD0] mt-0.5">{task.difficulty_level}</div>
                 </div>
-                <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
-                  <div className="text-[9px] text-slate-500 font-semibold uppercase">Est. Budget Range</div>
-                  <div className="text-xs font-bold text-slate-200 mt-0.5">{task.est_budget}</div>
+                <div className="p-3 rounded-xl bg-[#2A2420]/60 border border-[#3E362E]">
+                  <div className="text-[9px] text-[#A69080] font-semibold uppercase">Est. Budget Range</div>
+                  <div className="text-xs font-bold text-[#E8DDD0] mt-0.5">{task.est_budget}</div>
                 </div>
-                <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
-                  <div className="text-[9px] text-slate-500 font-semibold uppercase">Est. Effort</div>
-                  <div className="text-xs font-bold text-slate-200 mt-0.5">{task.est_time}</div>
+                <div className="p-3 rounded-xl bg-[#2A2420]/60 border border-[#3E362E]">
+                  <div className="text-[9px] text-[#A69080] font-semibold uppercase">Est. Effort</div>
+                  <div className="text-xs font-bold text-[#E8DDD0] mt-0.5">{task.est_time}</div>
                 </div>
               </div>
             </div>
@@ -452,9 +452,9 @@ export default function TaskDetails() {
 
           {/* Dynamic Actions panel for active projects */}
           {task.status !== 'open' && task.status !== 'bidding' && (
-            <div className="glass p-6 rounded-3xl border border-indigo-900/30 bg-indigo-950/5 space-y-4">
-              <h3 className="text-sm font-bold font-display text-indigo-400 flex items-center space-x-2">
-                <Sparkles size={16} className="text-indigo-400 animate-pulse-ring" />
+            <div className="glass p-6 rounded-3xl border border-[#1A1714]/30 bg-[#1A1714]/5 space-y-4">
+              <h3 className="text-sm font-bold font-display text-[#AC8968] flex items-center space-x-2">
+                <Sparkles size={16} className="text-[#AC8968] animate-pulse-ring" />
                 <span>Secure Escrow Collaboration Panel</span>
               </h3>
               
@@ -466,7 +466,7 @@ export default function TaskDetails() {
                     onClick={() => {
                       document.getElementById('workspace-chat-box')?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition animate-pulse-ring"
+                    className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-[#865D36] hover:bg-[#93785B] text-white font-semibold text-xs transition animate-pulse-ring"
                   >
                     <MessageSquare size={14} />
                     <span>Open Real-Time Chat</span>
@@ -477,7 +477,7 @@ export default function TaskDetails() {
                 {user.role === 'helper' && ['in_progress', 'submitted'].includes(task.status) && (
                   <Link 
                     to={`/submission/${task.id}/${task.id}`}
-                    className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition"
+                    className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-[#93785B] hover:bg-[#865D36] text-white font-semibold text-xs transition"
                   >
                     <CheckCircle size={14} />
                     <span>{task.status === 'submitted' ? 'Submission details / quality check' : 'Submit completed work'}</span>
@@ -488,7 +488,7 @@ export default function TaskDetails() {
                 {user.role === 'client' && task.status === 'submitted' && (
                   <Link 
                     to={`/submission/${task.id}/${task.id}`}
-                    className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs transition"
+                    className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-[#865D36] hover:bg-purple-500 text-white font-semibold text-xs transition"
                   >
                     <CheckCircle size={14} />
                     <span>Verify deliverable & Release escrow</span>
@@ -499,7 +499,7 @@ export default function TaskDetails() {
                 {task.status === 'completed' && !showReviewForm && (
                   <button 
                     onClick={() => setShowReviewForm(true)}
-                    className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs transition"
+                    className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-[#865D36] hover:bg-[#865D36] text-white font-semibold text-xs transition"
                   >
                     <Star size={14} />
                     <span>Leave a Review Rating</span>
@@ -509,15 +509,15 @@ export default function TaskDetails() {
 
               {/* Review feedback Form */}
               {showReviewForm && (
-                <form onSubmit={handleReviewSubmit} className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-4 pt-4 mt-2">
-                  <h4 className="text-xs font-bold text-slate-300">Submit Collaboration Experience</h4>
+                <form onSubmit={handleReviewSubmit} className="p-4 rounded-2xl bg-[#2A2420] border border-[#3E362E] space-y-4 pt-4 mt-2">
+                  <h4 className="text-xs font-bold text-[#D4C4B0]">Submit Collaboration Experience</h4>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[10px] text-slate-400 font-semibold mb-1">Stars Rating</label>
+                      <label className="block text-[10px] text-[#A69080] font-semibold mb-1">Stars Rating</label>
                       <select 
                         value={reviewRating}
                         onChange={(e) => setReviewRating(e.target.value)}
-                        className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs font-bold text-amber-400"
+                        className="w-full px-3 py-1.5 rounded-lg bg-[#1A1714] border border-[#3E362E] text-xs font-bold text-[#AC8968]"
                       >
                         <option value="5">⭐⭐⭐⭐⭐ (5 Stars)</option>
                         <option value="4">⭐⭐⭐⭐ (4 Stars)</option>
@@ -528,13 +528,13 @@ export default function TaskDetails() {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-[10px] text-slate-400 font-semibold mb-1">Comments</label>
+                    <label className="block text-[10px] text-[#A69080] font-semibold mb-1">Comments</label>
                     <textarea 
                       rows={3}
                       placeholder="Comment on communication quality, speed, formatting accuracy..."
                       value={reviewComment}
                       onChange={(e) => setReviewComment(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 focus:outline-none text-xs text-white"
+                      className="w-full px-3 py-2 rounded-xl bg-[#1A1714] border border-[#3E362E] focus:outline-none text-xs text-white"
                       required
                     />
                   </div>
@@ -542,14 +542,14 @@ export default function TaskDetails() {
                     <button 
                       type="submit" 
                       disabled={submittingReview}
-                      className="px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition disabled:opacity-50"
+                      className="px-4 py-2 rounded-lg bg-[#865D36] hover:bg-[#865D36] text-white text-xs font-bold transition disabled:opacity-50"
                     >
                       {submittingReview ? 'Submitting...' : 'Post Review'}
                     </button>
                     <button 
                       type="button" 
                       onClick={() => setShowReviewForm(false)}
-                      className="px-4 py-2 rounded-lg bg-slate-950 border border-slate-800 text-xs text-slate-400 hover:text-white"
+                      className="px-4 py-2 rounded-lg bg-[#1A1714] border border-[#3E362E] text-xs text-[#A69080] hover:text-white"
                     >
                       Cancel
                     </button>
@@ -561,28 +561,28 @@ export default function TaskDetails() {
 
           {/* Real-time Workspace Chat Box */}
           {chatPartnerId && (
-            <div id="workspace-chat-box" className="glass rounded-3xl border border-slate-800 overflow-hidden flex flex-col h-[450px] space-y-0">
+            <div id="workspace-chat-box" className="glass rounded-3xl border border-[#3E362E] overflow-hidden flex flex-col h-[450px] space-y-0">
               {/* Header */}
-              <div className="px-5 py-3.5 bg-slate-950/40 border-b border-slate-900 flex items-center justify-between">
+              <div className="px-5 py-3.5 bg-[#1A1714]/40 border-b border-[#2A2420] flex items-center justify-between">
                 <div className="flex items-center space-x-2.5">
-                  <div className="w-7 h-7 rounded-full bg-indigo-950/50 border border-slate-800 flex items-center justify-center text-indigo-400 text-[11px] font-bold font-display">
+                  <div className="w-7 h-7 rounded-full bg-[#1A1714]/50 border border-[#3E362E] flex items-center justify-center text-[#AC8968] text-[11px] font-bold font-display">
                     {chatPartnerName ? chatPartnerName.charAt(0) : '?'}
                   </div>
                   <div className="space-y-0.5">
-                    <h4 className="text-xs font-bold text-slate-200 font-display">Chat with {chatPartnerName}</h4>
-                    <span className="text-[9px] text-slate-500 block">Task Peer Workspace</span>
+                    <h4 className="text-xs font-bold text-[#E8DDD0] font-display">Chat with {chatPartnerName}</h4>
+                    <span className="text-[9px] text-[#A69080] block">Task Peer Workspace</span>
                   </div>
                 </div>
-                <div className="text-[9px] text-indigo-400 bg-indigo-950/30 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
+                <div className="text-[9px] text-[#AC8968] bg-[#1A1714]/30 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
                   Live Chat
                 </div>
               </div>
 
               {/* Messages Thread */}
-              <div className="flex-1 p-5 overflow-y-auto space-y-3 bg-slate-950/10">
+              <div className="flex-1 p-5 overflow-y-auto space-y-3 bg-[#1A1714]/10">
                 {chatMessages.length === 0 ? (
-                  <div className="text-center py-16 text-slate-500 text-xs font-medium space-y-2">
-                    <MessageSquare size={20} className="mx-auto text-slate-700 animate-bounce" />
+                  <div className="text-center py-16 text-[#A69080] text-xs font-medium space-y-2">
+                    <MessageSquare size={20} className="mx-auto text-[#573D23] animate-bounce" />
                     <p>No chat history yet. Send a greeting to initiate discussion.</p>
                   </div>
                 ) : (
@@ -590,27 +590,27 @@ export default function TaskDetails() {
                     const isMe = String(msg.sender_id) === String(user.id);
                     return (
                       <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`max-w-[75%] rounded-2xl p-3 space-y-1 ${isMe ? 'bg-indigo-600 text-white rounded-tr-none' : 'bg-slate-900 border border-slate-800 text-slate-200 rounded-tl-none'}`}>
+                        <div className={`max-w-[75%] rounded-2xl p-3 space-y-1 ${isMe ? 'bg-[#865D36] text-white rounded-tr-none' : 'bg-[#2A2420] border border-[#3E362E] text-[#E8DDD0] rounded-tl-none'}`}>
                           {msg.content && <p className="text-xs leading-relaxed whitespace-pre-wrap">{msg.content}</p>}
                           {msg.file_url && (
                             <a 
                               href={`${BACKEND_URL}${msg.file_url}`}
                               target="_blank" 
                               rel="noopener noreferrer"
-                              className="flex items-center space-x-2 p-2 rounded-xl bg-black/30 text-indigo-300 hover:text-indigo-200 transition text-[10px] font-medium max-w-full"
+                              className="flex items-center space-x-2 p-2 rounded-xl bg-black/30 text-[#D4C4B0] hover:text-[#E8DDD0] transition text-[10px] font-medium max-w-full"
                             >
                               <FileText size={13} />
                               <span className="truncate">{msg.file_name}</span>
                             </a>
                           )}
-                          <div className="flex items-center justify-end space-x-1 text-[8px] text-slate-400/80 pt-0.5">
+                          <div className="flex items-center justify-end space-x-1 text-[8px] text-[#A69080]/80 pt-0.5">
                             <span>
                               {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                             </span>
                             {isMe && (
                               <CheckCheck 
                                 size={11} 
-                                className={msg.is_read ? 'text-indigo-300' : 'text-slate-500'} 
+                                className={msg.is_read ? 'text-[#D4C4B0]' : 'text-[#A69080]'} 
                               />
                             )}
                           </div>
@@ -621,10 +621,10 @@ export default function TaskDetails() {
                 )}
                 {peerTyping && (
                   <div className="flex justify-start">
-                    <div className="bg-slate-900 border border-slate-800 rounded-xl rounded-tl-none px-3 py-2 flex items-center space-x-1">
-                      <div className="h-1.5 w-1.5 bg-slate-500 rounded-full typing-dot"></div>
-                      <div className="h-1.5 w-1.5 bg-slate-500 rounded-full typing-dot"></div>
-                      <div className="h-1.5 w-1.5 bg-slate-500 rounded-full typing-dot"></div>
+                    <div className="bg-[#2A2420] border border-[#3E362E] rounded-xl rounded-tl-none px-3 py-2 flex items-center space-x-1">
+                      <div className="h-1.5 w-1.5 bg-[#A69080] rounded-full typing-dot"></div>
+                      <div className="h-1.5 w-1.5 bg-[#A69080] rounded-full typing-dot"></div>
+                      <div className="h-1.5 w-1.5 bg-[#A69080] rounded-full typing-dot"></div>
                     </div>
                   </div>
                 )}
@@ -632,7 +632,7 @@ export default function TaskDetails() {
               </div>
 
               {/* Input Area */}
-              <form onSubmit={handleSendChatMessage} className="p-3 bg-slate-950/40 border-t border-slate-900 flex items-center space-x-2">
+              <form onSubmit={handleSendChatMessage} className="p-3 bg-[#1A1714]/40 border-t border-[#2A2420] flex items-center space-x-2">
                 <div className="relative">
                   <input 
                     type="file" 
@@ -642,7 +642,7 @@ export default function TaskDetails() {
                   />
                   <button 
                     type="button" 
-                    className="p-2 rounded-lg hover:bg-slate-900 border border-slate-900 text-slate-400 hover:text-indigo-400 transition"
+                    className="p-2 rounded-lg hover:bg-[#2A2420] border border-[#2A2420] text-[#A69080] hover:text-[#AC8968] transition"
                     title="Share File"
                   >
                     <Paperclip size={16} />
@@ -654,11 +654,11 @@ export default function TaskDetails() {
                   value={newChatMessage}
                   onChange={handleChatInputChange}
                   disabled={chatUploading}
-                  className="flex-1 px-3 py-2 rounded-xl bg-slate-900/60 border border-slate-950 focus:border-indigo-500 focus:outline-none text-[11px] text-white"
+                  className="flex-1 px-3 py-2 rounded-xl bg-[#2A2420]/60 border border-[#1A1714] focus:border-[#93785B] focus:outline-none text-[11px] text-white"
                 />
                 <button 
                   type="submit"
-                  className="p-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition shrink-0"
+                  className="p-2 rounded-xl bg-[#865D36] hover:bg-[#93785B] text-white transition shrink-0"
                 >
                   <Send size={15} />
                 </button>
@@ -669,20 +669,20 @@ export default function TaskDetails() {
 
         {/* Right column: Bids lists or Helper bidding forms */}
         <aside className="space-y-6">
-          <div className="glass p-6 rounded-3xl border border-slate-800 space-y-6">
-            <h3 className="text-xs font-bold font-display text-indigo-400 uppercase tracking-wider pb-2 border-b border-slate-900">
+          <div className="glass p-6 rounded-3xl border border-[#3E362E] space-y-6">
+            <h3 className="text-xs font-bold font-display text-[#AC8968] uppercase tracking-wider pb-2 border-b border-[#2A2420]">
               Task Allocations
             </h3>
             
             <div className="space-y-2">
-              <span className="text-[10px] text-slate-500 font-semibold uppercase block">Budget Cap</span>
-              <span className="text-2xl font-bold font-display text-emerald-400">₹{task.budget}</span>
+              <span className="text-[10px] text-[#A69080] font-semibold uppercase block">Budget Cap</span>
+              <span className="text-2xl font-bold font-display text-[#93785B]">₹{task.budget}</span>
             </div>
 
-            <div className="space-y-2 pt-2 border-t border-slate-900">
-              <span className="text-[10px] text-slate-500 font-semibold uppercase block">Assistance Target</span>
-              <span className="text-xs font-semibold text-slate-200 flex items-center space-x-1">
-                <Calendar size={14} className="text-slate-500" />
+            <div className="space-y-2 pt-2 border-t border-[#2A2420]">
+              <span className="text-[10px] text-[#A69080] font-semibold uppercase block">Assistance Target</span>
+              <span className="text-xs font-semibold text-[#E8DDD0] flex items-center space-x-1">
+                <Calendar size={14} className="text-[#A69080]" />
                 <span>Deliver within {task.deadline}</span>
               </span>
             </div>
@@ -690,11 +690,11 @@ export default function TaskDetails() {
 
           {/* Task Discussion for all visitors (non-owners) */}
           {user && String(user.id) !== String(task.client_id) && (
-            <div className="glass p-6 rounded-3xl border border-slate-800 space-y-4">
-              <h3 className="text-xs font-bold font-display text-indigo-400 uppercase tracking-wider pb-2 border-b border-slate-900">
+            <div className="glass p-6 rounded-3xl border border-[#3E362E] space-y-4">
+              <h3 className="text-xs font-bold font-display text-[#AC8968] uppercase tracking-wider pb-2 border-b border-[#2A2420]">
                 Task Discussion
               </h3>
-              <p className="text-[11px] text-slate-400 leading-normal">
+              <p className="text-[11px] text-[#A69080] leading-normal">
                 Discuss requirements or timeline details directly with the task owner.
               </p>
               <button 
@@ -706,7 +706,7 @@ export default function TaskDetails() {
                     document.getElementById('workspace-chat-box')?.scrollIntoView({ behavior: 'smooth' });
                   }, 100);
                 }} 
-                className="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center justify-center space-x-1.5 transition"
+                className="w-full py-2.5 rounded-xl bg-[#865D36] hover:bg-[#93785B] text-white font-bold text-xs flex items-center justify-center space-x-1.5 transition"
               >
                 <MessageSquare size={13} />
                 <span>Chat with Task Owner</span>
@@ -716,49 +716,49 @@ export default function TaskDetails() {
 
           {/* Client View: List of Helper proposals */}
           {isOwner && (task.status === 'open' || task.status === 'bidding') && (
-            <div className="glass p-6 rounded-3xl border border-slate-800 space-y-6">
-              <div className="flex justify-between items-center pb-2 border-b border-slate-900">
-                <h3 className="text-xs font-bold font-display text-indigo-400 uppercase tracking-wider">
+            <div className="glass p-6 rounded-3xl border border-[#3E362E] space-y-6">
+              <div className="flex justify-between items-center pb-2 border-b border-[#2A2420]">
+                <h3 className="text-xs font-bold font-display text-[#AC8968] uppercase tracking-wider">
                   Helper Bids ({bids.length})
                 </h3>
               </div>
               
               {bids.length === 0 ? (
-                <div className="text-center py-6 text-slate-500 text-xs font-medium">
+                <div className="text-center py-6 text-[#A69080] text-xs font-medium">
                   Waiting for helper bids...
                 </div>
               ) : (
                 <div className="space-y-4 max-h-[400px] overflow-y-auto pr-1">
                   {bids.map((bid) => (
-                    <div key={bid.id} className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-3 relative hover:border-slate-700 transition">
+                    <div key={bid.id} className="p-4 rounded-2xl bg-[#2A2420] border border-[#3E362E] space-y-3 relative hover:border-[#573D23] transition">
                       <div className="flex justify-between items-start">
                         <div className="space-y-0.5">
-                          <Link to={`/profile/${bid.helper_id}`} className="text-xs font-bold text-slate-200 hover:text-indigo-400 transition block truncate">
+                          <Link to={`/profile/${bid.helper_id}`} className="text-xs font-bold text-[#E8DDD0] hover:text-[#AC8968] transition block truncate">
                             {bid.helper_name}
                           </Link>
-                          <span className="text-[9px] text-slate-500 block truncate">{bid.helper_college}</span>
+                          <span className="text-[9px] text-[#A69080] block truncate">{bid.helper_college}</span>
                         </div>
                         <div className="text-right shrink-0">
-                          <div className="text-xs font-bold text-emerald-400">₹{bid.amount}</div>
-                          <div className="text-[9px] text-slate-500">{bid.delivery_hours} hours</div>
+                          <div className="text-xs font-bold text-[#93785B]">₹{bid.amount}</div>
+                          <div className="text-[9px] text-[#A69080]">{bid.delivery_hours} hours</div>
                         </div>
                       </div>
 
                       {/* Helper rating info */}
-                      <div className="flex items-center space-x-1.5 text-[10px] text-slate-400">
-                        <Star size={11} className="text-amber-500 fill-amber-500" />
-                        <span className="font-bold text-slate-300">{bid.helper_rating?.toFixed(1)}</span>
-                        <span className="text-slate-500">({bid.helper_tasks} tasks)</span>
+                      <div className="flex items-center space-x-1.5 text-[10px] text-[#A69080]">
+                        <Star size={11} className="text-[#865D36] fill-[#865D36]" />
+                        <span className="font-bold text-[#D4C4B0]">{bid.helper_rating?.toFixed(1)}</span>
+                        <span className="text-[#A69080]">({bid.helper_tasks} tasks)</span>
                       </div>
 
-                      <p className="text-[11px] text-slate-400 italic bg-slate-950/40 p-2.5 rounded-lg border border-slate-950 leading-relaxed line-clamp-3">
+                      <p className="text-[11px] text-[#A69080] italic bg-[#1A1714]/40 p-2.5 rounded-lg border border-[#1A1714] leading-relaxed line-clamp-3">
                         "{bid.proposal_message}"
                       </p>
 
                       <div className="flex gap-2 pt-1.5">
                         <button 
                           onClick={() => handleAcceptBid(bid.id, bid.amount)}
-                          className="flex-1 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] transition"
+                          className="flex-1 py-1.5 rounded-xl bg-[#93785B] hover:bg-[#865D36] text-white font-bold text-[10px] transition"
                         >
                           Accept Bid
                         </button>
@@ -771,7 +771,7 @@ export default function TaskDetails() {
                               document.getElementById('workspace-chat-box')?.scrollIntoView({ behavior: 'smooth' });
                             }, 100);
                           }}
-                          className={`px-3 py-1.5 rounded-xl border transition flex items-center justify-center ${chatPartnerId === bid.helper_id ? 'bg-indigo-600 border-indigo-500 text-white' : 'bg-slate-950 hover:bg-slate-900 border-slate-800 text-slate-400 hover:text-white'}`}
+                          className={`px-3 py-1.5 rounded-xl border transition flex items-center justify-center ${chatPartnerId === bid.helper_id ? 'bg-[#865D36] border-[#93785B] text-white' : 'bg-[#1A1714] hover:bg-[#2A2420] border-[#3E362E] text-[#A69080] hover:text-white'}`}
                           title={`Chat with ${bid.helper_name}`}
                         >
                           <MessageSquare size={13} />
@@ -786,8 +786,8 @@ export default function TaskDetails() {
 
           {/* Helper View: Bid Placement box */}
           {user && user.role === 'helper' && (
-            <div className="glass p-6 rounded-3xl border border-slate-800 space-y-4">
-              <h3 className="text-xs font-bold font-display text-indigo-400 uppercase tracking-wider pb-2 border-b border-slate-900">
+            <div className="glass p-6 rounded-3xl border border-[#3E362E] space-y-4">
+              <h3 className="text-xs font-bold font-display text-[#AC8968] uppercase tracking-wider pb-2 border-b border-[#2A2420]">
                 Placement Desk
               </h3>
 
@@ -799,19 +799,19 @@ export default function TaskDetails() {
                   </div>
                   <div className="space-y-1.5">
                     <span className="text-xs font-bold text-rose-300 uppercase tracking-wider block">Task Locked</span>
-                    <p className="text-[11px] text-slate-400 leading-relaxed">
+                    <p className="text-[11px] text-[#A69080] leading-relaxed">
                       A helper's proposal has already been accepted for this task. No further bids or proposals can be submitted.
                     </p>
                   </div>
                   {myBid && (
-                    <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-left space-y-2">
+                    <div className="p-3 rounded-xl bg-[#2A2420]/60 border border-[#3E362E] text-left space-y-2">
                       <div className="flex justify-between items-center text-[10px]">
-                        <span className="text-slate-500">Your bid was:</span>
-                        <span className="font-bold text-slate-300">₹{myBid.amount}</span>
+                        <span className="text-[#A69080]">Your bid was:</span>
+                        <span className="font-bold text-[#D4C4B0]">₹{myBid.amount}</span>
                       </div>
                       <div className="flex justify-between items-center text-[10px]">
-                        <span className="text-slate-500">Status:</span>
-                        <span className={`font-bold uppercase ${myBid.status === 'rejected' ? 'text-rose-400' : 'text-amber-400'}`}>
+                        <span className="text-[#A69080]">Status:</span>
+                        <span className={`font-bold uppercase ${myBid.status === 'rejected' ? 'text-rose-400' : 'text-[#AC8968]'}`}>
                           {myBid.status === 'rejected' ? 'Declined' : 'Not Selected'}
                         </span>
                       </div>
@@ -819,25 +819,25 @@ export default function TaskDetails() {
                   )}
                 </div>
               ) : myBid ? (
-                <div className="p-4 rounded-2xl bg-indigo-950/20 border border-indigo-900/40 space-y-3">
-                  <span className="text-[10px] text-indigo-400 font-bold uppercase tracking-wider block">Your Placed Proposal</span>
+                <div className="p-4 rounded-2xl bg-[#1A1714]/20 border border-[#1A1714]/40 space-y-3">
+                  <span className="text-[10px] text-[#AC8968] font-bold uppercase tracking-wider block">Your Placed Proposal</span>
                   <div className="flex justify-between items-center text-xs">
-                    <span className="text-slate-400">Offer amount:</span>
-                    <strong className="text-emerald-400 font-bold text-sm">₹{myBid.amount}</strong>
+                    <span className="text-[#A69080]">Offer amount:</span>
+                    <strong className="text-[#93785B] font-bold text-sm">₹{myBid.amount}</strong>
                   </div>
                   <div className="flex justify-between items-center text-xs">
-                    <span className="text-slate-400">Delivery timeframe:</span>
-                    <strong className="text-slate-300">{myBid.delivery_hours} Hours</strong>
+                    <span className="text-[#A69080]">Delivery timeframe:</span>
+                    <strong className="text-[#D4C4B0]">{myBid.delivery_hours} Hours</strong>
                   </div>
-                  <div className="flex justify-between items-center text-xs pt-1 border-t border-slate-900">
-                    <span className="text-slate-400">Proposal status:</span>
+                  <div className="flex justify-between items-center text-xs pt-1 border-t border-[#2A2420]">
+                    <span className="text-[#A69080]">Proposal status:</span>
                     <span className={`font-bold uppercase text-[10px] ${
-                      myBid.status === 'accepted' ? 'text-emerald-400' :
+                      myBid.status === 'accepted' ? 'text-[#93785B]' :
                       myBid.status === 'rejected' ? 'text-red-400' :
-                      'text-amber-400'
+                      'text-[#AC8968]'
                     }`}>{myBid.status}</span>
                   </div>
-                  <div className="pt-3 border-t border-slate-900 space-y-2">
+                  <div className="pt-3 border-t border-[#2A2420] space-y-2">
                     <button 
                       type="button"
                       onClick={() => {
@@ -847,7 +847,7 @@ export default function TaskDetails() {
                           document.getElementById('workspace-chat-box')?.scrollIntoView({ behavior: 'smooth' });
                         }, 100);
                       }}
-                      className="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center justify-center space-x-1.5 transition"
+                      className="w-full py-2.5 rounded-xl bg-[#865D36] hover:bg-[#93785B] text-white font-bold text-xs flex items-center justify-center space-x-1.5 transition"
                     >
                       <MessageSquare size={13} />
                       <span>Chat with Task Owner</span>
@@ -867,7 +867,7 @@ export default function TaskDetails() {
               ) : (task.status === 'open' || task.status === 'bidding') ? (
                 <form onSubmit={handleBidSubmit} className="space-y-4">
                   {bidSuccess && (
-                    <div className="p-3 rounded-xl bg-emerald-950/20 border border-emerald-900/40 text-emerald-300 text-xs">
+                    <div className="p-3 rounded-xl bg-[#1A1714]/20 border border-[#1A1714]/40 text-[#AC8968] text-xs">
                       Proposal bid registered successfully!
                     </div>
                   )}
@@ -879,37 +879,37 @@ export default function TaskDetails() {
                   )}
 
                   <div>
-                    <label className="block text-[10px] font-semibold text-slate-400 mb-1">Your Proposal Fee (₹)</label>
+                    <label className="block text-[10px] font-semibold text-[#A69080] mb-1">Your Proposal Fee (₹)</label>
                     <input 
                       type="number"
                       placeholder="e.g. 900"
                       value={bidAmount}
                       onChange={(e) => setBidAmount(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl bg-slate-900/60 border border-slate-800 text-xs font-bold text-white focus:outline-none"
+                      className="w-full px-3 py-2 rounded-xl bg-[#2A2420]/60 border border-[#3E362E] text-xs font-bold text-white focus:outline-none"
                       required
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-semibold text-slate-400 mb-1">Estimated Delivery Hours</label>
+                    <label className="block text-[10px] font-semibold text-[#A69080] mb-1">Estimated Delivery Hours</label>
                     <input 
                       type="number"
                       placeholder="e.g. 24"
                       value={deliveryHours}
                       onChange={(e) => setDeliveryHours(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl bg-slate-900/60 border border-slate-800 text-xs font-bold text-white focus:outline-none"
+                      className="w-full px-3 py-2 rounded-xl bg-[#2A2420]/60 border border-[#3E362E] text-xs font-bold text-white focus:outline-none"
                       required
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-semibold text-slate-400 mb-1">Proposal Message</label>
+                    <label className="block text-[10px] font-semibold text-[#A69080] mb-1">Proposal Message</label>
                     <textarea 
                       rows={3}
                       placeholder="Explain your course expertise, skills relevant, and fast milestones delivery assurances..."
                       value={proposalMessage}
                       onChange={(e) => setProposalMessage(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-white focus:outline-none leading-relaxed"
+                      className="w-full px-3 py-2 rounded-xl bg-[#2A2420]/60 border border-[#3E362E] text-xs text-white focus:outline-none leading-relaxed"
                       required
                     />
                   </div>
@@ -917,7 +917,7 @@ export default function TaskDetails() {
                   <button 
                     type="submit"
                     disabled={submittingBid}
-                    className="w-full py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition disabled:opacity-50"
+                    className="w-full py-2.5 rounded-full bg-[#865D36] hover:bg-[#93785B] text-white font-bold text-xs transition disabled:opacity-50"
                   >
                     {submittingBid ? 'Registering proposal...' : 'Submit Proposal Bid'}
                   </button>

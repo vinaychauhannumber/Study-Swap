@@ -116,8 +116,8 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center py-20 text-indigo-400">
-        <div className="animate-spin rounded-full h-8 w-8 border-4 border-indigo-500 border-t-transparent mr-2"></div>
+      <div className="flex justify-center items-center py-20 text-[#AC8968]">
+        <div className="animate-spin rounded-full h-8 w-8 border-4 border-[#93785B] border-t-transparent mr-2"></div>
         <span className="font-semibold text-sm">Parsing academic workspace...</span>
       </div>
     );
@@ -125,13 +125,13 @@ export default function Dashboard() {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'open': return 'bg-indigo-950/40 text-indigo-300 border-indigo-800/40';
-      case 'bidding': return 'bg-amber-950/40 text-amber-300 border-amber-800/40';
+      case 'open': return 'bg-[#1A1714]/40 text-[#D4C4B0] border-[#3E362E]/40';
+      case 'bidding': return 'bg-[#1A1714]/40 text-amber-300 border-amber-800/40';
       case 'in_progress': return 'bg-blue-950/40 text-blue-300 border-blue-800/40';
-      case 'submitted': return 'bg-purple-950/40 text-purple-300 border-purple-800/40';
-      case 'completed': return 'bg-emerald-950/40 text-emerald-300 border-emerald-800/40';
+      case 'submitted': return 'bg-[#1A1714]/40 text-[#E8DDD0] border-[#3E362E]/40';
+      case 'completed': return 'bg-[#1A1714]/40 text-[#AC8968] border-[#3E362E]/40';
       case 'cancelled': return 'bg-rose-950/40 text-rose-300 border-rose-800/40';
-      default: return 'bg-slate-900 text-slate-400 border-slate-800';
+      default: return 'bg-[#2A2420] text-[#A69080] border-[#3E362E]';
     }
   };
 
@@ -145,18 +145,18 @@ export default function Dashboard() {
   return (
     <div className="space-y-10 py-4 page-enter">
       {/* Header Banner */}
-      <div className="glass p-6 md:p-8 rounded-3xl border border-slate-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 animate-fade-in-up hover-glow">
+      <div className="glass p-6 md:p-8 rounded-3xl border border-[#3E362E] flex flex-col md:flex-row justify-between items-start md:items-center gap-6 animate-fade-in-up hover-glow">
         <div className="space-y-1.5">
-          <div className="text-xs font-semibold text-indigo-400 uppercase tracking-wider">{user.role} workspace</div>
+          <div className="text-xs font-semibold text-[#AC8968] uppercase tracking-wider">{user.role} workspace</div>
           <h2 className="text-2xl md:text-3xl font-bold font-display text-white">Hello, {user.full_name}!</h2>
-          <p className="text-xs text-slate-400 font-medium">
+          <p className="text-xs text-[#A69080] font-medium">
             {user.college} • {user.course} ({user.academic_year})
           </p>
         </div>
         {user.role === 'client' ? (
           <Link 
             to="/post-task"
-            className="flex items-center space-x-2 px-5 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-lg shadow-indigo-600/20 transition shrink-0 btn-ripple hover-scale"
+            className="flex items-center space-x-2 px-5 py-2.5 rounded-full bg-[#865D36] hover:bg-[#93785B] text-white font-bold text-xs shadow-lg shadow-[#865D36]/20 transition shrink-0 btn-ripple hover-scale"
           >
             <PlusCircle size={15} />
             <span>Post New Task</span>
@@ -164,7 +164,7 @@ export default function Dashboard() {
         ) : (
           <Link 
             to="/browse"
-            className="flex items-center space-x-2 px-5 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-lg shadow-emerald-600/20 transition shrink-0 btn-ripple hover-scale"
+            className="flex items-center space-x-2 px-5 py-2.5 rounded-full bg-[#93785B] hover:bg-[#865D36] text-white font-bold text-xs shadow-lg shadow-[#93785B]/20 transition shrink-0 btn-ripple hover-scale"
           >
             <Briefcase size={15} />
             <span>Find Tasks to Bid</span>
@@ -175,58 +175,58 @@ export default function Dashboard() {
       {/* Metrics Row */}
       {user.role === 'client' ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div className="glass p-5 rounded-2xl border border-slate-800 flex items-center space-x-4 hover-lift hover-shine animate-fade-in-up delay-200">
-            <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-indigo-400">
+          <div className="glass p-5 rounded-2xl border border-[#3E362E] flex items-center space-x-4 hover-lift hover-shine animate-fade-in-up delay-200">
+            <div className="p-3.5 rounded-xl bg-[#2A2420] border border-[#3E362E] text-[#AC8968]">
               <Clock size={20} />
             </div>
             <div>
               <div className="text-xl font-bold font-display text-white">
                 {tasks.filter(t => ['open', 'bidding', 'in_progress', 'submitted'].includes(t.status)).length}
               </div>
-              <div className="text-[10px] text-slate-400 font-semibold uppercase">Active / Pending Tasks</div>
+              <div className="text-[10px] text-[#A69080] font-semibold uppercase">Active / Pending Tasks</div>
             </div>
           </div>
-          <div className="glass p-5 rounded-2xl border border-slate-800 flex items-center space-x-4 hover-lift hover-shine animate-fade-in-up delay-300">
-            <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-emerald-400">
+          <div className="glass p-5 rounded-2xl border border-[#3E362E] flex items-center space-x-4 hover-lift hover-shine animate-fade-in-up delay-300">
+            <div className="p-3.5 rounded-xl bg-[#2A2420] border border-[#3E362E] text-[#93785B]">
               <CheckCircle size={20} />
             </div>
             <div>
               <div className="text-xl font-bold font-display text-white">
                 {tasks.filter(t => t.status === 'completed').length}
               </div>
-              <div className="text-[10px] text-slate-400 font-semibold uppercase">Completed Tasks</div>
+              <div className="text-[10px] text-[#A69080] font-semibold uppercase">Completed Tasks</div>
             </div>
           </div>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <div className="glass p-5 rounded-2xl border border-slate-800 flex items-center space-x-4 hover-lift hover-shine animate-fade-in-up delay-200">
-            <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-emerald-400">
+          <div className="glass p-5 rounded-2xl border border-[#3E362E] flex items-center space-x-4 hover-lift hover-shine animate-fade-in-up delay-200">
+            <div className="p-3.5 rounded-xl bg-[#2A2420] border border-[#3E362E] text-[#93785B]">
               <Award size={20} />
             </div>
             <div>
               <div className="text-lg font-bold font-display text-white">{user.rating?.toFixed(1)} ★</div>
-              <div className="text-[10px] text-slate-400 font-semibold uppercase">Overall Rating</div>
+              <div className="text-[10px] text-[#A69080] font-semibold uppercase">Overall Rating</div>
             </div>
           </div>
-          <div className="glass p-5 rounded-2xl border border-slate-800 flex items-center space-x-4 hover-lift hover-shine animate-fade-in-up delay-300">
-            <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-indigo-400">
+          <div className="glass p-5 rounded-2xl border border-[#3E362E] flex items-center space-x-4 hover-lift hover-shine animate-fade-in-up delay-300">
+            <div className="p-3.5 rounded-xl bg-[#2A2420] border border-[#3E362E] text-[#AC8968]">
               <BookmarkCheck size={20} />
             </div>
             <div>
               <div className="text-lg font-bold font-display text-white">{user.completed_tasks}</div>
-              <div className="text-[10px] text-slate-400 font-semibold uppercase">Tasks Completed</div>
+              <div className="text-[10px] text-[#A69080] font-semibold uppercase">Tasks Completed</div>
             </div>
           </div>
-          <div className="glass p-5 rounded-2xl border border-slate-800 flex items-center space-x-4">
-            <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-amber-400">
+          <div className="glass p-5 rounded-2xl border border-[#3E362E] flex items-center space-x-4">
+            <div className="p-3.5 rounded-xl bg-[#2A2420] border border-[#3E362E] text-[#AC8968]">
               <Clock size={20} />
             </div>
             <div>
               <div className="text-lg font-bold font-display text-white">
                 {tasks.filter(t => t.bid_status === 'pending').length}
               </div>
-              <div className="text-[10px] text-slate-400 font-semibold uppercase font-display">Active Bids</div>
+              <div className="text-[10px] text-[#A69080] font-semibold uppercase font-display">Active Bids</div>
             </div>
           </div>
         </div>
@@ -235,35 +235,35 @@ export default function Dashboard() {
       {/* Main Task List */}
       <section className="space-y-6">
         {user.role === 'client' ? (
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-900 pb-3 gap-4">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-[#2A2420] pb-3 gap-4">
             <div className="flex items-center space-x-2">
-              <ListCollapse size={18} className="text-indigo-400" />
+              <ListCollapse size={18} className="text-[#AC8968]" />
               <h3 className="text-lg font-bold font-display text-white">Client Workspace</h3>
             </div>
-            <div className="flex bg-slate-950 p-1 rounded-xl border border-slate-800 space-x-1 shrink-0">
+            <div className="flex bg-[#1A1714] p-1 rounded-xl border border-[#3E362E] space-x-1 shrink-0">
               <button
                 type="button"
                 onClick={() => setActiveTab('active')}
-                className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition ${activeTab === 'active' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
+                className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition ${activeTab === 'active' ? 'bg-[#865D36] text-white' : 'text-[#A69080] hover:text-white'}`}
               >
                 Active & Pending ({activeTasks.length})
               </button>
               <button
                 type="button"
                 onClick={() => setActiveTab('completed')}
-                className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition ${activeTab === 'completed' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
+                className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition ${activeTab === 'completed' ? 'bg-[#865D36] text-white' : 'text-[#A69080] hover:text-white'}`}
               >
                 Completed ({completedTasks.length})
               </button>
             </div>
           </div>
         ) : (
-          <div className="flex justify-between items-center border-b border-slate-900 pb-3">
+          <div className="flex justify-between items-center border-b border-[#2A2420] pb-3">
             <h3 className="text-lg font-bold font-display flex items-center space-x-2">
-              <ListCollapse size={18} className="text-indigo-400" />
+              <ListCollapse size={18} className="text-[#AC8968]" />
               <span>My Bids & Assignments</span>
             </h3>
-            <span className="text-[10px] font-semibold bg-slate-900 text-slate-400 px-2 py-0.5 rounded border border-slate-800">
+            <span className="text-[10px] font-semibold bg-[#2A2420] text-[#A69080] px-2 py-0.5 rounded border border-[#3E362E]">
               {tasks.length} total entries
             </span>
           </div>
@@ -277,19 +277,19 @@ export default function Dashboard() {
         )}
 
         {displayedTasks.length === 0 ? (
-          <div className="glass p-12 text-center rounded-3xl border border-slate-800/80 space-y-4">
-            <div className="text-slate-500 font-medium text-sm">
+          <div className="glass p-12 text-center rounded-3xl border border-[#3E362E]/80 space-y-4">
+            <div className="text-[#A69080] font-medium text-sm">
               {user.role === 'client' 
                 ? (activeTab === 'active' ? 'No active or pending tasks found.' : 'No completed tasks found in your archive.')
                 : 'No tasks found in your workspace log.'}
             </div>
             {user.role === 'client' && activeTab === 'active' && (
-              <Link to="/post-task" className="inline-block text-xs text-indigo-400 hover:underline">
+              <Link to="/post-task" className="inline-block text-xs text-[#AC8968] hover:underline">
                 Create a task to get started →
               </Link>
             )}
             {user.role === 'helper' && (
-              <Link to="/browse" className="inline-block text-xs text-emerald-400 hover:underline">
+              <Link to="/browse" className="inline-block text-xs text-[#93785B] hover:underline">
                 Browse open tasks to bid →
               </Link>
             )}
@@ -299,7 +299,7 @@ export default function Dashboard() {
             {displayedTasks.map((task) => (
               <div 
                 key={task.id} 
-                className="glass p-6 rounded-2xl border border-slate-800 flex flex-col justify-between hover:border-slate-700/60 transition group relative overflow-hidden"
+                className="glass p-6 rounded-2xl border border-[#3E362E] flex flex-col justify-between hover:border-[#573D23]/60 transition group relative overflow-hidden"
               >
                 {/* Background glow for special tasks */}
                 {task.status === 'submitted' && (
@@ -312,7 +312,7 @@ export default function Dashboard() {
                 <div className="space-y-4">
                   {/* Top line: Category, status, and edit/delete actions */}
                   <div className="flex justify-between items-center">
-                    <span className="text-[10px] font-semibold bg-slate-900 border border-slate-800 text-slate-400 px-2 py-0.5 rounded">
+                    <span className="text-[10px] font-semibold bg-[#2A2420] border border-[#3E362E] text-[#A69080] px-2 py-0.5 rounded">
                       {task.category}
                     </span>
                     <div className="flex items-center space-x-2">
@@ -324,8 +324,8 @@ export default function Dashboard() {
                             onClick={() => openEditModal(task)}
                             className={`p-1.5 rounded-lg border transition ${
                               canEditDelete(task.status)
-                                ? 'bg-slate-900 hover:bg-indigo-950/50 border-slate-800 hover:border-indigo-800/50 text-slate-400 hover:text-indigo-400'
-                                : 'bg-slate-900/50 border-slate-800/50 text-slate-600 cursor-not-allowed'
+                                ? 'bg-[#2A2420] hover:bg-[#1A1714]/50 border-[#3E362E] hover:border-[#3E362E]/50 text-[#A69080] hover:text-[#AC8968]'
+                                : 'bg-[#2A2420]/50 border-[#3E362E]/50 text-[#A69080] cursor-not-allowed'
                             }`}
                             title={canEditDelete(task.status) ? 'Edit Task' : 'Cannot edit — task is in progress'}
                           >
@@ -336,8 +336,8 @@ export default function Dashboard() {
                             onClick={() => handleDeleteTask(task.id, task.status)}
                             className={`p-1.5 rounded-lg border transition ${
                               canEditDelete(task.status)
-                                ? 'bg-slate-900 hover:bg-rose-950/50 border-slate-800 hover:border-rose-800/50 text-slate-400 hover:text-rose-400'
-                                : 'bg-slate-900/50 border-slate-800/50 text-slate-600 cursor-not-allowed'
+                                ? 'bg-[#2A2420] hover:bg-rose-950/50 border-[#3E362E] hover:border-rose-800/50 text-[#A69080] hover:text-rose-400'
+                                : 'bg-[#2A2420]/50 border-[#3E362E]/50 text-[#A69080] cursor-not-allowed'
                             }`}
                             title={canEditDelete(task.status) ? 'Delete Task' : 'Cannot delete — task is in progress'}
                           >
@@ -354,26 +354,26 @@ export default function Dashboard() {
                   {/* Title & Description */}
                   <div className="space-y-1">
                     <Link to={`/tasks/${task.id}`} className="block">
-                      <h4 className="font-bold text-slate-100 group-hover:text-indigo-400 transition-colors text-sm line-clamp-1">
+                      <h4 className="font-bold text-[#F5EDE4] group-hover:text-[#AC8968] transition-colors text-sm line-clamp-1">
                         {task.title}
                       </h4>
                     </Link>
-                    <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                    <p className="text-xs text-[#A69080] line-clamp-2 leading-relaxed">
                       {task.description}
                     </p>
                   </div>
 
                   {/* Helpers bid-specific info */}
                   {user.role === 'helper' && (
-                    <Link to={`/tasks/${task.id}`} className="block hover:opacity-80 transition pt-1 border-t border-slate-900">
+                    <Link to={`/tasks/${task.id}`} className="block hover:opacity-80 transition pt-1 border-t border-[#2A2420]">
                       <div className="flex items-center space-x-3">
                         <div className="text-[10px]">
-                          <span className="text-slate-500">Your Bid:</span>{' '}
-                          <span className="font-bold text-slate-300">₹{task.bid_amount}</span>
+                          <span className="text-[#A69080]">Your Bid:</span>{' '}
+                          <span className="font-bold text-[#D4C4B0]">₹{task.bid_amount}</span>
                         </div>
                         <div className="text-[10px]">
-                          <span className="text-slate-500">Bid Status:</span>{' '}
-                          <span className={`font-semibold uppercase ${task.bid_status === 'accepted' ? 'text-emerald-400' : task.bid_status === 'rejected' ? 'text-rose-400' : 'text-amber-400'}`}>
+                          <span className="text-[#A69080]">Bid Status:</span>{' '}
+                          <span className={`font-semibold uppercase ${task.bid_status === 'accepted' ? 'text-[#93785B]' : task.bid_status === 'rejected' ? 'text-rose-400' : 'text-[#AC8968]'}`}>
                             {task.bid_status}
                           </span>
                         </div>
@@ -383,20 +383,20 @@ export default function Dashboard() {
                 </div>
 
                 {/* Bottom line: price, deadline, details button */}
-                <div className="flex justify-between items-center pt-4 mt-4 border-t border-slate-900">
+                <div className="flex justify-between items-center pt-4 mt-4 border-t border-[#2A2420]">
                   <div className="flex items-center space-x-4">
                     <div>
-                      <div className="text-[9px] text-slate-500 font-semibold uppercase">Budget</div>
-                      <div className="text-xs font-bold text-emerald-400">₹{task.budget}</div>
+                      <div className="text-[9px] text-[#A69080] font-semibold uppercase">Budget</div>
+                      <div className="text-xs font-bold text-[#93785B]">₹{task.budget}</div>
                     </div>
                     <div>
-                      <div className="text-[9px] text-slate-500 font-semibold uppercase">Deadline</div>
-                      <div className="text-xs font-semibold text-slate-300">{task.deadline}</div>
+                      <div className="text-[9px] text-[#A69080] font-semibold uppercase">Deadline</div>
+                      <div className="text-xs font-semibold text-[#D4C4B0]">{task.deadline}</div>
                     </div>
                     {user.role === 'client' && (
                       <Link to={`/tasks/${task.id}`} className="block hover:opacity-80 transition text-left">
-                        <div className="text-[9px] text-slate-500 font-semibold uppercase">Bids</div>
-                        <div className="text-xs font-bold text-indigo-400">{task.bid_count} submitted</div>
+                        <div className="text-[9px] text-[#A69080] font-semibold uppercase">Bids</div>
+                        <div className="text-xs font-bold text-[#AC8968]">{task.bid_count} submitted</div>
                       </Link>
                     )}
                   </div>
@@ -405,7 +405,7 @@ export default function Dashboard() {
                     {/* View Details Link */}
                     <Link 
                       to={`/tasks/${task.id}`}
-                      className="p-2 rounded-xl bg-slate-950 hover:bg-slate-900 border border-slate-800/80 text-xs text-slate-300 flex items-center space-x-1.5 transition"
+                      className="p-2 rounded-xl bg-[#1A1714] hover:bg-[#2A2420] border border-[#3E362E]/80 text-xs text-[#D4C4B0] flex items-center space-x-1.5 transition"
                     >
                       <span>Details</span>
                       <ArrowUpRight size={13} />
@@ -428,17 +428,17 @@ export default function Dashboard() {
           ></div>
           
           {/* Modal */}
-          <div className="relative w-full max-w-lg glass rounded-3xl border border-slate-800 p-6 md:p-8 space-y-6 max-h-[90vh] overflow-y-auto animate-fade-in">
+          <div className="relative w-full max-w-lg glass rounded-3xl border border-[#3E362E] p-6 md:p-8 space-y-6 max-h-[90vh] overflow-y-auto animate-fade-in">
             {/* Header */}
             <div className="flex justify-between items-center">
               <div className="space-y-1">
                 <h3 className="text-lg font-bold font-display text-white">Edit Task</h3>
-                <p className="text-[10px] text-slate-400">Update your task details below</p>
+                <p className="text-[10px] text-[#A69080]">Update your task details below</p>
               </div>
               <button 
                 type="button"
                 onClick={() => setEditingTask(null)}
-                className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white transition"
+                className="p-2 rounded-xl bg-[#2A2420] hover:bg-[#3E362E] border border-[#3E362E] text-[#A69080] hover:text-white transition"
               >
                 <X size={16} />
               </button>
@@ -447,24 +447,24 @@ export default function Dashboard() {
             <form onSubmit={handleEditSubmit} className="space-y-5">
               {/* Title */}
               <div>
-                <label className="block text-[10px] font-semibold text-slate-400 uppercase mb-1.5">Task Title</label>
+                <label className="block text-[10px] font-semibold text-[#A69080] uppercase mb-1.5">Task Title</label>
                 <input 
                   type="text"
                   value={editForm.title}
                   onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-800 focus:border-indigo-500 focus:outline-none text-xs text-white font-medium"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#2A2420]/60 border border-[#3E362E] focus:border-[#93785B] focus:outline-none text-xs text-white font-medium"
                   required
                 />
               </div>
 
               {/* Description */}
               <div>
-                <label className="block text-[10px] font-semibold text-slate-400 uppercase mb-1.5">Description</label>
+                <label className="block text-[10px] font-semibold text-[#A69080] uppercase mb-1.5">Description</label>
                 <textarea 
                   rows={4}
                   value={editForm.description}
                   onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-800 focus:border-indigo-500 focus:outline-none text-xs text-white leading-relaxed"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#2A2420]/60 border border-[#3E362E] focus:border-[#93785B] focus:outline-none text-xs text-white leading-relaxed"
                   required
                 />
               </div>
@@ -472,11 +472,11 @@ export default function Dashboard() {
               {/* Category & Budget row */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[10px] font-semibold text-slate-400 uppercase mb-1.5">Category</label>
+                  <label className="block text-[10px] font-semibold text-[#A69080] uppercase mb-1.5">Category</label>
                   <select
                     value={editForm.category}
                     onChange={(e) => setEditForm({ ...editForm, category: e.target.value })}
-                    className="w-full px-3 py-2.5 rounded-xl bg-slate-900/60 border border-slate-800 focus:border-indigo-500 focus:outline-none text-xs text-slate-300 font-medium"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#2A2420]/60 border border-[#3E362E] focus:border-[#93785B] focus:outline-none text-xs text-[#D4C4B0] font-medium"
                     required
                   >
                     {categories.map((cat) => (
@@ -485,12 +485,12 @@ export default function Dashboard() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-[10px] font-semibold text-slate-400 uppercase mb-1.5">Budget (₹)</label>
+                  <label className="block text-[10px] font-semibold text-[#A69080] uppercase mb-1.5">Budget (₹)</label>
                   <input 
                     type="number"
                     value={editForm.budget}
                     onChange={(e) => setEditForm({ ...editForm, budget: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-800 focus:border-indigo-500 focus:outline-none text-xs text-white font-bold"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#2A2420]/60 border border-[#3E362E] focus:border-[#93785B] focus:outline-none text-xs text-white font-bold"
                     required
                   />
                 </div>
@@ -498,13 +498,13 @@ export default function Dashboard() {
 
               {/* Deadline */}
               <div>
-                <label className="block text-[10px] font-semibold text-slate-400 uppercase mb-1.5">Deadline</label>
+                <label className="block text-[10px] font-semibold text-[#A69080] uppercase mb-1.5">Deadline</label>
                 <input 
                   type="text"
                   value={editForm.deadline}
                   onChange={(e) => setEditForm({ ...editForm, deadline: e.target.value })}
                   placeholder="e.g. 3 Days, 1 Week"
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-800 focus:border-indigo-500 focus:outline-none text-xs text-white font-medium"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#2A2420]/60 border border-[#3E362E] focus:border-[#93785B] focus:outline-none text-xs text-white font-medium"
                   required
                 />
               </div>
@@ -514,14 +514,14 @@ export default function Dashboard() {
                 <button 
                   type="submit"
                   disabled={editLoading}
-                  className="flex-1 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition disabled:opacity-50"
+                  className="flex-1 py-2.5 rounded-xl bg-[#865D36] hover:bg-[#93785B] text-white font-bold text-xs transition disabled:opacity-50"
                 >
                   {editLoading ? 'Saving...' : 'Save Changes'}
                 </button>
                 <button 
                   type="button"
                   onClick={() => setEditingTask(null)}
-                  className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-white text-xs font-semibold transition"
+                  className="px-5 py-2.5 rounded-xl bg-[#2A2420] hover:bg-[#3E362E] border border-[#3E362E] text-[#A69080] hover:text-white text-xs font-semibold transition"
                 >
                   Cancel
                 </button>

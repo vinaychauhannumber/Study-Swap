@@ -141,8 +141,8 @@ export default function Submission() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center py-20 text-indigo-400">
-        <div className="animate-spin rounded-full h-8 w-8 border-4 border-indigo-500 border-t-transparent mr-2"></div>
+      <div className="flex justify-center items-center py-20 text-[#AC8968]">
+        <div className="animate-spin rounded-full h-8 w-8 border-4 border-[#93785B] border-t-transparent mr-2"></div>
         <span className="font-semibold text-sm">Evaluating quality registers...</span>
       </div>
     );
@@ -153,7 +153,7 @@ export default function Submission() {
   return (
     <div className="max-w-4xl mx-auto py-4 space-y-8">
       {/* Back button */}
-      <Link to={`/tasks/${taskId}`} className="inline-flex items-center space-x-1.5 text-xs text-slate-400 hover:text-white transition">
+      <Link to={`/tasks/${taskId}`} className="inline-flex items-center space-x-1.5 text-xs text-[#A69080] hover:text-white transition">
         <ArrowLeft size={14} />
         <span>Return to Task Details</span>
       </Link>
@@ -162,21 +162,21 @@ export default function Submission() {
         
         {/* Left Side: Submission Manager Console */}
         <section className="lg:col-span-2 space-y-6">
-          <div className="glass p-6 md:p-8 rounded-3xl border border-slate-800 space-y-6">
+          <div className="glass p-6 md:p-8 rounded-3xl border border-[#3E362E] space-y-6">
             <h2 className="text-xl font-bold font-display text-white">Submission Console</h2>
             
             {task && (
-              <div className="p-4 rounded-2xl bg-slate-900 border border-slate-850 text-xs">
-                <span className="text-[9px] text-slate-500 font-semibold block uppercase">Task under review</span>
-                <strong className="text-slate-200 text-sm font-display block mt-1">{task.title}</strong>
-                <span className="text-[10px] text-slate-400 block mt-1">Escrow held: ₹{task.budget}</span>
+              <div className="p-4 rounded-2xl bg-[#2A2420] border border-slate-850 text-xs">
+                <span className="text-[9px] text-[#A69080] font-semibold block uppercase">Task under review</span>
+                <strong className="text-[#E8DDD0] text-sm font-display block mt-1">{task.title}</strong>
+                <span className="text-[10px] text-[#A69080] block mt-1">Escrow held: ₹{task.budget}</span>
               </div>
             )}
 
             {/* Helper Submission Form */}
             {user.role === 'helper' && ['in_progress', 'submitted'].includes(task.status) && (
-              <form onSubmit={handleHelperSubmit} className="space-y-4 pt-4 border-t border-slate-900">
-                <h3 className="text-xs font-bold text-slate-200">Submit Completed Deliverables</h3>
+              <form onSubmit={handleHelperSubmit} className="space-y-4 pt-4 border-t border-[#2A2420]">
+                <h3 className="text-xs font-bold text-[#E8DDD0]">Submit Completed Deliverables</h3>
                 {error && (
                   <div className="p-3 rounded-xl bg-rose-950/20 border border-rose-900/40 text-rose-300 text-xs">
                     {error}
@@ -184,23 +184,23 @@ export default function Submission() {
                 )}
                 
                 <div>
-                  <label className="block text-[10px] font-semibold text-slate-400 mb-1.5">Deliverable File</label>
+                  <label className="block text-[10px] font-semibold text-[#A69080] mb-1.5">Deliverable File</label>
                   <input 
                     type="file" 
                     onChange={handleFileChange}
-                    className="w-full px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-400"
+                    className="w-full px-4 py-2 rounded-xl bg-[#2A2420] border border-[#3E362E] text-xs text-[#A69080]"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-semibold text-slate-400 mb-1.5">Submission Comments</label>
+                  <label className="block text-[10px] font-semibold text-[#A69080] mb-1.5">Submission Comments</label>
                   <textarea 
                     rows={4}
                     placeholder="Summarize the implementation milestones, run details, bibliography formatting, and code run directions..."
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none leading-relaxed"
+                    className="w-full px-3 py-2 rounded-xl bg-[#2A2420] border border-[#3E362E] text-xs text-white focus:outline-none leading-relaxed"
                     required
                   />
                 </div>
@@ -208,7 +208,7 @@ export default function Submission() {
                 <button 
                   type="submit"
                   disabled={submitting}
-                  className="w-full py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition disabled:opacity-50"
+                  className="w-full py-2.5 rounded-full bg-[#865D36] hover:bg-[#93785B] text-white font-bold text-xs transition disabled:opacity-50"
                 >
                   {submitting ? 'Running AI scans & uploading...' : 'Upload Work Deliverables'}
                 </button>
@@ -217,25 +217,25 @@ export default function Submission() {
 
             {/* Client View: Review console */}
             {user.role === 'client' && task.status === 'submitted' && latestSubmission && (
-              <div className="space-y-4 pt-4 border-t border-slate-900">
-                <h3 className="text-xs font-bold text-slate-200">Evaluate Helper Deliverable</h3>
+              <div className="space-y-4 pt-4 border-t border-[#2A2420]">
+                <h3 className="text-xs font-bold text-[#E8DDD0]">Evaluate Helper Deliverable</h3>
                 
-                <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
+                <div className="p-4 rounded-xl bg-[#2A2420] border border-[#3E362E] space-y-3">
                   <div className="flex justify-between items-center text-xs">
-                    <span className="text-slate-400">File uploaded:</span>
+                    <span className="text-[#A69080]">File uploaded:</span>
                     <a 
                       href={`${BACKEND_URL}${latestSubmission.file_url}`} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="flex items-center space-x-1.5 text-indigo-400 hover:underline font-bold text-xs"
+                      className="flex items-center space-x-1.5 text-[#AC8968] hover:underline font-bold text-xs"
                     >
                       <FileDown size={14} />
                       <span>{latestSubmission.file_name}</span>
                     </a>
                   </div>
                   <div className="space-y-1">
-                    <span className="text-[10px] text-slate-500 uppercase font-semibold block">Helper Comments:</span>
-                    <p className="text-xs text-slate-300 italic">"{latestSubmission.comment}"</p>
+                    <span className="text-[10px] text-[#A69080] uppercase font-semibold block">Helper Comments:</span>
+                    <p className="text-xs text-[#D4C4B0] italic">"{latestSubmission.comment}"</p>
                   </div>
                 </div>
 
@@ -243,43 +243,43 @@ export default function Submission() {
                   <button 
                     onClick={() => handleApproveSubmission(latestSubmission.id)}
                     disabled={processingAction}
-                    className="flex-1 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition disabled:opacity-50"
+                    className="flex-1 py-2.5 rounded-full bg-[#93785B] hover:bg-[#865D36] text-white font-bold text-xs transition disabled:opacity-50"
                   >
                     Release Escrow Payout
                   </button>
                   <button 
                     onClick={() => setShowRevisionForm(true)}
                     disabled={processingAction}
-                    className="flex-1 py-2.5 rounded-full bg-slate-900 border border-slate-800 text-slate-400 hover:text-white font-bold text-xs transition disabled:opacity-50"
+                    className="flex-1 py-2.5 rounded-full bg-[#2A2420] border border-[#3E362E] text-[#A69080] hover:text-white font-bold text-xs transition disabled:opacity-50"
                   >
                     Request Revision
                   </button>
                 </div>
 
                 {showRevisionForm && (
-                  <form onSubmit={handleRevisionSubmit} className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-4 pt-4 mt-2">
-                    <h4 className="text-xs font-bold text-slate-300">Request Revisions Feedback</h4>
+                  <form onSubmit={handleRevisionSubmit} className="p-4 rounded-2xl bg-[#2A2420] border border-[#3E362E] space-y-4 pt-4 mt-2">
+                    <h4 className="text-xs font-bold text-[#D4C4B0]">Request Revisions Feedback</h4>
                     <div>
                       <textarea 
                         rows={3}
                         placeholder="Detail the corrections needed: typography, layouts, content additions..."
                         value={revisionComments}
                         onChange={(e) => setRevisionComments(e.target.value)}
-                        className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-850 text-xs text-white focus:outline-none"
+                        className="w-full px-3 py-2 rounded-xl bg-[#1A1714] border border-slate-850 text-xs text-white focus:outline-none"
                         required
                       />
                     </div>
                     <div className="flex gap-2">
                       <button 
                         type="submit" 
-                        className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition"
+                        className="px-4 py-2 rounded-lg bg-[#865D36] hover:bg-[#93785B] text-white text-xs font-bold transition"
                       >
                         Submit Revision Feedback
                       </button>
                       <button 
                         type="button" 
                         onClick={() => setShowRevisionForm(false)}
-                        className="px-4 py-2 rounded-lg bg-slate-950 border border-slate-800 text-slate-400 hover:text-white"
+                        className="px-4 py-2 rounded-lg bg-[#1A1714] border border-[#3E362E] text-[#A69080] hover:text-white"
                       >
                         Cancel
                       </button>
@@ -293,8 +293,8 @@ export default function Submission() {
 
         {/* Right Side: AI Quality Checker Report */}
         <aside className="space-y-6">
-          <div className="glass p-6 rounded-3xl border border-slate-800 space-y-6">
-            <h3 className="text-sm font-bold font-display text-indigo-400 flex items-center space-x-2 pb-2 border-b border-slate-900">
+          <div className="glass p-6 rounded-3xl border border-[#3E362E] space-y-6">
+            <h3 className="text-sm font-bold font-display text-[#AC8968] flex items-center space-x-2 pb-2 border-b border-[#2A2420]">
               <Brain size={16} />
               <span>AI Quality check</span>
             </h3>
@@ -303,26 +303,26 @@ export default function Submission() {
               <div className="space-y-5 pt-1">
                 {/* Score Dial */}
                 <div className="text-center py-2 relative">
-                  <div className="text-3xl font-black font-display text-indigo-400">{latestSubmission.ai_score}%</div>
-                  <div className="text-[10px] text-slate-500 font-semibold uppercase mt-1">Completeness Score</div>
+                  <div className="text-3xl font-black font-display text-[#AC8968]">{latestSubmission.ai_score}%</div>
+                  <div className="text-[10px] text-[#A69080] font-semibold uppercase mt-1">Completeness Score</div>
                 </div>
 
-                <div className="space-y-3.5 pt-4 border-t border-slate-900 text-xs">
+                <div className="space-y-3.5 pt-4 border-t border-[#2A2420] text-xs">
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-500">Grammar Index:</span>
-                    <span className={`font-bold px-2 py-0.5 rounded text-[10px] ${latestSubmission.ai_grammar === 'Needs Correction' ? 'bg-rose-950/20 text-rose-300' : 'bg-emerald-950/20 text-emerald-300'}`}>
+                    <span className="text-[#A69080]">Grammar Index:</span>
+                    <span className={`font-bold px-2 py-0.5 rounded text-[10px] ${latestSubmission.ai_grammar === 'Needs Correction' ? 'bg-rose-950/20 text-rose-300' : 'bg-[#1A1714]/20 text-[#AC8968]'}`}>
                       {latestSubmission.ai_grammar}
                     </span>
                   </div>
 
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-500">Formatting Check:</span>
-                    <span className="font-bold text-slate-200">{latestSubmission.ai_formatting}</span>
+                    <span className="text-[#A69080]">Formatting Check:</span>
+                    <span className="font-bold text-[#E8DDD0]">{latestSubmission.ai_formatting}</span>
                   </div>
 
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-500">Plagiarism Check:</span>
-                    <span className={`font-bold px-2 py-0.5 rounded text-[10px] ${latestSubmission.ai_plagiarism > 15 ? 'bg-rose-950/20 text-rose-300 animate-pulse' : 'bg-emerald-950/20 text-emerald-300'}`}>
+                    <span className="text-[#A69080]">Plagiarism Check:</span>
+                    <span className={`font-bold px-2 py-0.5 rounded text-[10px] ${latestSubmission.ai_plagiarism > 15 ? 'bg-rose-950/20 text-rose-300 animate-pulse' : 'bg-[#1A1714]/20 text-[#AC8968]'}`}>
                       {latestSubmission.ai_plagiarism}% Similarity
                     </span>
                   </div>
@@ -336,7 +336,7 @@ export default function Submission() {
                 )}
               </div>
             ) : (
-              <div className="text-slate-500 text-xs text-center py-10 leading-relaxed font-medium">
+              <div className="text-[#A69080] text-xs text-center py-10 leading-relaxed font-medium">
                 AI Checker is offline until helper registers a completed work deliverable.
               </div>
             )}
