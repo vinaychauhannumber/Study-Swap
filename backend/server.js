@@ -400,24 +400,39 @@ app.post('/api/auth/reset-password', async (req, res) => {
     const supabaseUrl = process.env.SUPABASE_URL;
     const anonKey = process.env.SUPABASE_ANON_KEY;
     
-    // We update the password by calling Supabase Auth REST API with the user's access token
-    const fetch = (await import('node-fetch')).default || global.fetch;
-    const response = await fetch(`${supabaseUrl}/auth/v1/user`, {
+    // We update the password by calling Supabase Auth REST API with the user's access token using native https
+    const https = require('https');
+    const url = new URL(`${supabaseUrl}/auth/v1/user`);
+    
+    const options = {
+      hostname: url.hostname,
+      path: url.pathname + url.search,
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${access_token}`,
         'apikey': anonKey
-      },
-      body: JSON.stringify({ password: new_password })
+      }
+    };
+
+    const reqPost = https.request(options, (resPost) => {
+      let data = '';
+      resPost.on('data', (chunk) => { data += chunk; });
+      resPost.on('end', () => {
+        const parsedData = data ? JSON.parse(data) : {};
+        if (resPost.statusCode < 200 || resPost.statusCode >= 300) {
+          return res.status(400).json({ error: parsedData.msg || parsedData.message || 'Failed to update password.' });
+        }
+        res.json({ message: 'Password updated successfully.' });
+      });
     });
-    
-    const data = await response.json();
-    if (!response.ok) {
-      return res.status(400).json({ error: data.msg || data.message || 'Failed to update password.' });
-    }
-    
-    res.json({ message: 'Password updated successfully.' });
+
+    reqPost.on('error', (e) => {
+      res.status(500).json({ error: e.message });
+    });
+
+    reqPost.write(JSON.stringify({ password: new_password }));
+    reqPost.end();
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
