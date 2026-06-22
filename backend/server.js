@@ -294,6 +294,12 @@ app.post('/api/auth/login', async (req, res) => {
       }
 
       let user = await db.get('SELECT * FROM users WHERE id = ?', [data.user.id]);
+      
+      // Fallback to checking by email for users registered before Supabase integration
+      if (!user) {
+        user = await db.get('SELECT * FROM users WHERE email = ?', [data.user.email]);
+      }
+
       if (!user) {
         console.log(`Profile missing for authenticated user ${data.user.email}. Auto-creating profile...`);
         const fullName = data.user.user_metadata?.full_name || data.user.email.split('@')[0];
