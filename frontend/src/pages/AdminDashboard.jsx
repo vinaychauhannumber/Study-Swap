@@ -65,8 +65,8 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center py-20 text-[#AC8968]">
-        <div className="animate-spin rounded-full h-8 w-8 border-4 border-[#93785B] border-t-transparent mr-2"></div>
+      <div className="flex justify-center items-center py-20 text-[#748D92]">
+        <div className="animate-spin rounded-full h-8 w-8 border-4 border-[#124E66] border-t-transparent mr-2"></div>
         <span className="font-semibold text-sm">Synchronizing administrative database...</span>
       </div>
     );
@@ -81,64 +81,64 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-10 py-4">
       {/* Header */}
-      <div className="glass p-6 md:p-8 rounded-3xl border border-[#3E362E] flex justify-between items-center relative overflow-hidden">
+      <div className="glass p-6 md:p-8 rounded-3xl border border-[#2E3944] flex justify-between items-center relative overflow-hidden">
         <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full blur-2xl -mr-6 -mt-6"></div>
         <div className="space-y-1">
-          <div className="inline-flex items-center space-x-1 px-2 py-0.5 rounded bg-[#1A1714]/40 border border-[#3E362E]/40 text-[9px] font-bold text-[#E8DDD0] uppercase tracking-wide">
-            <ShieldAlert size={12} className="mr-0.5 text-[#93785B]" />
+          <div className="inline-flex items-center space-x-1 px-2 py-0.5 rounded bg-[#212A31]/40 border border-[#2E3944]/40 text-[9px] font-bold text-[#D3D9D4] uppercase tracking-wide">
+            <ShieldAlert size={12} className="mr-0.5 text-[#124E66]" />
             <span>Admin Clearance Level</span>
           </div>
           <h2 className="text-2xl font-bold font-display text-white">Platform Administrator Center</h2>
-          <p className="text-xs text-[#A69080]">Manage user accounts status, review platform commission balances, and audit academic task postings.</p>
+          <p className="text-xs text-[#748D92]">Manage user accounts status, review platform commission balances, and audit academic task postings.</p>
         </div>
       </div>
 
       {/* Analytics Overview Cards */}
       {analytics && (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <div className="glass p-5 rounded-2xl border border-[#3E362E] flex items-center space-x-4">
-            <div className="p-3.5 rounded-xl bg-[#2A2420] border border-[#3E362E] text-[#AC8968]">
+          <div className="glass p-5 rounded-2xl border border-[#2E3944] flex items-center space-x-4">
+            <div className="p-3.5 rounded-xl bg-[#212A31] border border-[#2E3944] text-[#748D92]">
               <Users size={20} />
             </div>
             <div>
               <div className="text-xl font-bold font-display text-white">{analytics.totalUsers}</div>
-              <div className="text-[10px] text-[#A69080] font-semibold uppercase">Total Users</div>
+              <div className="text-[10px] text-[#748D92] font-semibold uppercase">Total Users</div>
             </div>
           </div>
 
-          <div className="glass p-5 rounded-2xl border border-[#3E362E] flex items-center space-x-4">
-            <div className="p-3.5 rounded-xl bg-[#2A2420] border border-[#3E362E] text-[#AC8968]">
+          <div className="glass p-5 rounded-2xl border border-[#2E3944] flex items-center space-x-4">
+            <div className="p-3.5 rounded-xl bg-[#212A31] border border-[#2E3944] text-[#748D92]">
               <BarChart3 size={20} />
             </div>
             <div>
               <div className="text-xl font-bold font-display text-white">{analytics.activeTasks}</div>
-              <div className="text-[10px] text-[#A69080] font-semibold uppercase">Active Task Postings</div>
+              <div className="text-[10px] text-[#748D92] font-semibold uppercase">Active Task Postings</div>
             </div>
           </div>
 
-          <div className="glass p-5 rounded-2xl border border-[#3E362E] flex items-center space-x-4">
-            <div className="p-3.5 rounded-xl bg-[#2A2420] border border-[#3E362E] text-[#93785B]">
+          <div className="glass p-5 rounded-2xl border border-[#2E3944] flex items-center space-x-4">
+            <div className="p-3.5 rounded-xl bg-[#212A31] border border-[#2E3944] text-[#124E66]">
               <CheckSquare size={20} />
             </div>
             <div>
               <div className="text-xl font-bold font-display text-white">{analytics.completionRate}%</div>
-              <div className="text-[10px] text-[#A69080] font-semibold uppercase">Completion Rate</div>
+              <div className="text-[10px] text-[#748D92] font-semibold uppercase">Completion Rate</div>
             </div>
           </div>
         </div>
       )}
 
       {/* Tabs Selector */}
-      <div className="flex space-x-4 border-b border-[#2A2420] pb-3">
+      <div className="flex space-x-4 border-b border-[#212A31] pb-3">
         <button 
           onClick={() => setActiveTab('users')}
-          className={`px-4 py-2 text-xs font-bold rounded-xl transition ${activeTab === 'users' ? 'bg-[#865D36] text-white' : 'bg-[#2A2420] text-slate-450 border border-[#3E362E] hover:text-[#E8DDD0]'}`}
+          className={`px-4 py-2 text-xs font-bold rounded-xl transition ${activeTab === 'users' ? 'bg-[#124E66] text-white' : 'bg-[#212A31] text-slate-450 border border-[#2E3944] hover:text-[#D3D9D4]'}`}
         >
           Users Account Control
         </button>
         <button 
           onClick={() => setActiveTab('analytics')}
-          className={`px-4 py-2 text-xs font-bold rounded-xl transition ${activeTab === 'analytics' ? 'bg-[#865D36] text-white' : 'bg-[#2A2420] text-slate-450 border border-[#3E362E] hover:text-[#E8DDD0]'}`}
+          className={`px-4 py-2 text-xs font-bold rounded-xl transition ${activeTab === 'analytics' ? 'bg-[#124E66] text-white' : 'bg-[#212A31] text-slate-450 border border-[#2E3944] hover:text-[#D3D9D4]'}`}
         >
           Categories Share Metrics
         </button>
@@ -155,21 +155,21 @@ export default function AdminDashboard() {
         <div className="space-y-4">
           {/* User Search Bar */}
           <div className="max-w-md w-full relative">
-            <Users className="absolute left-3 top-2.5 text-[#A69080]" size={16} />
+            <Users className="absolute left-3 top-2.5 text-[#748D92]" size={16} />
             <input 
               type="text"
               placeholder="Filter by name, email, or college..."
               value={userSearch}
               onChange={(e) => setUserSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 rounded-xl bg-[#2A2420] border border-[#3E362E] focus:outline-none text-xs text-white"
+              className="w-full pl-10 pr-4 py-2 rounded-xl bg-[#212A31] border border-[#2E3944] focus:outline-none text-xs text-white"
             />
           </div>
 
           {/* User Table Grid */}
-          <div className="glass rounded-2xl border border-[#3E362E] overflow-x-auto">
+          <div className="glass rounded-2xl border border-[#2E3944] overflow-x-auto">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="bg-[#1A1714]/40 text-[#A69080] border-b border-slate-850 font-bold uppercase tracking-wider text-[10px]">
+                <tr className="bg-[#212A31]/40 text-[#748D92] border-b border-slate-850 font-bold uppercase tracking-wider text-[10px]">
                   <th className="p-4">Student Details</th>
                   <th className="p-4">College</th>
                   <th className="p-4">Role</th>
@@ -179,19 +179,19 @@ export default function AdminDashboard() {
                   <th className="p-4 text-right">Moderations</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-850 text-[#D4C4B0]">
+              <tbody className="divide-y divide-slate-850 text-[#D3D9D4]">
                 {filteredUsers.map((u) => (
-                  <tr key={u.id} className="hover:bg-[#2A2420]/20 transition">
+                  <tr key={u.id} className="hover:bg-[#212A31]/20 transition">
                     <td className="p-4">
-                      <div className="font-semibold text-[#E8DDD0]">{u.full_name}</div>
-                      <div className="text-[10px] text-[#A69080] mt-0.5">{u.email}</div>
+                      <div className="font-semibold text-[#D3D9D4]">{u.full_name}</div>
+                      <div className="text-[10px] text-[#748D92] mt-0.5">{u.email}</div>
                     </td>
                     <td className="p-4 truncate max-w-[150px]">{u.college}</td>
-                    <td className="p-4 uppercase font-bold text-[10px] tracking-wide text-[#AC8968]">{u.role}</td>
+                    <td className="p-4 uppercase font-bold text-[10px] tracking-wide text-[#748D92]">{u.role}</td>
                     <td className="p-4 font-semibold">{u.completed_tasks} completed</td>
-                    <td className="p-4 font-bold text-[#E8DDD0]">₹{u.balance?.toFixed(0)}</td>
+                    <td className="p-4 font-bold text-[#D3D9D4]">₹{u.balance?.toFixed(0)}</td>
                     <td className="p-4 text-center">
-                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${u.is_suspended ? 'bg-rose-950/30 text-rose-300 border border-rose-900/40' : 'bg-[#1A1714]/20 text-[#AC8968] border border-emerald-850'}`}>
+                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${u.is_suspended ? 'bg-rose-950/30 text-rose-300 border border-rose-900/40' : 'bg-[#212A31]/20 text-[#748D92] border border-emerald-850'}`}>
                         {u.is_suspended ? 'Suspended' : 'Active'}
                       </span>
                     </td>
@@ -200,7 +200,7 @@ export default function AdminDashboard() {
                         <button 
                           onClick={() => handleToggleSuspension(u.id)}
                           className={`p-1.5 rounded-lg border text-xs font-bold transition flex items-center justify-center space-x-1 ml-auto
-                            ${u.is_suspended ? 'bg-[#1A1714]/20 text-[#93785B] border-[#3E362E]/40 hover:bg-[#865D36]' : 'bg-rose-950/20 text-rose-400 border-rose-900/40 hover:bg-rose-600'}`}
+                            ${u.is_suspended ? 'bg-[#212A31]/20 text-[#124E66] border-[#2E3944]/40 hover:bg-[#124E66]' : 'bg-rose-950/20 text-rose-400 border-rose-900/40 hover:bg-rose-600'}`}
                         >
                           <Ban size={12} />
                           <span>{u.is_suspended ? 'Re-activate' : 'Suspend'}</span>
@@ -218,18 +218,18 @@ export default function AdminDashboard() {
       {/* Tab Panel: Categories Shares */}
       {activeTab === 'analytics' && analytics && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-          <div className="glass p-6 rounded-3xl border border-[#3E362E] space-y-4">
-            <h3 className="text-sm font-bold font-display text-[#AC8968]">Subject Categories Distribution</h3>
+          <div className="glass p-6 rounded-3xl border border-[#2E3944] space-y-4">
+            <h3 className="text-sm font-bold font-display text-[#748D92]">Subject Categories Distribution</h3>
             <div className="space-y-3.5">
               {analytics.categories.map((cat, idx) => (
                 <div key={idx} className="space-y-1.5">
                   <div className="flex justify-between text-xs font-semibold">
-                    <span className="text-[#D4C4B0]">{cat.category}</span>
-                    <span className="text-[#A69080]">{cat.count} Tasks</span>
+                    <span className="text-[#D3D9D4]">{cat.category}</span>
+                    <span className="text-[#748D92]">{cat.count} Tasks</span>
                   </div>
-                  <div className="w-full bg-[#2A2420] rounded-full h-2">
+                  <div className="w-full bg-[#212A31] rounded-full h-2">
                     <div 
-                      className="bg-[#865D36] h-2 rounded-full" 
+                      className="bg-[#124E66] h-2 rounded-full" 
                       style={{ width: `${Math.min(100, (cat.count / Math.max(1, analytics.activeTasks)) * 100)}%` }}
                     ></div>
                   </div>
@@ -238,13 +238,13 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-          <div className="glass p-6 rounded-3xl border border-[#3E362E] space-y-4">
-            <h3 className="text-sm font-bold font-display text-[#AC8968]">Commissions Audit Policy</h3>
-            <p className="text-xs text-[#A69080] leading-relaxed">
+          <div className="glass p-6 rounded-3xl border border-[#2E3944] space-y-4">
+            <h3 className="text-sm font-bold font-display text-[#748D92]">Commissions Audit Policy</h3>
+            <p className="text-xs text-[#748D92] leading-relaxed">
               StudySwap operates a decentralized peer mediation structure. The platform holds project deposits in escrows, checking submissions through Gemini NLP analysis and releasing payments to helpers on approval.
             </p>
-            <div className="p-4 rounded-xl bg-[#1A1714]/20 border border-purple-900/50 text-[11px] text-[#E8DDD0] leading-normal flex items-start space-x-1.5">
-              <Sparkles size={14} className="shrink-0 mt-0.5 text-[#93785B]" />
+            <div className="p-4 rounded-xl bg-[#212A31]/20 border border-purple-900/50 text-[11px] text-[#D3D9D4] leading-normal flex items-start space-x-1.5">
+              <Sparkles size={14} className="shrink-0 mt-0.5 text-[#124E66]" />
               <span>A 10% base platform commission fee is automatically withheld from each release payout transaction to fund hosting and Gemini API models check expenses.</span>
             </div>
           </div>

@@ -108,8 +108,8 @@ export default function Profile() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center py-20 text-[#AC8968]">
-        <div className="animate-spin rounded-full h-8 w-8 border-4 border-[#93785B] border-t-transparent mr-2"></div>
+      <div className="flex justify-center items-center py-20 text-[#748D92]">
+        <div className="animate-spin rounded-full h-8 w-8 border-4 border-[#124E66] border-t-transparent mr-2"></div>
         <span className="font-semibold text-sm">Mapping scholar records...</span>
       </div>
     );
@@ -121,7 +121,7 @@ export default function Profile() {
         <div className="p-4 rounded-xl bg-rose-950/20 border border-rose-900/50 text-rose-300 text-xs">
           {error || 'User profile not found.'}
         </div>
-        <Link to="/" className="inline-block text-xs text-[#AC8968] hover:underline">
+        <Link to="/" className="inline-block text-xs text-[#748D92] hover:underline">
           Return to dashboard
         </Link>
       </div>
@@ -135,10 +135,10 @@ export default function Profile() {
     <div className="max-w-5xl mx-auto py-4 space-y-8">
       
       {/* Profile Overview Card */}
-      <div className="glass p-6 md:p-8 rounded-3xl border border-[#3E362E] flex flex-col md:flex-row gap-8 items-center md:items-start relative overflow-hidden">
+      <div className="glass p-6 md:p-8 rounded-3xl border border-[#2E3944] flex flex-col md:flex-row gap-8 items-center md:items-start relative overflow-hidden">
         
         {/* Glow */}
-        <div className="absolute top-0 right-0 w-48 h-48 bg-[#93785B]/5 rounded-full blur-3xl -mr-10 -mt-10"></div>
+        <div className="absolute top-0 right-0 w-48 h-48 bg-[#124E66]/5 rounded-full blur-3xl -mr-10 -mt-10"></div>
 
         {/* Profile Pic Widget */}
         <div className="relative shrink-0 group">
@@ -146,10 +146,10 @@ export default function Profile() {
             <img 
               src={`${BACKEND_URL}${profileUser.profile_picture}`} 
               alt={profileUser.full_name} 
-              className="w-28 h-28 rounded-3xl border border-[#573D23] object-cover"
+              className="w-28 h-28 rounded-3xl border border-[#2E3944] object-cover"
             />
           ) : (
-            <div className="w-28 h-28 rounded-3xl bg-[#1A1714]/50 border border-[#573D23] flex items-center justify-center text-[#AC8968] text-3xl font-black font-display">
+            <div className="w-28 h-28 rounded-3xl bg-[#212A31]/50 border border-[#2E3944] flex items-center justify-center text-[#748D92] text-3xl font-black font-display">
               {profileUser.full_name.charAt(0)}
             </div>
           )}
@@ -162,7 +162,7 @@ export default function Profile() {
                 className="hidden"
                 disabled={uploadingPic}
               />
-              <Image size={16} className="mb-1 text-[#AC8968]" />
+              <Image size={16} className="mb-1 text-[#748D92]" />
               <span>{uploadingPic ? 'Uploading...' : 'Update Avatar'}</span>
             </label>
           )}
@@ -173,18 +173,18 @@ export default function Profile() {
           <div className="space-y-1">
             <div className="flex flex-col md:flex-row items-center gap-3">
               <h2 className="text-2xl font-bold font-display text-white">{profileUser.full_name}</h2>
-              <span className="text-[9px] font-bold bg-[#2A2420] border border-[#3E362E] text-[#AC8968] px-2 py-0.5 rounded uppercase tracking-wider">
+              <span className="text-[9px] font-bold bg-[#212A31] border border-[#2E3944] text-[#748D92] px-2 py-0.5 rounded uppercase tracking-wider">
                 {profileUser.role} Account
               </span>
             </div>
             
-            <p className="text-xs text-[#D4C4B0] font-semibold flex items-center justify-center md:justify-start space-x-1">
+            <p className="text-xs text-[#D3D9D4] font-semibold flex items-center justify-center md:justify-start space-x-1">
               <GraduationCap size={15} />
               <span>{profileUser.college} • {profileUser.course} ({profileUser.academic_year})</span>
             </p>
           </div>
 
-          <p className="text-xs text-[#A69080] max-w-2xl leading-relaxed whitespace-pre-wrap">
+          <p className="text-xs text-[#748D92] max-w-2xl leading-relaxed whitespace-pre-wrap">
             {profileUser.bio || 'This student has not updated their bio details yet.'}
           </p>
 
@@ -192,7 +192,7 @@ export default function Profile() {
           {isMe && !isEditing && (
             <button 
               onClick={() => setIsEditing(true)}
-              className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-[#1A1714] hover:bg-[#2A2420] border border-[#3E362E] text-xs font-semibold text-[#D4C4B0] hover:text-white transition"
+              className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-[#212A31] hover:bg-[#212A31] border border-[#2E3944] text-xs font-semibold text-[#D3D9D4] hover:text-white transition"
             >
               <Settings2 size={13} />
               <span>Edit Scholar Profile</span>
@@ -201,15 +201,15 @@ export default function Profile() {
         </div>
 
         {/* Rating Testimonials Score */}
-        <div className="flex flex-row md:flex-col items-center justify-center gap-4 shrink-0 p-4 rounded-2xl bg-[#2A2420]/60 border border-slate-850">
+        <div className="flex flex-row md:flex-col items-center justify-center gap-4 shrink-0 p-4 rounded-2xl bg-[#212A31]/60 border border-slate-850">
           <div className="text-center">
             <div className="text-2xl font-black font-display text-white">{profileUser.rating?.toFixed(1)} ★</div>
-            <div className="text-[9px] text-[#A69080] font-semibold uppercase tracking-wider">Average Rating</div>
+            <div className="text-[9px] text-[#748D92] font-semibold uppercase tracking-wider">Average Rating</div>
           </div>
-          <div className="w-px md:w-8 h-8 md:h-px bg-[#3E362E]"></div>
+          <div className="w-px md:w-8 h-8 md:h-px bg-[#2E3944]"></div>
           <div className="text-center">
-            <div className="text-xl font-bold font-display text-[#D4C4B0]">{profileUser.completed_tasks}</div>
-            <div className="text-[9px] text-[#A69080] font-semibold uppercase tracking-wider">Tasks Done</div>
+            <div className="text-xl font-bold font-display text-[#D3D9D4]">{profileUser.completed_tasks}</div>
+            <div className="text-[9px] text-[#748D92] font-semibold uppercase tracking-wider">Tasks Done</div>
           </div>
         </div>
       </div>
@@ -220,17 +220,17 @@ export default function Profile() {
         {/* Left Side: Skills & Handwriting portfolio */}
         <section className="space-y-6">
           {/* Skills list */}
-          <div className="glass p-6 rounded-3xl border border-[#3E362E] space-y-4">
-            <h3 className="text-xs font-bold font-display text-[#AC8968] uppercase tracking-wider flex items-center space-x-2 pb-2 border-b border-[#2A2420]">
+          <div className="glass p-6 rounded-3xl border border-[#2E3944] space-y-4">
+            <h3 className="text-xs font-bold font-display text-[#748D92] uppercase tracking-wider flex items-center space-x-2 pb-2 border-b border-[#212A31]">
               <Code size={14} />
               <span>Subject Expertise</span>
             </h3>
             <div className="flex flex-wrap gap-2 pt-1">
               {skillsArray.length === 0 ? (
-                <span className="text-xs text-[#A69080]">No skill areas verified.</span>
+                <span className="text-xs text-[#748D92]">No skill areas verified.</span>
               ) : (
                 skillsArray.map((skill, idx) => (
-                  <span key={idx} className="text-[10px] font-medium bg-[#1A1714]/20 border border-[#1A1714]/30 text-[#D4C4B0] px-2.5 py-1 rounded-full">
+                  <span key={idx} className="text-[10px] font-medium bg-[#212A31]/20 border border-[#212A31]/30 text-[#D3D9D4] px-2.5 py-1 rounded-full">
                     {skill}
                   </span>
                 ))
@@ -240,8 +240,8 @@ export default function Profile() {
 
           {/* Handwriting Verification (crucial for exam notes, paper reports) */}
           {profileUser.role === 'helper' && (
-            <div className="glass p-6 rounded-3xl border border-[#3E362E] space-y-4">
-              <h3 className="text-xs font-bold font-display text-[#AC8968] uppercase tracking-wider flex items-center space-x-2 pb-2 border-b border-[#2A2420]">
+            <div className="glass p-6 rounded-3xl border border-[#2E3944] space-y-4">
+              <h3 className="text-xs font-bold font-display text-[#748D92] uppercase tracking-wider flex items-center space-x-2 pb-2 border-b border-[#212A31]">
                 <FileText size={14} />
                 <span>Handwriting authenticity sample</span>
               </h3>
@@ -251,10 +251,10 @@ export default function Profile() {
                   <img 
                     src={`${BACKEND_URL}${profileUser.handwriting_sample}`} 
                     alt="Handwriting Sample" 
-                    className="w-full h-40 object-cover rounded-2xl border border-[#3E362E]"
+                    className="w-full h-40 object-cover rounded-2xl border border-[#2E3944]"
                   />
                   {isMe && (
-                    <label className="block text-center text-[10px] font-semibold text-[#AC8968] hover:text-[#D4C4B0] cursor-pointer pt-1">
+                    <label className="block text-center text-[10px] font-semibold text-[#748D92] hover:text-[#D3D9D4] cursor-pointer pt-1">
                       <input 
                         type="file" 
                         onChange={(e) => handleSampleUpload(e, 'handwriting_sample')}
@@ -267,9 +267,9 @@ export default function Profile() {
                 </div>
               ) : (
                 <div className="text-center py-6 border border-dashed border-slate-850 rounded-2xl space-y-3">
-                  <span className="text-[11px] text-[#A69080] block font-medium">No handwriting sample verified.</span>
+                  <span className="text-[11px] text-[#748D92] block font-medium">No handwriting sample verified.</span>
                   {isMe && (
-                    <label className="inline-block px-4 py-2 rounded-xl bg-[#1A1714] hover:bg-[#2A2420] border border-[#3E362E] text-[10px] font-bold text-[#D4C4B0] hover:text-white cursor-pointer transition">
+                    <label className="inline-block px-4 py-2 rounded-xl bg-[#212A31] hover:bg-[#212A31] border border-[#2E3944] text-[10px] font-bold text-[#D3D9D4] hover:text-white cursor-pointer transition">
                       <input 
                         type="file" 
                         onChange={(e) => handleSampleUpload(e, 'handwriting_sample')}
@@ -288,59 +288,59 @@ export default function Profile() {
         {/* Right Side: Edit Form OR Reviews feed */}
         <section className="lg:col-span-2 space-y-6">
           {isEditing ? (
-            <form onSubmit={handleProfileSave} className="glass p-6 md:p-8 rounded-3xl border border-[#1A1714]/30 space-y-4">
-              <h3 className="text-sm font-bold font-display text-[#AC8968]">Edit Scholar Profile details</h3>
+            <form onSubmit={handleProfileSave} className="glass p-6 md:p-8 rounded-3xl border border-[#212A31]/30 space-y-4">
+              <h3 className="text-sm font-bold font-display text-[#748D92]">Edit Scholar Profile details</h3>
               
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[10px] font-semibold text-[#A69080] mb-1">Full Name</label>
+                  <label className="block text-[10px] font-semibold text-[#748D92] mb-1">Full Name</label>
                   <input 
                     type="text"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="w-full px-3 py-1.5 rounded-xl bg-[#2A2420] border border-[#3E362E] text-xs text-white focus:outline-none"
+                    className="w-full px-3 py-1.5 rounded-xl bg-[#212A31] border border-[#2E3944] text-xs text-white focus:outline-none"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-semibold text-[#A69080] mb-1">Subject Skills (Comma-separated)</label>
+                  <label className="block text-[10px] font-semibold text-[#748D92] mb-1">Subject Skills (Comma-separated)</label>
                   <input 
                     type="text"
                     value={skills}
                     placeholder="React, Excel, PowerPoint, Solidworks"
                     onChange={(e) => setSkills(e.target.value)}
-                    className="w-full px-3 py-1.5 rounded-xl bg-[#2A2420] border border-[#3E362E] text-xs text-white focus:outline-none"
+                    className="w-full px-3 py-1.5 rounded-xl bg-[#212A31] border border-[#2E3944] text-xs text-white focus:outline-none"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-[10px] font-semibold text-[#A69080] mb-1">College</label>
+                  <label className="block text-[10px] font-semibold text-[#748D92] mb-1">College</label>
                   <input 
                     type="text"
                     value={college}
                     onChange={(e) => setCollege(e.target.value)}
-                    className="w-full px-3 py-1.5 rounded-xl bg-[#2A2420] border border-[#3E362E] text-xs text-white focus:outline-none"
+                    className="w-full px-3 py-1.5 rounded-xl bg-[#212A31] border border-[#2E3944] text-xs text-white focus:outline-none"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-semibold text-[#A69080] mb-1">Course</label>
+                  <label className="block text-[10px] font-semibold text-[#748D92] mb-1">Course</label>
                   <input 
                     type="text"
                     value={course}
                     onChange={(e) => setCourse(e.target.value)}
-                    className="w-full px-3 py-1.5 rounded-xl bg-[#2A2420] border border-[#3E362E] text-xs text-white focus:outline-none"
+                    className="w-full px-3 py-1.5 rounded-xl bg-[#212A31] border border-[#2E3944] text-xs text-white focus:outline-none"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-semibold text-[#A69080] mb-1">Academic Year</label>
+                  <label className="block text-[10px] font-semibold text-[#748D92] mb-1">Academic Year</label>
                   <select
                     value={academicYear}
                     onChange={(e) => setAcademicYear(e.target.value)}
-                    className="w-full px-2 py-1.5 rounded-xl bg-[#2A2420] border border-[#3E362E] text-xs text-[#D4C4B0]"
+                    className="w-full px-2 py-1.5 rounded-xl bg-[#212A31] border border-[#2E3944] text-xs text-[#D3D9D4]"
                   >
                     <option value="1st Year">1st Year</option>
                     <option value="2nd Year">2nd Year</option>
@@ -352,19 +352,19 @@ export default function Profile() {
               </div>
 
               <div>
-                <label className="block text-[10px] font-semibold text-[#A69080] mb-1">Personal Bio</label>
+                <label className="block text-[10px] font-semibold text-[#748D92] mb-1">Personal Bio</label>
                 <textarea 
                   rows={4}
                   value={bio}
                   onChange={(e) => setBio(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-[#2A2420] border border-[#3E362E] text-xs text-white focus:outline-none leading-relaxed"
+                  className="w-full px-3 py-2 rounded-xl bg-[#212A31] border border-[#2E3944] text-xs text-white focus:outline-none leading-relaxed"
                 />
               </div>
 
               <div className="flex gap-2 pt-2">
                 <button 
                   type="submit"
-                  className="px-4 py-2 rounded-xl bg-[#865D36] hover:bg-[#93785B] text-white text-xs font-bold transition flex items-center space-x-1"
+                  className="px-4 py-2 rounded-xl bg-[#124E66] hover:bg-[#124E66] text-white text-xs font-bold transition flex items-center space-x-1"
                 >
                   <Check size={14} />
                   <span>Save Changes</span>
@@ -372,50 +372,50 @@ export default function Profile() {
                 <button 
                   type="button"
                   onClick={() => setIsEditing(false)}
-                  className="px-4 py-2 rounded-xl bg-[#1A1714] border border-[#3E362E] text-xs text-[#A69080] hover:text-white"
+                  className="px-4 py-2 rounded-xl bg-[#212A31] border border-[#2E3944] text-xs text-[#748D92] hover:text-white"
                 >
                   Cancel
                 </button>
               </div>
             </form>
           ) : (
-            <div className="glass p-6 md:p-8 rounded-3xl border border-[#3E362E] space-y-6">
-              <h3 className="text-xs font-bold font-display text-[#AC8968] uppercase tracking-wider pb-2 border-b border-[#2A2420]">
+            <div className="glass p-6 md:p-8 rounded-3xl border border-[#2E3944] space-y-6">
+              <h3 className="text-xs font-bold font-display text-[#748D92] uppercase tracking-wider pb-2 border-b border-[#212A31]">
                 Collaboration reviews ({reviews.length})
               </h3>
               
               {reviews.length === 0 ? (
-                <div className="text-center py-10 text-[#A69080] text-xs font-medium">
+                <div className="text-center py-10 text-[#748D92] text-xs font-medium">
                   No review feedback registered yet.
                 </div>
               ) : (
                 <div className="space-y-4 max-h-[500px] overflow-y-auto pr-1">
                   {reviews.map((rev) => (
-                    <div key={rev.id} className="p-4 rounded-2xl bg-[#2A2420] border border-slate-850 space-y-2.5">
+                    <div key={rev.id} className="p-4 rounded-2xl bg-[#212A31] border border-slate-850 space-y-2.5">
                       <div className="flex justify-between items-center">
-                        <div className="flex items-center space-x-2 text-xs font-bold text-[#E8DDD0]">
+                        <div className="flex items-center space-x-2 text-xs font-bold text-[#D3D9D4]">
                           {rev.reviewer_pic ? (
                             <img 
                               src={`${BACKEND_URL}${rev.reviewer_pic}`} 
                               alt={rev.reviewer_name} 
-                              className="w-5 h-5 rounded-full object-cover border border-[#3E362E]"
+                              className="w-5 h-5 rounded-full object-cover border border-[#2E3944]"
                             />
                           ) : (
-                            <div className="w-5 h-5 rounded-full bg-[#1A1714]/50 border border-[#3E362E] flex items-center justify-center text-[10px] text-[#AC8968]">
+                            <div className="w-5 h-5 rounded-full bg-[#212A31]/50 border border-[#2E3944] flex items-center justify-center text-[10px] text-[#748D92]">
                               {rev.reviewer_name.charAt(0)}
                             </div>
                           )}
                           <span>{rev.reviewer_name}</span>
                         </div>
-                        <div className="flex items-center space-x-1 text-xs text-[#AC8968] font-bold">
+                        <div className="flex items-center space-x-1 text-xs text-[#748D92] font-bold">
                           <span>{rev.rating}</span>
-                          <Star size={11} className="fill-[#AC8968]" />
+                          <Star size={11} className="fill-[#748D92]" />
                         </div>
                       </div>
-                      <p className="text-xs text-[#A69080] italic leading-relaxed">
+                      <p className="text-xs text-[#748D92] italic leading-relaxed">
                         "{rev.comment || 'Collaborative project completed successfully.'}"
                       </p>
-                      <div className="text-[9px] text-[#A69080] text-right">
+                      <div className="text-[9px] text-[#748D92] text-right">
                         {new Date(rev.created_at).toLocaleDateString()}
                       </div>
                     </div>

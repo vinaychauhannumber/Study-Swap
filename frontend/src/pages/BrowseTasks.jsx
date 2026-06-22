@@ -75,28 +75,28 @@ export default function BrowseTasks() {
   return (
     <div className="space-y-6 py-4">
       {/* Search Header */}
-      <form onSubmit={handleSearchSubmit} className="glass p-5 rounded-3xl border border-[#3E362E] flex flex-col sm:flex-row items-center gap-4">
+      <form onSubmit={handleSearchSubmit} className="glass p-5 rounded-3xl border border-[#2E3944] flex flex-col sm:flex-row items-center gap-4">
         <div className="relative flex-1 w-full">
-          <Search className="absolute left-4 top-3.5 text-[#A69080]" size={18} />
+          <Search className="absolute left-4 top-3.5 text-[#748D92]" size={18} />
           <input 
             type="text"
             placeholder="Search assignments, reports, graphic designs, slide topics..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 rounded-2xl bg-[#2A2420]/50 border border-[#3E362E] focus:border-[#93785B] focus:outline-none text-xs text-white"
+            className="w-full pl-12 pr-4 py-3 rounded-2xl bg-[#212A31]/50 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-white"
           />
         </div>
         <div className="flex w-full sm:w-auto items-center space-x-3">
           <button 
             type="submit"
-            className="flex-1 sm:flex-none px-6 py-3 rounded-2xl bg-[#865D36] hover:bg-[#93785B] text-white font-bold text-xs transition"
+            className="flex-1 sm:flex-none px-6 py-3 rounded-2xl bg-[#124E66] hover:bg-[#124E66] text-white font-bold text-xs transition"
           >
             Search
           </button>
           <button 
             type="button"
             onClick={() => setShowMobileFilters(!showMobileFilters)}
-            className="lg:hidden p-3 rounded-2xl bg-[#2A2420] border border-[#3E362E] text-[#D4C4B0]"
+            className="lg:hidden p-3 rounded-2xl bg-[#212A31] border border-[#2E3944] text-[#D3D9D4]"
           >
             <Filter size={18} />
           </button>
@@ -107,15 +107,15 @@ export default function BrowseTasks() {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
         
         {/* Left Side: Filter Sidebar (Desktop) */}
-        <aside className="hidden lg:block glass p-6 rounded-3xl border border-[#3E362E] space-y-6">
-          <div className="flex justify-between items-center pb-3 border-b border-[#2A2420]">
-            <h3 className="text-sm font-bold font-display flex items-center space-x-2 text-[#AC8968]">
+        <aside className="hidden lg:block glass p-6 rounded-3xl border border-[#2E3944] space-y-6">
+          <div className="flex justify-between items-center pb-3 border-b border-[#212A31]">
+            <h3 className="text-sm font-bold font-display flex items-center space-x-2 text-[#748D92]">
               <SlidersHorizontal size={15} />
               <span>Filters</span>
             </h3>
             <button 
               onClick={clearFilters}
-              className="text-[10px] text-[#A69080] hover:text-white font-semibold transition"
+              className="text-[10px] text-[#748D92] hover:text-white font-semibold transition"
             >
               Clear all
             </button>
@@ -123,11 +123,11 @@ export default function BrowseTasks() {
 
           {/* Category */}
           <div className="space-y-2">
-            <label className="block text-xs font-semibold text-[#A69080]">Category</label>
+            <label className="block text-xs font-semibold text-[#748D92]">Category</label>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full px-3 py-2 rounded-xl bg-[#2A2420]/60 border border-[#3E362E] focus:border-[#93785B] focus:outline-none text-xs text-[#D4C4B0] font-medium"
+              className="w-full px-3 py-2 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-[#D3D9D4] font-medium"
             >
               <option value="">All Categories</option>
               {categories.map((cat, idx) => (
@@ -138,11 +138,11 @@ export default function BrowseTasks() {
 
           {/* Status */}
           <div className="space-y-2">
-            <label className="block text-xs font-semibold text-[#A69080]">Task Status</label>
+            <label className="block text-xs font-semibold text-[#748D92]">Task Status</label>
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value)}
-              className="w-full px-3 py-2 rounded-xl bg-[#2A2420]/60 border border-[#3E362E] focus:border-[#93785B] focus:outline-none text-xs text-[#D4C4B0] font-medium"
+              className="w-full px-3 py-2 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-[#D3D9D4] font-medium"
             >
               <option value="">Any Status</option>
               <option value="open">Open for Bids</option>
@@ -155,7 +155,7 @@ export default function BrowseTasks() {
 
           {/* Budget Range */}
           <div className="space-y-2">
-            <label className="block text-xs font-semibold text-[#A69080]">Budget (₹)</label>
+            <label className="block text-xs font-semibold text-[#748D92]">Budget (₹)</label>
             <div className="grid grid-cols-2 gap-2">
               <input 
                 type="number"
@@ -163,7 +163,7 @@ export default function BrowseTasks() {
                 value={minBudget}
                 onChange={(e) => setMinBudget(e.target.value)}
                 onBlur={fetchTasks}
-                className="w-full px-3 py-2 rounded-xl bg-[#2A2420]/60 border border-[#3E362E] focus:border-[#93785B] focus:outline-none text-xs text-white"
+                className="w-full px-3 py-2 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-white"
               />
               <input 
                 type="number"
@@ -171,18 +171,18 @@ export default function BrowseTasks() {
                 value={maxBudget}
                 onChange={(e) => setMaxBudget(e.target.value)}
                 onBlur={fetchTasks}
-                className="w-full px-3 py-2 rounded-xl bg-[#2A2420]/60 border border-[#3E362E] focus:border-[#93785B] focus:outline-none text-xs text-white"
+                className="w-full px-3 py-2 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-white"
               />
             </div>
           </div>
 
           {/* Sorting */}
           <div className="space-y-2">
-            <label className="block text-xs font-semibold text-[#A69080]">Sort By</label>
+            <label className="block text-xs font-semibold text-[#748D92]">Sort By</label>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="w-full px-3 py-2 rounded-xl bg-[#2A2420]/60 border border-[#3E362E] focus:border-[#93785B] focus:outline-none text-xs text-[#D4C4B0] font-medium"
+              className="w-full px-3 py-2 rounded-xl bg-[#212A31]/60 border border-[#2E3944] focus:border-[#124E66] focus:outline-none text-xs text-[#D3D9D4] font-medium"
             >
               <option value="newest">Newest First</option>
               <option value="budget_desc">Budget (High to Low)</option>
@@ -194,23 +194,23 @@ export default function BrowseTasks() {
         {/* Mobile Filters Modal */}
         {showMobileFilters && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 lg:hidden">
-            <div className="glass max-w-sm w-full rounded-3xl p-6 border border-[#3E362E] shadow-2xl relative space-y-6">
+            <div className="glass max-w-sm w-full rounded-3xl p-6 border border-[#2E3944] shadow-2xl relative space-y-6">
               <button 
                 onClick={() => setShowMobileFilters(false)}
-                className="absolute top-4 right-4 p-1.5 rounded-full hover:bg-[#3E362E] text-[#A69080]"
+                className="absolute top-4 right-4 p-1.5 rounded-full hover:bg-[#2E3944] text-[#748D92]"
               >
                 <X size={18} />
               </button>
 
-              <h3 className="text-lg font-bold font-display text-[#AC8968]">Filters</h3>
+              <h3 className="text-lg font-bold font-display text-[#748D92]">Filters</h3>
               
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <label className="block text-xs font-semibold text-[#A69080]">Category</label>
+                  <label className="block text-xs font-semibold text-[#748D92]">Category</label>
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-[#2A2420]/60 border border-[#3E362E] text-xs text-[#D4C4B0]"
+                    className="w-full px-3 py-2 rounded-xl bg-[#212A31]/60 border border-[#2E3944] text-xs text-[#D3D9D4]"
                   >
                     <option value="">All Categories</option>
                     {categories.map((cat, idx) => (
@@ -220,11 +220,11 @@ export default function BrowseTasks() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="block text-xs font-semibold text-[#A69080]">Status</label>
+                  <label className="block text-xs font-semibold text-[#748D92]">Status</label>
                   <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-[#2A2420]/60 border border-[#3E362E] text-xs text-[#D4C4B0]"
+                    className="w-full px-3 py-2 rounded-xl bg-[#212A31]/60 border border-[#2E3944] text-xs text-[#D3D9D4]"
                   >
                     <option value="">Any Status</option>
                     <option value="open">Open</option>
@@ -233,21 +233,21 @@ export default function BrowseTasks() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="block text-xs font-semibold text-[#A69080]">Budget Range</label>
+                  <label className="block text-xs font-semibold text-[#748D92]">Budget Range</label>
                   <div className="grid grid-cols-2 gap-2">
                     <input 
                       type="number"
                       placeholder="Min"
                       value={minBudget}
                       onChange={(e) => setMinBudget(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl bg-[#2A2420]/60 border border-[#3E362E] text-xs text-white"
+                      className="w-full px-3 py-2 rounded-xl bg-[#212A31]/60 border border-[#2E3944] text-xs text-white"
                     />
                     <input 
                       type="number"
                       placeholder="Max"
                       value={maxBudget}
                       onChange={(e) => setMaxBudget(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl bg-[#2A2420]/60 border border-[#3E362E] text-xs text-white"
+                      className="w-full px-3 py-2 rounded-xl bg-[#212A31]/60 border border-[#2E3944] text-xs text-white"
                     />
                   </div>
                 </div>
@@ -256,13 +256,13 @@ export default function BrowseTasks() {
               <div className="flex gap-4">
                 <button 
                   onClick={() => { clearFilters(); setShowMobileFilters(false); }}
-                  className="flex-1 py-2.5 rounded-full bg-[#2A2420] border border-[#3E362E] text-xs font-bold text-[#A69080]"
+                  className="flex-1 py-2.5 rounded-full bg-[#212A31] border border-[#2E3944] text-xs font-bold text-[#748D92]"
                 >
                   Clear All
                 </button>
                 <button 
                   onClick={() => { fetchTasks(); setShowMobileFilters(false); }}
-                  className="flex-1 py-2.5 rounded-full bg-[#865D36] text-xs font-bold text-white"
+                  className="flex-1 py-2.5 rounded-full bg-[#124E66] text-xs font-bold text-white"
                 >
                   Apply Filters
                 </button>
@@ -274,8 +274,8 @@ export default function BrowseTasks() {
         {/* Right Side: Task Grid */}
         <section className="lg:col-span-3 space-y-6">
           {loading ? (
-            <div className="flex justify-center items-center py-20 text-[#AC8968]">
-              <div className="animate-spin rounded-full h-8 w-8 border-4 border-[#93785B] border-t-transparent mr-2"></div>
+            <div className="flex justify-center items-center py-20 text-[#748D92]">
+              <div className="animate-spin rounded-full h-8 w-8 border-4 border-[#124E66] border-t-transparent mr-2"></div>
               <span className="font-semibold text-sm">Querying active marketplace...</span>
             </div>
           ) : error ? (
@@ -283,9 +283,9 @@ export default function BrowseTasks() {
               {error}
             </div>
           ) : tasks.length === 0 ? (
-            <div className="glass p-16 text-center rounded-3xl border border-[#3E362E]/80 space-y-3">
-              <div className="text-[#A69080] font-semibold text-sm">No tasks matched your search parameters.</div>
-              <p className="text-xs text-[#A69080]">Try adjusting the search criteria or category filter.</p>
+            <div className="glass p-16 text-center rounded-3xl border border-[#2E3944]/80 space-y-3">
+              <div className="text-[#748D92] font-semibold text-sm">No tasks matched your search parameters.</div>
+              <p className="text-xs text-[#748D92]">Try adjusting the search criteria or category filter.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -294,13 +294,13 @@ export default function BrowseTasks() {
                   key={task.id}
                   className={`glass p-6 rounded-2xl border flex flex-col justify-between transition group relative overflow-hidden ${
                     ['in_progress', 'submitted', 'completed'].includes(task.status)
-                      ? 'border-[#3E362E]/40 opacity-60'
-                      : 'border-[#3E362E] hover:border-[#573D23]/60'
+                      ? 'border-[#2E3944]/40 opacity-60'
+                      : 'border-[#2E3944] hover:border-[#2E3944]/60'
                   }`}
                 >
                   {/* Locked overlay for tasks with accepted bids */}
                   {['in_progress', 'submitted', 'completed'].includes(task.status) && (
-                    <div className="absolute inset-0 bg-[#1A1714]/30 z-10 rounded-2xl flex items-center justify-center">
+                    <div className="absolute inset-0 bg-[#212A31]/30 z-10 rounded-2xl flex items-center justify-center">
                       <div className="flex items-center space-x-2 px-4 py-2 rounded-full bg-rose-950/60 border border-rose-800/50 backdrop-blur-sm">
                         <Lock size={14} className="text-rose-400" />
                         <span className="text-xs font-bold text-rose-300 uppercase tracking-wider">Locked</span>
@@ -310,43 +310,43 @@ export default function BrowseTasks() {
 
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-[10px] font-semibold bg-[#2A2420] border border-[#3E362E] text-[#A69080] px-2 py-0.5 rounded">
+                      <span className="text-[10px] font-semibold bg-[#212A31] border border-[#2E3944] text-[#748D92] px-2 py-0.5 rounded">
                         {task.category}
                       </span>
-                      <span className="text-[10px] text-[#A69080] font-semibold flex items-center space-x-1">
-                        <MessageSquare size={12} className="text-[#A69080]" />
+                      <span className="text-[10px] text-[#748D92] font-semibold flex items-center space-x-1">
+                        <MessageSquare size={12} className="text-[#748D92]" />
                         <span>{task.bid_count} bids</span>
                       </span>
                     </div>
 
                     <div className="space-y-1.5">
-                      <h4 className="font-bold text-[#E8DDD0] group-hover:text-[#AC8968] transition-colors text-sm line-clamp-1">
+                      <h4 className="font-bold text-[#D3D9D4] group-hover:text-[#748D92] transition-colors text-sm line-clamp-1">
                         {task.title}
                       </h4>
-                      <p className="text-xs text-[#A69080] line-clamp-2 leading-relaxed">
+                      <p className="text-xs text-[#748D92] line-clamp-2 leading-relaxed">
                         {task.description}
                       </p>
                     </div>
 
-                    <div className="flex items-center space-x-2 text-[10px] text-[#A69080]">
-                      <GraduationCap size={13} className="text-[#AC8968] shrink-0" />
+                    <div className="flex items-center space-x-2 text-[10px] text-[#748D92]">
+                      <GraduationCap size={13} className="text-[#748D92] shrink-0" />
                       <span className="truncate">{task.client_name} ({task.client_college})</span>
                     </div>
                   </div>
 
-                  <div className="flex justify-between items-center pt-4 mt-4 border-t border-[#2A2420]">
+                  <div className="flex justify-between items-center pt-4 mt-4 border-t border-[#212A31]">
                     <div className="flex items-center space-x-4">
                       <div>
-                        <div className="text-[9px] text-[#A69080] font-semibold uppercase">Budget</div>
-                        <div className="text-xs font-bold text-[#93785B] flex items-center">
+                        <div className="text-[9px] text-[#748D92] font-semibold uppercase">Budget</div>
+                        <div className="text-xs font-bold text-[#124E66] flex items-center">
                           <IndianRupee size={12} />
                           <span>{task.budget}</span>
                         </div>
                       </div>
                       <div>
-                        <div className="text-[9px] text-[#A69080] font-semibold uppercase">Time left</div>
-                        <div className="text-xs font-semibold text-[#D4C4B0] flex items-center space-x-1">
-                          <Clock size={12} className="text-[#A69080]" />
+                        <div className="text-[9px] text-[#748D92] font-semibold uppercase">Time left</div>
+                        <div className="text-xs font-semibold text-[#D3D9D4] flex items-center space-x-1">
+                          <Clock size={12} className="text-[#748D92]" />
                           <span>{task.deadline}</span>
                         </div>
                       </div>
@@ -360,7 +360,7 @@ export default function BrowseTasks() {
                     ) : (
                       <Link 
                         to={`/tasks/${task.id}`}
-                        className="p-2 rounded-xl bg-[#1A1714] hover:bg-[#2A2420] border border-[#3E362E] text-xs font-bold text-[#D4C4B0] flex items-center space-x-1.5 transition"
+                        className="p-2 rounded-xl bg-[#212A31] hover:bg-[#212A31] border border-[#2E3944] text-xs font-bold text-[#D3D9D4] flex items-center space-x-1.5 transition"
                       >
                         <span>Bid Details</span>
                         <ArrowUpRight size={13} />
