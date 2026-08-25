@@ -16,12 +16,17 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   const fetchMeWithToken = async (authToken) => {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 1500); // 1.5s max timeout
+
     try {
       const response = await fetch(`${API_BASE}/auth/me`, {
         headers: {
           'Authorization': `Bearer ${authToken}`
-        }
+        },
+        signal: controller.signal
       });
+      clearTimeout(timeoutId);
       const data = await response.json();
       if (response.ok) {
         setUser(data.user);
@@ -29,17 +34,25 @@ export const AuthProvider = ({ children }) => {
         logout();
       }
     } catch (err) {
-      console.error("Auth fetch failed:", err);
+      console.warn("Auth fetch failed or timed out:", err.message);
+      // If backend is unreachable or token invalid, clear loading
     } finally {
+      clearTimeout(timeoutId);
       setLoading(false);
     }
   };
 
   useEffect(() => {
+    // Safety fallback: guaranteed unblock after 1.5 seconds under all network conditions
+    const safetyTimer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+
     if (token) {
       fetchMeWithToken(token);
     } else {
       setLoading(false);
+      clearTimeout(safetyTimer);
     }
 
     if (supabase) {
@@ -50,8 +63,13 @@ export const AuthProvider = ({ children }) => {
           fetchMeWithToken(session.access_token);
         }
       });
-      return () => subscription.unsubscribe();
+      return () => {
+        clearTimeout(safetyTimer);
+        subscription.unsubscribe();
+      };
     }
+
+    return () => clearTimeout(safetyTimer);
   }, [token]);
 
   const loginWithGoogle = async () => {
