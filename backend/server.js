@@ -7,6 +7,9 @@ const fs = require('fs');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
+const helmet = require('helmet');
+const compression = require('compression');
+const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
 const db = require('./database/db');
@@ -29,8 +32,34 @@ socketHandler(io);
 const PORT = process.env.PORT || 5005;
 const JWT_SECRET = process.env.JWT_SECRET || 'studyswap_jwt_secret_key_2026_super_secure';
 
-// Middlewares
-app.use(cors());
+// Security and Performance Middlewares
+app.use(helmet());
+app.use(compression());
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 200, // Limit each IP to 200 requests per window
+  message: { error: 'Too many requests, please try again later.' }
+});
+app.use('/api/', limiter);
+
+// CORS Configuration
+const allowedOrigins = [
+  'http://localhost:5173', // Local frontend
+  'https://study-swap-eta.vercel.app' // Deployed frontend
+];
+
+app.use(cors({
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
+
 app.use(express.json());
 
 // Request logger middleware
@@ -1427,7 +1456,10 @@ app.use((err, req, res, next) => {
     }
     return res.status(400).json({ error: `File upload error: ${err.message}` });
   }
-  res.status(500).json({ error: err.message || 'An unexpected internal server error occurred.' });
+  
+  // Do not leak stack traces or raw error messages in production
+  const isProd = process.env.NODE_ENV === 'production';
+  res.status(500).json({ error: isProd ? 'An unexpected internal server error occurred.' : (err.message || 'Unknown error') });
 });
 
 // Start Express + WebSocket Server
