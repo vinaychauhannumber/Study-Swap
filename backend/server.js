@@ -131,29 +131,39 @@ app.post('/api/auth/register', async (req, res) => {
         return res.status(400).json({ error: error?.message || 'Registration failed via Supabase Auth.' });
       }
 
-      // Check if user is in auth but not profile, create profile
-      await db.run(
-        `INSERT INTO users (id, email, full_name, college, course, academic_year, role)
-         VALUES (?, ?, ?, ?, ?, ?, ?)`,
-        [data.user.id, email, fullName, college, course, academicYear, role]
-      );
+      // Create or update local user profile
+      try {
+        await db.run(
+          `INSERT INTO users (id, email, full_name, college, course, academic_year, role)
+           VALUES (?, ?, ?, ?, ?, ?, ?)
+           ON CONFLICT(id) DO UPDATE SET
+             full_name = excluded.full_name,
+             college = excluded.college,
+             course = excluded.course,
+             academic_year = excluded.academic_year`,
+          [data.user.id, email, fullName, college, course, academicYear, role]
+        );
+      } catch (dbErr) {
+        console.warn('Profile insert warning:', dbErr.message);
+      }
 
       const user = await db.get('SELECT id, email, full_name, role, college, balance FROM users WHERE id = ?', [data.user.id]);
       const sessionToken = data.session?.access_token || '';
 
       if (!sessionToken) {
         return res.status(201).json({ 
-          message: 'Registration successful. Email verification required.', 
+          message: 'Registration initiated! Please check your email inbox to confirm your account.', 
           requiresConfirmation: true 
         });
       }
 
       res.status(201).json({ user, token: sessionToken });
     } catch (err) {
-      if (err.message.includes('UNIQUE') || err.message.includes('unique constraint')) {
-        return res.status(400).json({ error: 'Email address already registered in platform database.' });
+      const errorMsg = typeof err === 'string' ? err : (err.message || 'Registration failed.');
+      if (errorMsg.includes('UNIQUE') || errorMsg.includes('already registered')) {
+        return res.status(400).json({ error: 'Email address already registered. Please click Sign In.' });
       }
-      res.status(500).json({ error: err.message });
+      res.status(400).json({ error: errorMsg });
     }
   } else {
     // Local Offline JWT Fallback
