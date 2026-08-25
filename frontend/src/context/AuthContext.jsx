@@ -120,15 +120,17 @@ export const AuthProvider = ({ children }) => {
       });
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.error || 'Login failed.');
+        const msg = typeof data.error === 'string' ? data.error : (data.error?.message || data.message || 'Login failed.');
+        throw new Error(msg);
       }
       localStorage.setItem('studyswap_token', data.token);
       setToken(data.token);
       setUser(data.user);
       return data.user;
     } catch (err) {
-      setError(err.message);
-      throw err;
+      const msg = typeof err.message === 'string' ? err.message : JSON.stringify(err);
+      setError(msg);
+      throw new Error(msg);
     } finally {
       setLoading(false);
     }
@@ -145,7 +147,8 @@ export const AuthProvider = ({ children }) => {
       });
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.error || 'Registration failed.');
+        const msg = typeof data.error === 'string' ? data.error : (data.error?.message || data.message || 'Registration failed.');
+        throw new Error(msg);
       }
       if (data.requiresConfirmation) {
         return { requiresConfirmation: true };
@@ -155,8 +158,9 @@ export const AuthProvider = ({ children }) => {
       setUser(data.user);
       return data.user;
     } catch (err) {
-      setError(err.message);
-      throw err;
+      const msg = typeof err.message === 'string' ? err.message : JSON.stringify(err);
+      setError(msg);
+      throw new Error(msg);
     } finally {
       setLoading(false);
     }

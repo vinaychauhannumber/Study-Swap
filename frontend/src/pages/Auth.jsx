@@ -129,7 +129,16 @@ export default function Auth() {
         {(localError || authError) && (
           <div className="p-3.5 rounded-xl bg-rose-100/20 border border-rose-300/50 flex items-start space-x-2 text-rose-600 text-xs leading-normal animate-pulse">
             <ShieldAlert size={16} className="shrink-0 mt-0.5" />
-            <span>{localError || authError}</span>
+            <span>
+              {(() => {
+                const err = localError || authError;
+                if (!err) return '';
+                if (typeof err === 'string') return err;
+                if (typeof err.message === 'string') return err.message;
+                if (typeof err.error === 'string') return err.error;
+                return JSON.stringify(err);
+              })()}
+            </span>
           </div>
         )}
 
