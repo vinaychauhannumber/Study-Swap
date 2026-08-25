@@ -49,7 +49,9 @@ const allowedOrigins = [
   'http://localhost:5173', // Local frontend
   'https://study-swap-eta.vercel.app', // Deployed frontend
   'https://bhaiplz.site', // Custom domain
-  'https://www.bhaiplz.site' // Custom domain www
+  'https://www.bhaiplz.site', // Custom domain www
+  'https://broplz.site', // Custom domain broplz
+  'https://www.broplz.site' // Custom domain www broplz
 ];
 
 app.use(cors({
