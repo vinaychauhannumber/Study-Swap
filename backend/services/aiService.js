@@ -203,7 +203,7 @@ function detectScam(title, description, userEmail) {
   for (const kw of scamKeywords) {
     if (text.includes(kw)) {
       flagged = true;
-      reason = `Suspicious keyword detected: "${kw}". All negotiations and payments must remain within StudySwap.`;
+      reason = `Suspicious keyword detected: "${kw}". All negotiations and payments must remain within BhaiPlz.`;
       break;
     }
   }

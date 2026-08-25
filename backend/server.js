@@ -188,7 +188,7 @@ app.post('/api/auth/login', async (req, res) => {
     'rohan@college.edu', 
     'amit@college.edu', 
     'sneha@college.edu', 
-    'admin@studyswap.com'
+    'admin@bhaiplz.com'
   ].includes(email.toLowerCase());
 
   if (isDemoUser && password === 'password123') {
@@ -198,10 +198,10 @@ app.post('/api/auth/login', async (req, res) => {
       if (!dbUser) {
         console.log(`Demo profile missing for ${email}. Auto-creating seeded profile...`);
         const templates = {
-          'admin@studyswap.com': {
+          'admin@bhaiplz.com': {
             id: '11111111-1111-1111-1111-111111111111',
             full_name: 'Admin Moderator',
-            college: 'StudySwap HQ',
+            college: 'BhaiPlz HQ',
             course: 'Administration',
             academic_year: 'Staff',
             bio: 'Platform Administrator',
@@ -1464,5 +1464,5 @@ app.use((err, req, res, next) => {
 
 // Start Express + WebSocket Server
 server.listen(PORT, () => {
-  console.log(`StudySwap Backend Server running on http://localhost:${PORT}`);
+  console.log(`BhaiPlz Backend Server running on http://localhost:${PORT}`);
 });

@@ -53,7 +53,7 @@ export const SocketProvider = ({ children }) => {
     });
 
     newSocket.on('connect', () => {
-      console.log('Connected to StudySwap WebSocket Server');
+      console.log('Connected to BhaiPlz WebSocket Server');
     });
 
     newSocket.on('notification', (notification) => {

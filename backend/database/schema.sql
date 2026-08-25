@@ -1,4 +1,4 @@
--- Database Schema for StudySwap (Supabase Auth & PostgreSQL Compatible)
+-- Database Schema for BhaiPlz (Supabase Auth & PostgreSQL Compatible)
 
 CREATE TABLE IF NOT EXISTS users (
   id TEXT PRIMARY KEY, -- Will hold Supabase Auth UUID (TEXT for SQLite, UUID for Postgres)

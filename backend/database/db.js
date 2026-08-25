@@ -115,7 +115,7 @@ async function seedPostgresData() {
     await pool.query(
       `INSERT INTO users (id, email, full_name, college, course, academic_year, bio, role, rating)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
-      [MOCK_UUIDS.admin, 'admin@studyswap.com', 'Admin Moderator', 'StudySwap HQ', 'Administration', 'Staff', 'Platform Administrator', 'admin', 5.0]
+      [MOCK_UUIDS.admin, 'admin@bhaiplz.com', 'Admin Moderator', 'BhaiPlz HQ', 'Administration', 'Staff', 'Platform Administrator', 'admin', 5.0]
     );
 
     // Create Clients
@@ -197,7 +197,7 @@ function seedSqliteData() {
     sqliteDb.prepare(`
       INSERT INTO users (id, email, full_name, college, course, academic_year, bio, role, rating)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `).run(MOCK_UUIDS.admin, 'admin@studyswap.com', 'Admin Moderator', 'StudySwap HQ', 'Administration', 'Staff', 'Platform Administrator', 'admin', 5.0);
+    `).run(MOCK_UUIDS.admin, 'admin@bhaiplz.com', 'Admin Moderator', 'BhaiPlz HQ', 'Administration', 'Staff', 'Platform Administrator', 'admin', 5.0);
 
     sqliteDb.prepare(`
       INSERT INTO users (id, email, full_name, college, course, academic_year, bio, role, balance, rating)
