@@ -47,7 +47,9 @@ app.use('/api/', limiter);
 // CORS Configuration
 const allowedOrigins = [
   'http://localhost:5173', // Local frontend
-  'https://study-swap-eta.vercel.app' // Deployed frontend
+  'https://study-swap-eta.vercel.app', // Deployed frontend
+  'https://bhaiplz.site', // Custom domain
+  'https://www.bhaiplz.site' // Custom domain www
 ];
 
 app.use(cors({
