@@ -1,9 +1,13 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import { createClient } from '@supabase/supabase-js';
 
 const AuthContext = createContext();
 
 export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5005';
 export const API_BASE = `${BACKEND_URL}/api`;
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabase = (supabaseUrl && supabaseAnonKey) ? createClient(supabaseUrl, supabaseAnonKey) : null;
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -11,34 +15,80 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchMe = async () => {
-      if (!token) {
-        setLoading(false);
-        return;
+  const fetchMeWithToken = async (authToken) => {
+    try {
+      const response = await fetch(`${API_BASE}/auth/me`, {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setUser(data.user);
+      } else {
+        logout();
       }
-      try {
-        const response = await fetch(`${API_BASE}/auth/me`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
+    } catch (err) {
+      console.error("Auth fetch failed:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      fetchMeWithToken(token);
+    } else {
+      setLoading(false);
+    }
+
+    if (supabase) {
+      const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+        if (session && session.access_token) {
+          localStorage.setItem('studyswap_token', session.access_token);
+          setToken(session.access_token);
+          fetchMeWithToken(session.access_token);
+        }
+      });
+      return () => subscription.unsubscribe();
+    }
+  }, [token]);
+
+  const loginWithGoogle = async () => {
+    setError(null);
+    setLoading(true);
+    try {
+      if (supabase) {
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: `${window.location.origin}/auth`
           }
         });
+        if (error) throw error;
+      } else {
+        // Fallback demo Google sign-in if keys are not configured
+        const response = await fetch(`${API_BASE}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: 'priya@college.edu', password: 'password123' })
+        });
         const data = await response.json();
-        if (response.ok) {
-          setUser(data.user);
-        } else {
-          // Token expired or invalid
-          logout();
+        if (!response.ok) {
+          throw new Error(data.error || 'Google Sign-In failed.');
         }
-      } catch (err) {
-        console.error("Auth fetch failed:", err);
-      } finally {
-        setLoading(false);
+        localStorage.setItem('studyswap_token', data.token);
+        setToken(data.token);
+        setUser(data.user);
+        return data.user;
       }
-    };
-
-    fetchMe();
-  }, [token]);
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const login = async (email, password) => {
     setError(null);
@@ -247,7 +297,8 @@ export const AuthProvider = ({ children }) => {
       switchRole,
       setUser,
       forgotPassword,
-      resetPassword
+      resetPassword,
+      loginWithGoogle
     }}>
       {children}
     </AuthContext.Provider>
