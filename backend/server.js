@@ -48,8 +48,8 @@ app.use('/api/', limiter);
 const allowedOrigins = [
   'http://localhost:5173', // Local frontend
   'https://study-swap-eta.vercel.app', // Deployed frontend
-  'https://bhaiplz.site', // Custom domain
-  'https://www.bhaiplz.site', // Custom domain www
+  'https://broplz.site', // Custom domain
+  'https://www.broplz.site', // Custom domain www
   'https://broplz.site', // Custom domain broplz
   'https://www.broplz.site' // Custom domain www broplz
 ];
@@ -192,7 +192,7 @@ app.post('/api/auth/login', async (req, res) => {
     'rohan@college.edu', 
     'amit@college.edu', 
     'sneha@college.edu', 
-    'admin@bhaiplz.com'
+    'admin@broplz.com'
   ].includes(email.toLowerCase());
 
   if (isDemoUser && password === 'password123') {
@@ -202,10 +202,10 @@ app.post('/api/auth/login', async (req, res) => {
       if (!dbUser) {
         console.log(`Demo profile missing for ${email}. Auto-creating seeded profile...`);
         const templates = {
-          'admin@bhaiplz.com': {
+          'admin@broplz.com': {
             id: '11111111-1111-1111-1111-111111111111',
             full_name: 'Admin Moderator',
-            college: 'BhaiPlz HQ',
+            college: 'BroPlz HQ',
             course: 'Administration',
             academic_year: 'Staff',
             bio: 'Platform Administrator',
@@ -1468,5 +1468,5 @@ app.use((err, req, res, next) => {
 
 // Start Express + WebSocket Server
 server.listen(PORT, () => {
-  console.log(`BhaiPlz Backend Server running on http://localhost:${PORT}`);
+  console.log(`BroPlz Backend Server running on http://localhost:${PORT}`);
 });

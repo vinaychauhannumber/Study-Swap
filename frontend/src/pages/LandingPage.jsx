@@ -37,7 +37,7 @@ export default function LandingPage() {
   ];
 
   const faqs = [
-    { q: "Is BhaiPlz an academic cheating platform?", a: "No. BhaiPlz is designed for study aid, tutoring assistance, data curation, presentation templates design, research support, and custom coding tutoring. Sharing exam answers or bypassing integrity is blocked by our scam detection scanner." },
+    { q: "Is BroPlz an academic cheating platform?", a: "No. BroPlz is designed for study aid, tutoring assistance, data curation, presentation templates design, research support, and custom coding tutoring. Sharing exam answers or bypassing integrity is blocked by our scam detection scanner." },
     { q: "How is the collaboration managed?", a: "When you accept a bid, the task is locked to that helper. The helper works on your deliverables and submits them. You can inspect, request revisions, and approve them once satisfied." },
     { q: "What if the completed work needs revisions?", a: "You can request revisions in the submission portal. The helper will be notified to review comments and upload updated files. Disputes can be reported to admins for final resolution." },
   ];
@@ -102,7 +102,7 @@ export default function LandingPage() {
       <section className="space-y-12">
         <div className="text-center space-y-2 animate-fade-in-up">
           <h2 className="text-3xl font-bold font-display">A Dedicated Ecosystem for Students</h2>
-          <p className="text-sm text-black/70">Whether you need help or want to share your expertise, BhaiPlz has you covered.</p>
+          <p className="text-sm text-black/70">Whether you need help or want to share your expertise, BroPlz has you covered.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -175,7 +175,7 @@ export default function LandingPage() {
       {/* How it Works */}
       <section className="space-y-16">
         <div className="text-center space-y-2 animate-fade-in-up">
-          <h2 className="text-3xl font-bold font-display">How BhaiPlz Works</h2>
+          <h2 className="text-3xl font-bold font-display">How BroPlz Works</h2>
           <p className="text-sm text-black/70">Secure escrow collaboration flow from posting to release.</p>
         </div>
 

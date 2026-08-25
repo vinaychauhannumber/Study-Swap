@@ -241,7 +241,7 @@ export default function AdminDashboard() {
           <div className="glass p-6 rounded-3xl border border-[#FFE5BF] space-y-4">
             <h3 className="text-sm font-bold font-display text-black/70">Commissions Audit Policy</h3>
             <p className="text-xs text-black/70 leading-relaxed">
-              BhaiPlz operates a decentralized peer mediation structure. The platform holds project deposits in escrows, checking submissions through Gemini NLP analysis and releasing payments to helpers on approval.
+              BroPlz operates a decentralized peer mediation structure. The platform holds project deposits in escrows, checking submissions through Gemini NLP analysis and releasing payments to helpers on approval.
             </p>
             <div className="p-4 rounded-xl bg-[#FFFAF3]/20 border border-purple-900/50 text-[11px] text-black leading-normal flex items-start space-x-1.5">
               <Sparkles size={14} className="shrink-0 mt-0.5 text-black" />

@@ -115,7 +115,7 @@ function MainApp() {
         </Routes>
       </main>
       <footer className="py-6 border-t border-slate-900 bg-slate-950/20 text-center text-xs text-slate-500">
-        <p>© 2026 BhaiPlz Platform. Student-to-Student Escrow Academic Collaboration Marketplace.</p>
+        <p>© 2026 BroPlz Platform. Student-to-Student Escrow Academic Collaboration Marketplace.</p>
       </footer>
     </div>
   );
