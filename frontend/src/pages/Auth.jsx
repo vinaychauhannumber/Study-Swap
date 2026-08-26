@@ -126,21 +126,26 @@ export default function Auth() {
           </div>
         )}
 
-        {(localError || authError) && (
-          <div className="p-3.5 rounded-xl bg-rose-100/20 border border-rose-300/50 flex items-start space-x-2 text-rose-600 text-xs leading-normal animate-pulse">
-            <ShieldAlert size={16} className="shrink-0 mt-0.5" />
-            <span>
-              {(() => {
-                const err = localError || authError;
-                if (!err) return '';
-                if (typeof err === 'string') return err;
-                if (typeof err.message === 'string') return err.message;
-                if (typeof err.error === 'string') return err.error;
-                return JSON.stringify(err);
-              })()}
-            </span>
-          </div>
-        )}
+        {(() => {
+          const rawErr = localError || authError;
+          if (!rawErr) return null;
+          let displayMsg = '';
+          if (typeof rawErr === 'string') displayMsg = rawErr;
+          else if (typeof rawErr.message === 'string') displayMsg = rawErr.message;
+          else if (typeof rawErr.error === 'string') displayMsg = rawErr.error;
+          else displayMsg = JSON.stringify(rawErr);
+
+          if (!displayMsg || displayMsg === '{}' || displayMsg === 'null' || displayMsg === 'undefined') {
+            displayMsg = 'Authentication failed. Please verify your email and password or switch to Create Account.';
+          }
+
+          return (
+            <div className="p-3.5 rounded-xl bg-rose-100/20 border border-rose-300/50 flex items-start space-x-2 text-rose-600 text-xs leading-normal animate-pulse">
+              <ShieldAlert size={16} className="shrink-0 mt-0.5" />
+              <span>{displayMsg}</span>
+            </div>
+          );
+        })()}
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
