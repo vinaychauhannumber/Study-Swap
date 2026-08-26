@@ -16,9 +16,10 @@ import Inbox from './pages/Inbox';
 import Submission from './pages/Submission';
 import Profile from './pages/Profile';
 import AdminDashboard from './pages/AdminDashboard';
+import CompleteProfile from './pages/CompleteProfile';
 
 // Protected Route Wrapper
-const ProtectedRoute = ({ children, allowedRoles }) => {
+const ProtectedRoute = ({ children, allowedRoles, allowIncomplete }) => {
   const { user, loading } = useAuth();
 
   if (loading) {
@@ -34,6 +35,11 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 
   if (!user) {
     return <Navigate to="/auth" replace />;
+  }
+
+  const isProfileIncomplete = !user.college || !user.course || !user.full_name || user.full_name.includes('@');
+  if (isProfileIncomplete && !allowIncomplete) {
+    return <Navigate to="/complete-profile" replace />;
   }
 
   if (allowedRoles && !allowedRoles.includes(user.role)) {
@@ -65,8 +71,13 @@ function MainApp() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/browse" element={<BrowseTasks />} />
-          <Route path="/profile/:id" element={<Profile />} />
-          
+          {/* Complete Profile Onboarding Route */}
+          <Route path="/complete-profile" element={
+            <ProtectedRoute allowIncomplete={true}>
+              <CompleteProfile />
+            </ProtectedRoute>
+          } />
+
           {/* Protected Routes */}
           <Route path="/dashboard" element={
             <ProtectedRoute>
