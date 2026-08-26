@@ -98,33 +98,20 @@ export const AuthProvider = ({ children }) => {
     setError(null);
     setLoading(true);
     try {
-      if (supabase) {
-        const { error } = await supabase.auth.signInWithOAuth({
-          provider: 'google',
-          options: {
-            redirectTo: `${window.location.origin}/auth`
-          }
-        });
-        if (error) throw error;
-      } else {
-        // Fallback demo Google sign-in if keys are not configured
-        const response = await fetch(`${API_BASE}/auth/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: 'priya@college.edu', password: 'password123' })
-        });
-        const data = await response.json();
-        if (!response.ok) {
-          throw new Error(data.error || 'Google Sign-In failed.');
-        }
-        localStorage.setItem('studyswap_token', data.token);
-        setToken(data.token);
-        setUser(data.user);
-        return data.user;
+      if (!supabase) {
+        throw new Error('Google Sign-In is not enabled on this environment. Please configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.');
       }
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth`
+        }
+      });
+      if (error) throw error;
     } catch (err) {
-      setError(err.message);
-      throw err;
+      const msg = typeof err.message === 'string' ? err.message : JSON.stringify(err);
+      setError(msg);
+      throw new Error(msg);
     } finally {
       setLoading(false);
     }
