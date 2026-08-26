@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useEffect, useContext, useRef } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
 const AuthContext = createContext();
@@ -6,122 +6,116 @@ const AuthContext = createContext();
 export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5005';
 export const API_BASE = `${BACKEND_URL}/api`;
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const supabase = (supabaseUrl && supabaseAnonKey) ? createClient(supabaseUrl, supabaseAnonKey) : null;
+// Initialize supabase safely — never throw at module level
+let supabase = null;
+try {
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+  const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+  if (supabaseUrl && supabaseAnonKey) {
+    supabase = createClient(supabaseUrl, supabaseAnonKey);
+  }
+} catch (e) {
+  console.warn('Supabase init failed:', e.message);
+  supabase = null;
+}
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem('studyswap_token') || null);
+  const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const isMounted = useRef(true);
+
+  // Safely set state only when mounted
+  const safeSet = (setter) => (value) => {
+    if (isMounted.current) setter(value);
+  };
 
   const fetchMeWithToken = async (authToken) => {
     if (!authToken) {
-      setLoading(false);
+      safeSet(setLoading)(false);
       return;
     }
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 2000); // 2s max timeout
-
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
     try {
       const response = await fetch(`${API_BASE}/auth/me`, {
-        headers: {
-          'Authorization': `Bearer ${authToken}`
-        },
+        headers: { 'Authorization': `Bearer ${authToken}` },
         signal: controller.signal
       });
       clearTimeout(timeoutId);
+      if (!isMounted.current) return;
       const data = await response.json();
       if (response.ok && data.user) {
-        setUser(data.user);
+        safeSet(setUser)(data.user);
+        safeSet(setToken)(authToken);
+        localStorage.setItem('studyswap_token', authToken);
       } else {
-        console.warn("Auth token verification returned non-OK response:", response.status);
-        logout();
+        // Token invalid — clear it silently
+        localStorage.removeItem('studyswap_token');
+        safeSet(setUser)(null);
+        safeSet(setToken)(null);
       }
     } catch (err) {
-      console.warn("Auth fetch failed or timed out:", err.message);
-      // If token is invalid or server unreachable, gracefully reset session
-      if (err.name === 'AbortError' || err.message.includes('Failed to fetch')) {
-        // Keep current state or unblock loading without crashing
-      } else {
-        logout();
-      }
+      clearTimeout(timeoutId);
+      if (!isMounted.current) return;
+      console.warn('Auth check failed/timed out:', err.message);
+      // On network failure, don't destroy the stored token (user may be offline)
+      // Just unblock the UI
     } finally {
       clearTimeout(timeoutId);
-      setLoading(false);
+      safeSet(setLoading)(false);
     }
   };
 
   useEffect(() => {
-    let isMounted = true;
-    const safetyTimer = setTimeout(() => {
-      if (isMounted) setLoading(false);
-    }, 2000);
+    isMounted.current = true;
 
-    const initialToken = localStorage.getItem('studyswap_token');
-    if (initialToken) {
-      fetchMeWithToken(initialToken);
+    // Hard safety timer — UI never stays stuck beyond 3 seconds
+    const safetyTimer = setTimeout(() => {
+      if (isMounted.current) setLoading(false);
+    }, 3000);
+
+    const storedToken = localStorage.getItem('studyswap_token');
+    if (storedToken) {
+      fetchMeWithToken(storedToken);
     } else {
       setLoading(false);
     }
 
+    // Set up Supabase auth state listener only if supabase is configured
     let subscription = null;
     if (supabase) {
-      const { data } = supabase.auth.onAuthStateChange((event, session) => {
-        if (!isMounted) return;
+      try {
+        const { data } = supabase.auth.onAuthStateChange((event, session) => {
+          if (!isMounted.current) return;
 
-        if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'INITIAL_SESSION') {
-          if (session && session.access_token) {
-            localStorage.setItem('studyswap_token', session.access_token);
-            setToken(session.access_token);
-            fetchMeWithToken(session.access_token);
+          if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+            if (session?.access_token) {
+              fetchMeWithToken(session.access_token);
+            }
+          } else if (event === 'SIGNED_OUT') {
+            localStorage.removeItem('studyswap_token');
+            safeSet(setToken)(null);
+            safeSet(setUser)(null);
+            safeSet(setLoading)(false);
           }
-        } else if (event === 'SIGNED_OUT') {
-          localStorage.removeItem('studyswap_token');
-          setToken(null);
-          setUser(null);
-          setLoading(false);
-        }
-      });
-      subscription = data?.subscription;
+          // INITIAL_SESSION: handled by storedToken check above — no action needed
+        });
+        subscription = data?.subscription;
+      } catch (e) {
+        console.warn('Supabase auth listener error:', e.message);
+      }
     }
 
     return () => {
-      isMounted = false;
+      isMounted.current = false;
       clearTimeout(safetyTimer);
-      if (subscription) subscription.unsubscribe();
+      if (subscription) {
+        try { subscription.unsubscribe(); } catch (e) {}
+      }
     };
   }, []);
-
-  const loginWithGoogle = async () => {
-    setError(null);
-    setLoading(true);
-    try {
-      if (!supabase) {
-        const msg = 'Google Sign-In requires Supabase environment variables (VITE_SUPABASE_URL & VITE_SUPABASE_ANON_KEY) on Vercel.';
-        setError(msg);
-        return { error: msg };
-      }
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `${window.location.origin}/auth`
-        }
-      });
-      if (error) {
-        const msg = error.message || 'Google OAuth failed.';
-        setError(msg);
-        return { error: msg };
-      }
-    } catch (err) {
-      const msg = typeof err.message === 'string' ? err.message : 'Google Sign-In error occurred.';
-      setError(msg);
-      return { error: msg };
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const login = async (email, password) => {
     setError(null);
@@ -134,7 +128,7 @@ export const AuthProvider = ({ children }) => {
       });
       const data = await response.json();
       if (!response.ok) {
-        const msg = typeof data.error === 'string' ? data.error : (data.error?.message || data.message || 'Login failed.');
+        const msg = typeof data.error === 'string' ? data.error : (data.error?.message || 'Login failed.');
         throw new Error(msg);
       }
       localStorage.setItem('studyswap_token', data.token);
@@ -161,7 +155,7 @@ export const AuthProvider = ({ children }) => {
       });
       const data = await response.json();
       if (!response.ok) {
-        const msg = typeof data.error === 'string' ? data.error : (data.error?.message || data.message || 'Registration failed.');
+        const msg = typeof data.error === 'string' ? data.error : (data.error?.message || 'Registration failed.');
         throw new Error(msg);
       }
       if (data.requiresConfirmation) {
@@ -180,6 +174,30 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const loginWithGoogle = async () => {
+    setError(null);
+    try {
+      if (!supabase) {
+        const msg = 'Google Sign-In is not available in this environment.';
+        setError(msg);
+        return { error: msg };
+      }
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: `${window.location.origin}/auth` }
+      });
+      if (error) {
+        const msg = error.message || 'Google OAuth failed.';
+        setError(msg);
+        return { error: msg };
+      }
+    } catch (err) {
+      const msg = err?.message || 'Google Sign-In error occurred.';
+      setError(msg);
+      return { error: msg };
+    }
+  };
+
   const forgotPassword = async (email, redirectTo) => {
     setError(null);
     setLoading(true);
@@ -190,9 +208,7 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify({ email, redirectTo })
       });
       const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to send reset link.');
-      }
+      if (!response.ok) throw new Error(data.error || 'Failed to send reset link.');
       return data;
     } catch (err) {
       setError(err.message);
@@ -212,9 +228,7 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify({ access_token, new_password })
       });
       const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to reset password.');
-      }
+      if (!response.ok) throw new Error(data.error || 'Failed to reset password.');
       return data;
     } catch (err) {
       setError(err.message);
@@ -237,18 +251,17 @@ export const AuthProvider = ({ children }) => {
   const updateProfile = async (profileData) => {
     setError(null);
     try {
+      const currentToken = token || localStorage.getItem('studyswap_token');
       const response = await fetch(`${API_BASE}/users/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${currentToken}`
         },
         body: JSON.stringify(profileData)
       });
       const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to update profile.');
-      }
+      if (!response.ok) throw new Error(data.error || 'Failed to update profile.');
       setUser(data.user);
       return data.user;
     } catch (err) {
@@ -269,9 +282,7 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify({ amount, paymentMethod })
       });
       const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.error || 'Wallet deposit failed.');
-      }
+      if (!response.ok) throw new Error(data.error || 'Wallet deposit failed.');
       setUser(prev => ({ ...prev, balance: data.balance }));
       return data.balance;
     } catch (err) {
@@ -281,19 +292,16 @@ export const AuthProvider = ({ children }) => {
   };
 
   const refreshUser = async () => {
-    if (!token) return;
+    const currentToken = token || localStorage.getItem('studyswap_token');
+    if (!currentToken) return;
     try {
       const response = await fetch(`${API_BASE}/auth/me`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
+        headers: { 'Authorization': `Bearer ${currentToken}` }
       });
       const data = await response.json();
-      if (response.ok) {
-        setUser(data.user);
-      }
+      if (response.ok) setUser(data.user);
     } catch (err) {
-      console.error("Auth refresh failed:", err);
+      console.warn('Auth refresh failed:', err.message);
     }
   };
 
@@ -309,9 +317,7 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify({ role: newRole })
       });
       const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to switch role.');
-      }
+      if (!response.ok) throw new Error(data.error || 'Failed to switch role.');
       localStorage.setItem('studyswap_token', data.token);
       setToken(data.token);
       setUser(data.user);
@@ -324,21 +330,10 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{
-      user,
-      token,
-      loading,
-      error,
-      login,
-      register,
-      logout,
-      updateProfile,
-      depositWallet,
-      refreshUser,
-      switchRole,
-      setUser,
-      forgotPassword,
-      resetPassword,
-      loginWithGoogle
+      user, token, loading, error,
+      login, register, logout, loginWithGoogle,
+      updateProfile, depositWallet, refreshUser, switchRole,
+      setUser, forgotPassword, resetPassword
     }}>
       {children}
     </AuthContext.Provider>
