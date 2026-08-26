@@ -151,9 +151,44 @@ app.post('/api/auth/register', async (req, res) => {
       });
 
       if (error) {
-        const msg = supabaseErrorMsg(error);
-        console.error('Supabase signUp error raw:', error, 'extracted msg:', msg);
-        return res.status(400).json({ error: msg });
+        const isNetworkError = error.name === 'AuthRetryableFetchError' || (error.status && error.status >= 500);
+        if (isNetworkError) {
+          // Supabase unreachable — fall back to local JWT registration
+          console.warn('Supabase unreachable (AuthRetryableFetchError), falling back to local JWT registration...');
+        } else {
+          const msg = supabaseErrorMsg(error);
+          console.error('Supabase signUp auth error:', error.name, msg);
+          // Handle "user already exists" (Supabase returns 422 or specific codes)
+          if (error.status === 422 || msg.toLowerCase().includes('already') || msg.toLowerCase().includes('registered')) {
+            return res.status(400).json({ error: 'Email address already registered. Please click Sign In.' });
+          }
+          return res.status(400).json({ error: msg });
+        }
+
+        if (isNetworkError) {
+          // Local JWT fallback registration
+          try {
+            // Check if already registered locally
+            const existing = await db.get('SELECT id FROM users WHERE email = ?', [email]);
+            if (existing) return res.status(400).json({ error: 'Email address already registered. Please click Sign In.' });
+
+            const passwordHash = bcrypt.hashSync(password, 10);
+            const localId = 'local_' + Date.now();
+            await db.run(
+              `INSERT INTO users (id, email, password_hash, full_name, college, course, academic_year, role)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+              [localId, email, passwordHash, fullName, college, course, academicYear, role]
+            );
+            const user = await db.get('SELECT id, email, full_name, role, college, course, academic_year, balance FROM users WHERE id = ?', [localId]);
+            const token = generateToken(user);
+            return res.status(201).json({ user, token });
+          } catch (localErr) {
+            if (localErr.message && (localErr.message.includes('UNIQUE') || localErr.message.includes('unique constraint'))) {
+              return res.status(400).json({ error: 'Email address already registered. Please click Sign In.' });
+            }
+            return res.status(500).json({ error: 'Registration failed. Please try again.' });
+          }
+        }
       }
 
       if (!data || !data.user) {
@@ -402,8 +437,30 @@ app.post('/api/auth/login', async (req, res) => {
         password
       });
 
-      if (error || !data.user) {
-        return res.status(400).json({ error: error?.message || 'Authentication failed via Supabase Auth.' });
+      if (error) {
+        const isNetworkError = error.name === 'AuthRetryableFetchError' || (error.status && error.status >= 500);
+        if (isNetworkError) {
+          // Supabase unreachable — fall back to local bcrypt login
+          console.warn('Supabase unreachable on login, falling back to local auth...');
+          try {
+            const localUser = await db.get('SELECT * FROM users WHERE email = ?', [email]);
+            if (!localUser || !localUser.password_hash || !bcrypt.compareSync(password, localUser.password_hash)) {
+              return res.status(400).json({ error: 'Invalid email or password.' });
+            }
+            if (localUser.is_suspended) return res.status(403).json({ error: 'Your account has been suspended.' });
+            const token = generateToken(localUser);
+            const safeUser = { id: localUser.id, email: localUser.email, full_name: localUser.full_name, role: localUser.role, college: localUser.college, course: localUser.course, academic_year: localUser.academic_year, balance: localUser.balance };
+            return res.json({ user: safeUser, token });
+          } catch (localErr) {
+            return res.status(500).json({ error: 'Login service temporarily unavailable. Please try again.' });
+          }
+        }
+        const msg = supabaseErrorMsg(error) || 'Authentication failed.';
+        return res.status(400).json({ error: msg });
+      }
+      
+      if (!data.user) {
+        return res.status(400).json({ error: 'Authentication failed. Please check your email and password.' });
       }
 
       let user = await db.get('SELECT * FROM users WHERE id = ?', [data.user.id]);
