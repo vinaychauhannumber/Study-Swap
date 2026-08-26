@@ -110,6 +110,29 @@ function generateToken(user) {
 // 1. Authentication Router
 // ----------------------------------------------------
 
+// Helper: robustly extract message from a Supabase AuthError
+// Supabase errors often have non-enumerable or prototype properties
+function supabaseErrorMsg(error) {
+  if (!error) return null;
+  // Try all known properties
+  const msg = error.message
+    || error.error_description
+    || error.msg
+    || error.error
+    || (error.body && (typeof error.body === 'string' ? error.body : error.body.message || error.body.error_description))
+    || (error.code ? `Error code: ${error.code}` : null)
+    || (error.status ? `HTTP ${error.status}` : null);
+  if (msg && msg !== '{}') return String(msg);
+  // Try Object.getOwnPropertyNames to get non-enumerable properties
+  try {
+    const allKeys = Object.getOwnPropertyNames(Object.getPrototypeOf(error)).concat(Object.keys(error));
+    for (const key of ['message', 'error_description', 'msg', 'error', 'description']) {
+      if (error[key] && typeof error[key] === 'string' && error[key] !== '{}') return error[key];
+    }
+  } catch (e) {}
+  return `Auth error (status: ${error.status || 'unknown'})`;
+}
+
 app.post('/api/auth/register', async (req, res) => {
   const { email, password, fullName, college, course, academicYear, role } = req.body;
 
@@ -128,9 +151,8 @@ app.post('/api/auth/register', async (req, res) => {
       });
 
       if (error) {
-        // Properly extract Supabase error message
-        const msg = error.message || error.error_description || (typeof error === 'string' ? error : JSON.stringify(error));
-        console.error('Supabase signUp error:', msg, error);
+        const msg = supabaseErrorMsg(error);
+        console.error('Supabase signUp error raw:', error, 'extracted msg:', msg);
         return res.status(400).json({ error: msg });
       }
 
@@ -202,6 +224,38 @@ app.post('/api/auth/register', async (req, res) => {
       }
       res.status(500).json({ error: err.message });
     }
+  }
+});
+
+// TEMPORARY DEBUG: See exactly what Supabase returns for a signup
+app.post('/api/auth/debug-register', async (req, res) => {
+  const { email, password } = req.body;
+  const supabaseClient = authMiddleware.supabaseClient;
+  if (!supabaseClient) return res.json({ mode: 'local-jwt', supabase: false });
+  try {
+    const { data, error } = await supabaseClient.auth.signUp({
+      email: email || 'debugonly@broplz.test',
+      password: password || 'Debug12345!'
+    });
+    const errorDetails = error ? {
+      message: error.message,
+      error_description: error.error_description,
+      status: error.status,
+      code: error.code,
+      name: error.name,
+      allOwnKeys: Object.getOwnPropertyNames(error),
+      stringified: JSON.stringify(error),
+      toStringed: String(error)
+    } : null;
+    res.json({
+      hasError: !!error,
+      hasUser: !!data?.user,
+      hasSession: !!data?.session,
+      identities: data?.user?.identities?.length,
+      errorDetails
+    });
+  } catch (err) {
+    res.json({ threw: true, message: err.message });
   }
 });
 
