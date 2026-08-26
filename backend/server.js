@@ -166,27 +166,30 @@ app.post('/api/auth/register', async (req, res) => {
         }
 
         if (isNetworkError) {
-          // Local JWT fallback registration
+          // Local JWT fallback registration — insert directly into DB with a proper UUID
           try {
-            // Check if already registered locally
+            // Check if already registered
             const existing = await db.get('SELECT id FROM users WHERE email = ?', [email]);
             if (existing) return res.status(400).json({ error: 'Email address already registered. Please click Sign In.' });
 
             const passwordHash = bcrypt.hashSync(password, 10);
-            const localId = 'local_' + Date.now();
+            // Use crypto.randomUUID() for valid UUID (required by PostgreSQL UUID column)
+            const newId = require('crypto').randomUUID();
             await db.run(
               `INSERT INTO users (id, email, password_hash, full_name, college, course, academic_year, role)
                VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-              [localId, email, passwordHash, fullName, college, course, academicYear, role]
+              [newId, email, passwordHash, fullName, college, course, academicYear, role]
             );
-            const user = await db.get('SELECT id, email, full_name, role, college, course, academic_year, balance FROM users WHERE id = ?', [localId]);
-            const token = generateToken(user);
-            return res.status(201).json({ user, token });
+            const user = await db.get('SELECT id, email, full_name, role, college, course, academic_year, balance FROM users WHERE id = ?', [newId]);
+            const token = generateToken(user || { id: newId, email, full_name: fullName, role });
+            const safeUser = user || { id: newId, email, full_name: fullName, role, college, course, academic_year: academicYear, balance: 0 };
+            return res.status(201).json({ user: safeUser, token });
           } catch (localErr) {
-            if (localErr.message && (localErr.message.includes('UNIQUE') || localErr.message.includes('unique constraint'))) {
+            console.error('Fallback registration DB error:', localErr.message, localErr.stack?.split('\n').slice(0,3));
+            if (localErr.message && (localErr.message.includes('UNIQUE') || localErr.message.includes('unique') || localErr.message.includes('duplicate'))) {
               return res.status(400).json({ error: 'Email address already registered. Please click Sign In.' });
             }
-            return res.status(500).json({ error: 'Registration failed. Please try again.' });
+            return res.status(500).json({ error: 'Registration failed: ' + localErr.message });
           }
         }
       }
