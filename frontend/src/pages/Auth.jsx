@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { LogIn, UserPlus, Sparkles, ShieldAlert, ShieldCheck, Mail, Key } from 'lucide-react';
 
 export default function Auth() {
-  const { login, register, forgotPassword, resetPassword, loginWithGoogle, error: authError } = useAuth();
+  const { user, login, register, forgotPassword, resetPassword, loginWithGoogle, error: authError } = useAuth();
   const navigate = useNavigate();
 
   const [authMode, setAuthMode] = useState('login'); // 'login', 'register', 'forgot', 'reset'
