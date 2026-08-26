@@ -99,7 +99,9 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     try {
       if (!supabase) {
-        throw new Error('Google Sign-In is not enabled on this environment. Please configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.');
+        const msg = 'Google Sign-In requires Supabase environment variables (VITE_SUPABASE_URL & VITE_SUPABASE_ANON_KEY) on Vercel.';
+        setError(msg);
+        return { error: msg };
       }
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
@@ -107,11 +109,15 @@ export const AuthProvider = ({ children }) => {
           redirectTo: `${window.location.origin}/auth`
         }
       });
-      if (error) throw error;
+      if (error) {
+        const msg = error.message || 'Google OAuth failed.';
+        setError(msg);
+        return { error: msg };
+      }
     } catch (err) {
-      const msg = typeof err.message === 'string' ? err.message : JSON.stringify(err);
+      const msg = typeof err.message === 'string' ? err.message : 'Google Sign-In error occurred.';
       setError(msg);
-      throw new Error(msg);
+      return { error: msg };
     } finally {
       setLoading(false);
     }

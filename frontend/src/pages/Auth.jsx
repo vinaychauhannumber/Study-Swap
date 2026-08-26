@@ -135,9 +135,12 @@ export default function Auth() {
               onClick={async () => {
                 setLocalError(null);
                 try {
-                  await loginWithGoogle();
+                  const res = await loginWithGoogle();
+                  if (res?.error) {
+                    setLocalError(res.error);
+                  }
                 } catch (err) {
-                  setLocalError(err.message || 'Google authentication failed.');
+                  setLocalError(err?.message || 'Google authentication failed.');
                 }
               }}
               className="w-full py-3 px-4 rounded-xl bg-[#FFFAF3] hover:bg-[#FFF2DB] border border-[#FFE5BF] text-black text-xs font-bold flex items-center justify-center space-x-2.5 transition shadow-sm hover-scale disabled:opacity-50 cursor-pointer"
