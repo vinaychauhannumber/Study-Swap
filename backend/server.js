@@ -127,11 +127,18 @@ app.post('/api/auth/register', async (req, res) => {
         password
       });
 
-      if (error || !data.user) {
-        return res.status(400).json({ error: error?.message || 'Registration failed via Supabase Auth.' });
+      if (error) {
+        // Properly extract Supabase error message
+        const msg = error.message || error.error_description || (typeof error === 'string' ? error : JSON.stringify(error));
+        console.error('Supabase signUp error:', msg, error);
+        return res.status(400).json({ error: msg });
       }
 
-      // Create or update local user profile
+      if (!data || !data.user) {
+        return res.status(400).json({ error: 'Registration failed. No user returned from authentication provider.' });
+      }
+
+      // Create or update local user profile in SQLite
       try {
         await db.run(
           `INSERT INTO users (id, email, full_name, college, course, academic_year, role)
@@ -140,27 +147,36 @@ app.post('/api/auth/register', async (req, res) => {
              full_name = excluded.full_name,
              college = excluded.college,
              course = excluded.course,
-             academic_year = excluded.academic_year`,
+             academic_year = excluded.academic_year,
+             role = excluded.role`,
           [data.user.id, email, fullName, college, course, academicYear, role]
         );
       } catch (dbErr) {
-        console.warn('Profile insert warning:', dbErr.message);
+        console.warn('Profile insert warning (non-fatal):', dbErr.message);
       }
 
-      const user = await db.get('SELECT id, email, full_name, role, college, balance FROM users WHERE id = ?', [data.user.id]);
+      // Build a user object — fall back gracefully if SQLite doesn't have the row yet
+      let user = await db.get('SELECT id, email, full_name, role, college, course, academic_year, balance FROM users WHERE id = ?', [data.user.id]);
+      if (!user) {
+        // User was created in Supabase but SQLite insert may have failed — create a minimal object
+        user = { id: data.user.id, email, full_name: fullName, role, college, course, academic_year: academicYear, balance: 0 };
+      }
+
       const sessionToken = data.session?.access_token || '';
 
       if (!sessionToken) {
+        // Email confirmation required
         return res.status(201).json({ 
-          message: 'Registration initiated! Please check your email inbox to confirm your account.', 
+          message: 'Registration successful! Please check your email inbox to confirm your account, then sign in.', 
           requiresConfirmation: true 
         });
       }
 
       res.status(201).json({ user, token: sessionToken });
     } catch (err) {
-      const errorMsg = typeof err === 'string' ? err : (err.message || 'Registration failed.');
-      if (errorMsg.includes('UNIQUE') || errorMsg.includes('already registered')) {
+      const errorMsg = err?.message || (typeof err === 'string' ? err : 'Registration failed. Please try again.');
+      console.error('Register route error:', errorMsg, err);
+      if (errorMsg.includes('UNIQUE') || errorMsg.includes('already registered') || errorMsg.includes('already been registered')) {
         return res.status(400).json({ error: 'Email address already registered. Please click Sign In.' });
       }
       res.status(400).json({ error: errorMsg });
