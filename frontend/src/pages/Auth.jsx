@@ -23,6 +23,17 @@ export default function Auth() {
   const [role, setRole] = useState('client');
 
   useEffect(() => {
+    if (user) {
+      const isProfileIncomplete = !user.college || !user.course || !user.full_name || user.full_name.includes('@');
+      if (isProfileIncomplete) {
+        navigate('/complete-profile', { replace: true });
+      } else {
+        navigate('/dashboard', { replace: true });
+      }
+    }
+  }, [user, navigate]);
+
+  useEffect(() => {
     const hash = window.location.hash;
     if (hash && hash.includes('access_token') && hash.includes('type=recovery')) {
       const hashParams = new URLSearchParams(hash.substring(1));

@@ -17,8 +17,12 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   const fetchMeWithToken = async (authToken) => {
+    if (!authToken) {
+      setLoading(false);
+      return;
+    }
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 1500); // 1.5s max timeout
+    const timeoutId = setTimeout(() => controller.abort(), 2000); // 2s max timeout
 
     try {
       const response = await fetch(`${API_BASE}/auth/me`, {
@@ -29,14 +33,20 @@ export const AuthProvider = ({ children }) => {
       });
       clearTimeout(timeoutId);
       const data = await response.json();
-      if (response.ok) {
+      if (response.ok && data.user) {
         setUser(data.user);
       } else {
+        console.warn("Auth token verification returned non-OK response:", response.status);
         logout();
       }
     } catch (err) {
       console.warn("Auth fetch failed or timed out:", err.message);
-      // If backend is unreachable or token invalid, clear loading
+      // If token is invalid or server unreachable, gracefully reset session
+      if (err.name === 'AbortError' || err.message.includes('Failed to fetch')) {
+        // Keep current state or unblock loading without crashing
+      } else {
+        logout();
+      }
     } finally {
       clearTimeout(timeoutId);
       setLoading(false);
@@ -44,34 +54,45 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // Safety fallback: guaranteed unblock after 1.5 seconds under all network conditions
+    let isMounted = true;
     const safetyTimer = setTimeout(() => {
-      setLoading(false);
-    }, 1500);
+      if (isMounted) setLoading(false);
+    }, 2000);
 
-    if (token) {
-      fetchMeWithToken(token);
+    const initialToken = localStorage.getItem('studyswap_token');
+    if (initialToken) {
+      fetchMeWithToken(initialToken);
     } else {
       setLoading(false);
-      clearTimeout(safetyTimer);
     }
 
+    let subscription = null;
     if (supabase) {
-      const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-        if (session && session.access_token) {
-          localStorage.setItem('studyswap_token', session.access_token);
-          setToken(session.access_token);
-          fetchMeWithToken(session.access_token);
+      const { data } = supabase.auth.onAuthStateChange((event, session) => {
+        if (!isMounted) return;
+
+        if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'INITIAL_SESSION') {
+          if (session && session.access_token) {
+            localStorage.setItem('studyswap_token', session.access_token);
+            setToken(session.access_token);
+            fetchMeWithToken(session.access_token);
+          }
+        } else if (event === 'SIGNED_OUT') {
+          localStorage.removeItem('studyswap_token');
+          setToken(null);
+          setUser(null);
+          setLoading(false);
         }
       });
-      return () => {
-        clearTimeout(safetyTimer);
-        subscription.unsubscribe();
-      };
+      subscription = data?.subscription;
     }
 
-    return () => clearTimeout(safetyTimer);
-  }, [token]);
+    return () => {
+      isMounted = false;
+      clearTimeout(safetyTimer);
+      if (subscription) subscription.unsubscribe();
+    };
+  }, []);
 
   const loginWithGoogle = async () => {
     setError(null);
@@ -215,6 +236,9 @@ export const AuthProvider = ({ children }) => {
     setToken(null);
     setUser(null);
     setError(null);
+    if (supabase) {
+      supabase.auth.signOut().catch(() => {});
+    }
   };
 
   const updateProfile = async (profileData) => {

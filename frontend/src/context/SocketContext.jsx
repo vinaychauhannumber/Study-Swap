@@ -38,8 +38,10 @@ export const SocketProvider = ({ children }) => {
     }
   }, [token]);
 
+  const userId = user?.id;
+
   useEffect(() => {
-    if (!token || !user) {
+    if (!token || !userId) {
       if (socket) {
         socket.disconnect();
         setSocket(null);
@@ -47,9 +49,12 @@ export const SocketProvider = ({ children }) => {
       return;
     }
 
-    // Connect to WebSocket server
+    // Connect to WebSocket server with reconnection limits
     const newSocket = io(BACKEND_URL, {
-      auth: { token }
+      auth: { token },
+      reconnectionAttempts: 5,
+      timeout: 5000,
+      transports: ['websocket', 'polling']
     });
 
     newSocket.on('connect', () => {
@@ -68,7 +73,7 @@ export const SocketProvider = ({ children }) => {
     });
 
     newSocket.on('connect_error', (err) => {
-      console.error('Socket connection error:', err.message);
+      console.warn('Socket connection error (non-fatal):', err.message);
     });
 
     setSocket(newSocket);
@@ -81,7 +86,7 @@ export const SocketProvider = ({ children }) => {
     return () => {
       newSocket.disconnect();
     };
-  }, [token, user]);
+  }, [token, userId]);
 
   const markAllNotificationsRead = async () => {
     if (!token) return;
