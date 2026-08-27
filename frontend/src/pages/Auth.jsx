@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LogIn, UserPlus, Sparkles, ShieldAlert, ShieldCheck, Mail, Key } from 'lucide-react';
+import { LogIn, UserPlus, Sparkles, ShieldAlert, ShieldCheck, Mail, Key, Lock } from 'lucide-react';
 
 export default function Auth() {
   const { user, login, register, forgotPassword, resetPassword, loginWithGoogle, error: authError } = useAuth();
@@ -193,122 +193,142 @@ export default function Auth() {
           );
         })()}
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          
-          {authMode === 'register' && (
-            <>
+        {/* Form Container with Lock Overlay */}
+        <div className="relative mt-2">
+          {/* Glassmorphic Lock Overlay */}
+          <div className="absolute inset-0 bg-[#FFF2DB]/80 backdrop-blur-[3.5px] rounded-2xl z-10 flex flex-col items-center justify-center p-6 text-center border border-[#FFE5BF]/70 select-none">
+            <div className="p-3 rounded-full bg-[#FFE5BF] text-black shadow-md mb-2.5 animate-pulse">
+              <Lock size={16} className="text-black" />
+            </div>
+            <h4 className="text-xs font-bold text-black uppercase tracking-wider mb-1">Email Authentication Locked</h4>
+            <p className="text-[10px] text-black/60 max-w-[260px] leading-relaxed">
+              Email signup and login are temporarily unavailable in this environment. Please use <strong className="text-black">Google Sign-in</strong> above to access your account.
+            </p>
+          </div>
+
+          <form onSubmit={(e) => e.preventDefault()} className="space-y-4 opacity-25 select-none pointer-events-none" tabIndex="-1">
+            
+            {authMode === 'register' && (
+              <>
+                <div>
+                  <label className="block text-xs font-semibold text-black/70 mb-1.5">Full Name</label>
+                  <input 
+                    type="text" placeholder="e.g. Priyanshu Sharma"
+                    value={fullName} onChange={(e) => setFullName(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black"
+                    required
+                    disabled
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-black/70 mb-1.5">College</label>
+                    <input 
+                      type="text" placeholder="e.g. DTU Delhi"
+                      value={college} onChange={(e) => setCollege(e.target.value)}
+                      className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black"
+                      required
+                      disabled
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-black/70 mb-1.5">Course</label>
+                    <input 
+                      type="text" placeholder="e.g. B.Tech CSE"
+                      value={course} onChange={(e) => setCourse(e.target.value)}
+                      className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black"
+                      required
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-black/70 mb-1.5">Academic Year</label>
+                  <select
+                    value={academicYear} onChange={(e) => setAcademicYear(e.target.value)}
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black font-semibold"
+                    disabled
+                  >
+                    <option value="1st Year">1st Year</option>
+                    <option value="2nd Year">2nd Year</option>
+                    <option value="3rd Year">3rd Year</option>
+                    <option value="4th Year">4th Year</option>
+                    <option value="Staff">Staff</option>
+                  </select>
+                </div>
+              </>
+            )}
+
+            {(authMode === 'login' || authMode === 'register' || authMode === 'forgot') && (
               <div>
-                <label className="block text-xs font-semibold text-black/70 mb-1.5">Full Name</label>
+                <label className="block text-xs font-semibold text-black/70 mb-1.5">College Email Address</label>
                 <input 
-                  type="text" placeholder="e.g. Priyanshu Sharma"
-                  value={fullName} onChange={(e) => setFullName(e.target.value)}
+                  type="email" placeholder="name@college.edu"
+                  value={email} onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black"
                   required
+                  disabled
                 />
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-semibold text-black/70 mb-1.5">College</label>
-                  <input 
-                    type="text" placeholder="e.g. DTU Delhi"
-                    value={college} onChange={(e) => setCollege(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-black/70 mb-1.5">Course</label>
-                  <input 
-                    type="text" placeholder="e.g. B.Tech CSE"
-                    value={course} onChange={(e) => setCourse(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black"
-                    required
-                  />
-                </div>
-              </div>
+            )}
+
+            {(authMode === 'login' || authMode === 'register' || authMode === 'reset') && (
               <div>
-                <label className="block text-xs font-semibold text-black/70 mb-1.5">Academic Year</label>
-                <select
-                  value={academicYear} onChange={(e) => setAcademicYear(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black font-semibold"
-                >
-                  <option value="1st Year">1st Year</option>
-                  <option value="2nd Year">2nd Year</option>
-                  <option value="3rd Year">3rd Year</option>
-                  <option value="4th Year">4th Year</option>
-                  <option value="Staff">Staff</option>
-                </select>
+                <div className="flex justify-between items-center mb-1.5">
+                  <label className="block text-xs font-semibold text-black/70">
+                    {authMode === 'reset' ? 'New Password' : 'Password'}
+                  </label>
+                  {authMode === 'login' && (
+                    <button 
+                      type="button" 
+                      onClick={() => { setAuthMode('forgot'); setLocalError(null); setSuccessMessage(null); }}
+                      className="text-[10px] text-black/70 hover:text-black transition"
+                      disabled
+                    >
+                      Forgot password?
+                    </button>
+                  )}
+                </div>
+                <input 
+                  type="password" placeholder="••••••••"
+                  value={password} onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black"
+                  required
+                  disabled
+                />
               </div>
-            </>
-          )}
+            )}
 
-          {(authMode === 'login' || authMode === 'register' || authMode === 'forgot') && (
-            <div>
-              <label className="block text-xs font-semibold text-black/70 mb-1.5">College Email Address</label>
-              <input 
-                type="email" placeholder="name@college.edu"
-                value={email} onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black"
-                required
-              />
-            </div>
-          )}
-
-          {(authMode === 'login' || authMode === 'register' || authMode === 'reset') && (
-            <div>
-              <div className="flex justify-between items-center mb-1.5">
-                <label className="block text-xs font-semibold text-black/70">
-                  {authMode === 'reset' ? 'New Password' : 'Password'}
-                </label>
-                {authMode === 'login' && (
-                  <button 
-                    type="button" 
-                    onClick={() => { setAuthMode('forgot'); setLocalError(null); setSuccessMessage(null); }}
-                    className="text-[10px] text-black/70 hover:text-black transition"
-                  >
-                    Forgot password?
-                  </button>
-                )}
-              </div>
-              <input 
-                type="password" placeholder="••••••••"
-                value={password} onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-[#FFFAF3]/60 border border-[#FFE5BF] focus:border-black focus:outline-none text-xs text-black"
-                required
-              />
-            </div>
-          )}
-
-          <button 
-            type="submit" disabled={loading}
-            className="w-full py-3 rounded-full bg-[#FFE5BF] hover:brightness-110 text-black text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow-lg shadow-[#FFE5BF]/40 disabled:opacity-50 mt-6"
-          >
-            {authMode === 'login' && <LogIn size={15} />}
-            {authMode === 'register' && <UserPlus size={15} />}
-            {authMode === 'forgot' && <Mail size={15} />}
-            {authMode === 'reset' && <Key size={15} />}
+            <button 
+              type="submit" disabled
+              className="w-full py-3 rounded-full bg-[#FFE5BF] text-black text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow-lg shadow-[#FFE5BF]/40 opacity-50 mt-6"
+            >
+              {authMode === 'login' && <LogIn size={15} />}
+              {authMode === 'register' && <UserPlus size={15} />}
+              {authMode === 'forgot' && <Mail size={15} />}
+              {authMode === 'reset' && <Key size={15} />}
+              
+              <span>
+                {authMode === 'login' ? 'Sign In to Account' : 
+                  authMode === 'register' ? 'Register Account' : 
+                  authMode === 'forgot' ? 'Send Reset Link' : 'Set New Password'}
+              </span>
+            </button>
             
-            <span>
-              {loading ? 'Processing...' : 
-                authMode === 'login' ? 'Sign In to Account' : 
-                authMode === 'register' ? 'Register Account' : 
-                authMode === 'forgot' ? 'Send Reset Link' : 'Set New Password'}
-            </span>
-          </button>
-          
-          {(authMode === 'forgot' || authMode === 'reset') && (
-            <div className="text-center mt-4">
-              <button 
-                type="button" 
-                onClick={() => { setAuthMode('login'); setLocalError(null); setSuccessMessage(null); }}
-                className="text-[10px] text-black/70 hover:text-black transition"
-              >
-                &larr; Back to Sign In
-              </button>
-            </div>
-          )}
-        </form>
+            {(authMode === 'forgot' || authMode === 'reset') && (
+              <div className="text-center mt-4">
+                <button 
+                  type="button" 
+                  onClick={() => { setAuthMode('login'); setLocalError(null); setSuccessMessage(null); }}
+                  className="text-[10px] text-black/70 hover:text-black transition"
+                  disabled
+                >
+                  &larr; Back to Sign In
+                </button>
+              </div>
+            )}
+          </form>
+        </div>
 
       </div>
     </div>
