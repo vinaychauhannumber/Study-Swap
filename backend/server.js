@@ -275,6 +275,27 @@ app.post('/api/auth/debug-register', async (req, res) => {
       email: email || 'debugonly@broplz.test',
       password: password || 'Debug12345!'
     });
+    let directFetchResult = null;
+    try {
+      const start = Date.now();
+      const resFetch = await fetch(`${process.env.SUPABASE_URL}/auth/v1/settings`, {
+        headers: { 'apikey': process.env.SUPABASE_ANON_KEY }
+      });
+      const body = await resFetch.text();
+      directFetchResult = {
+        ok: resFetch.ok,
+        status: resFetch.status,
+        statusText: resFetch.statusText,
+        duration: Date.now() - start,
+        bodyPreview: body.substring(0, 100)
+      };
+    } catch (fetchErr) {
+      directFetchResult = {
+        error: fetchErr.message,
+        stack: fetchErr.stack?.split('\n').slice(0, 3)
+      };
+    }
+
     const errorDetails = error ? {
       message: error.message,
       error_description: error.error_description,
@@ -309,7 +330,8 @@ app.post('/api/auth/debug-register', async (req, res) => {
       identities: data?.user?.identities?.length,
       errorDetails,
       urlInfo,
-      keyInfo
+      keyInfo,
+      directFetchResult
     });
   } catch (err) {
     res.json({ threw: true, message: err.message });
