@@ -5,9 +5,9 @@ CREATE TABLE IF NOT EXISTS users (
   email TEXT UNIQUE NOT NULL,
   password_hash TEXT, -- Used for offline SQLite auth fallback
   full_name TEXT NOT NULL,
-  college TEXT NOT NULL,
-  course TEXT NOT NULL,
-  academic_year TEXT NOT NULL,
+  college TEXT,
+  course TEXT,
+  academic_year TEXT,
   bio TEXT,
   skills TEXT, -- Comma-separated list of skills
   profile_picture TEXT,
