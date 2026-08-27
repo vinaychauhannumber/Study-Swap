@@ -442,23 +442,43 @@ app.post('/api/auth/login', async (req, res) => {
 
       if (error) {
         const isNetworkError = error.name === 'AuthRetryableFetchError' || (error.status && error.status >= 500);
-        if (isNetworkError) {
-          // Supabase unreachable — fall back to local bcrypt login
-          console.warn('Supabase unreachable on login, falling back to local auth...');
+        const isInvalidCredentials = error.status === 400 || (error.message && error.message.toLowerCase().includes('invalid'));
+
+        if (isNetworkError || isInvalidCredentials) {
+          // Either Supabase is unreachable OR user was registered via local fallback (not in Supabase Auth)
+          // → try local bcrypt password check against our own DB
           try {
             const localUser = await db.get('SELECT * FROM users WHERE email = ?', [email]);
-            if (!localUser || !localUser.password_hash || !bcrypt.compareSync(password, localUser.password_hash)) {
-              return res.status(400).json({ error: 'Invalid email or password.' });
+            if (localUser && localUser.password_hash && bcrypt.compareSync(password, localUser.password_hash)) {
+              if (localUser.is_suspended) return res.status(403).json({ error: 'Your account has been suspended.' });
+              const token = generateToken(localUser);
+              const safeUser = {
+                id: localUser.id,
+                email: localUser.email,
+                full_name: localUser.full_name,
+                role: localUser.role,
+                college: localUser.college,
+                course: localUser.course,
+                academic_year: localUser.academic_year,
+                bio: localUser.bio,
+                skills: localUser.skills,
+                profile_picture: localUser.profile_picture,
+                rating: localUser.rating,
+                completed_tasks: localUser.completed_tasks,
+                balance: localUser.balance
+              };
+              console.log(`Local auth fallback login success for ${email}`);
+              return res.json({ user: safeUser, token });
             }
-            if (localUser.is_suspended) return res.status(403).json({ error: 'Your account has been suspended.' });
-            const token = generateToken(localUser);
-            const safeUser = { id: localUser.id, email: localUser.email, full_name: localUser.full_name, role: localUser.role, college: localUser.college, course: localUser.course, academic_year: localUser.academic_year, balance: localUser.balance };
-            return res.json({ user: safeUser, token });
           } catch (localErr) {
-            return res.status(500).json({ error: 'Login service temporarily unavailable. Please try again.' });
+            console.warn('Local auth fallback error:', localErr.message);
           }
         }
-        const msg = supabaseErrorMsg(error) || 'Authentication failed.';
+
+        if (isNetworkError) {
+          return res.status(400).json({ error: 'Invalid email or password.' });
+        }
+        const msg = supabaseErrorMsg(error) || 'Invalid email or password.';
         return res.status(400).json({ error: msg });
       }
       
