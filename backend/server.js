@@ -223,11 +223,12 @@ app.post('/api/auth/register', async (req, res) => {
       }
 
       const sessionToken = data.session?.access_token || '';
+      const emailConfirmed = data.user.email_confirmed_at || data.user.confirmed_at;
 
-      if (!sessionToken) {
-        // Email confirmation required
+      if (!emailConfirmed) {
+        // Email confirmation required — do NOT return a session token
         return res.status(201).json({ 
-          message: 'Registration successful! Please check your email inbox to confirm your account, then sign in.', 
+          message: 'Registration successful! Please check your email inbox (and spam folder) to confirm your account, then sign in.', 
           requiresConfirmation: true 
         });
       }
