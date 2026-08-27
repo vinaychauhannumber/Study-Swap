@@ -85,7 +85,7 @@ async function authenticateToken(req, res, next) {
         await db.run(
           `INSERT INTO users (id, email, full_name, college, course, academic_year, role)
            VALUES (?, ?, ?, ?, ?, ?, ?)`,
-          [user.id, user.email, fullName, 'Delhi Technological University', 'Computer Science', '3rd Year', 'client']
+          [user.id, user.email, fullName, null, null, null, 'client']
         );
         dbUser = await db.get('SELECT id, email, full_name, role FROM users WHERE id = ?', [user.id]);
       }

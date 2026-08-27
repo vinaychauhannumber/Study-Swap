@@ -499,7 +499,7 @@ app.post('/api/auth/login', async (req, res) => {
         await db.run(
           `INSERT INTO users (id, email, full_name, college, course, academic_year, role)
            VALUES (?, ?, ?, ?, ?, ?, ?)`,
-          [data.user.id, data.user.email, fullName, 'Delhi Technological University', 'Computer Science', '3rd Year', 'client']
+          [data.user.id, data.user.email, fullName, null, null, null, 'client']
         );
         user = await db.get('SELECT * FROM users WHERE id = ?', [data.user.id]);
       }
