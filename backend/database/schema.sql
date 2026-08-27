@@ -17,6 +17,8 @@ CREATE TABLE IF NOT EXISTS users (
   role TEXT NOT NULL DEFAULT 'client', -- 'client', 'helper', 'admin'
   balance REAL DEFAULT 0.0, -- virtual wallet
   is_suspended INTEGER DEFAULT 0, -- boolean 0 or 1
+  is_email_verified INTEGER DEFAULT 0, -- boolean 0 or 1
+  email_verification_token TEXT, -- Random token for email verification
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 

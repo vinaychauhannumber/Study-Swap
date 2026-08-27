@@ -1,17 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { LogIn, UserPlus, Sparkles, ShieldAlert, ShieldCheck, Mail, Key } from 'lucide-react';
 
 export default function Auth() {
   const { user, login, register, forgotPassword, resetPassword, loginWithGoogle, error: authError } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const [authMode, setAuthMode] = useState('login'); // 'login', 'register', 'forgot', 'reset'
   const [loading, setLoading] = useState(false);
   const [localError, setLocalError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [resetToken, setResetToken] = useState(null);
+
+  // Check for ?verified=true or ?error= in URL (redirected from email verification)
+  useEffect(() => {
+    if (searchParams.get('verified') === 'true') {
+      setSuccessMessage('✅ Email verified successfully! You can now sign in.');
+      setAuthMode('login');
+    } else if (searchParams.get('error') === 'invalid_token' || searchParams.get('error') === 'invalid_or_expired_token') {
+      setLocalError('This verification link is invalid or has expired. Please register again.');
+    }
+  }, [searchParams]);
 
   // Form states
   const [email, setEmail] = useState('');

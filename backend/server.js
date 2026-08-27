@@ -10,12 +10,14 @@ const multer = require('multer');
 const helmet = require('helmet');
 const compression = require('compression');
 const rateLimit = require('express-rate-limit');
+const crypto = require('crypto');
 require('dotenv').config();
 
 const db = require('./database/db');
 const authMiddleware = require('./middleware/auth');
 const aiService = require('./services/aiService');
 const socketHandler = require('./sockets/socketHandler');
+const { sendVerificationEmail } = require('./utils/emailService');
 
 const app = express();
 const server = http.createServer(app);
@@ -198,42 +200,43 @@ app.post('/api/auth/register', async (req, res) => {
         return res.status(400).json({ error: 'Registration failed. No user returned from authentication provider.' });
       }
 
-      // Create or update local user profile in SQLite
+      // Generate our own email verification token (independent of Supabase auto-confirm)
+      const verificationToken = crypto.randomBytes(32).toString('hex');
+
+      // Create or update local user profile with is_email_verified = false
       try {
         await db.run(
-          `INSERT INTO users (id, email, full_name, college, course, academic_year, role)
-           VALUES (?, ?, ?, ?, ?, ?, ?)
+          `INSERT INTO users (id, email, full_name, college, course, academic_year, role, is_email_verified, email_verification_token)
+           VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?)
            ON CONFLICT(id) DO UPDATE SET
              full_name = excluded.full_name,
              college = excluded.college,
              course = excluded.course,
              academic_year = excluded.academic_year,
-             role = excluded.role`,
-          [data.user.id, email, fullName, college, course, academicYear, role]
+             role = excluded.role,
+             is_email_verified = 0,
+             email_verification_token = excluded.email_verification_token`,
+          [data.user.id, email, fullName, college, course, academicYear, role, verificationToken]
         );
       } catch (dbErr) {
         console.warn('Profile insert warning (non-fatal):', dbErr.message);
       }
 
-      // Build a user object — fall back gracefully if SQLite doesn't have the row yet
-      let user = await db.get('SELECT id, email, full_name, role, college, course, academic_year, balance FROM users WHERE id = ?', [data.user.id]);
-      if (!user) {
-        // User was created in Supabase but SQLite insert may have failed — create a minimal object
-        user = { id: data.user.id, email, full_name: fullName, role, college, course, academic_year: academicYear, balance: 0 };
+      // Send our own branded verification email via Gmail SMTP
+      const frontendUrl = process.env.FRONTEND_URL || 'https://broplz.site';
+      try {
+        await sendVerificationEmail(email, verificationToken, frontendUrl);
+        console.log(`Verification email sent to ${email}`);
+      } catch (mailErr) {
+        console.error('Failed to send verification email:', mailErr.message);
+        // Don't fail registration if email fails — user can request resend
       }
 
-      const sessionToken = data.session?.access_token || '';
-      const emailConfirmed = data.user.email_confirmed_at || data.user.confirmed_at;
-
-      if (!emailConfirmed) {
-        // Email confirmation required — do NOT return a session token
-        return res.status(201).json({ 
-          message: 'Registration successful! Please check your email inbox (and spam folder) to confirm your account, then sign in.', 
-          requiresConfirmation: true 
-        });
-      }
-
-      res.status(201).json({ user, token: sessionToken });
+      // ALWAYS require email confirmation — never auto-login after signup
+      return res.status(201).json({ 
+        message: 'Registration successful! Please check your email inbox (and spam folder) for a verification link to activate your account.',
+        requiresConfirmation: true 
+      });
     } catch (err) {
       const errorMsg = err?.message || (typeof err === 'string' ? err : 'Registration failed. Please try again.');
       console.error('Register route error:', errorMsg, err);
@@ -263,6 +266,24 @@ app.post('/api/auth/register', async (req, res) => {
       }
       res.status(500).json({ error: err.message });
     }
+  }
+});
+
+// Email verification route — user clicks link from email
+app.get('/api/auth/verify-email', async (req, res) => {
+  const { token } = req.query;
+  if (!token) return res.redirect(`${process.env.FRONTEND_URL || 'https://broplz.site'}/auth?error=invalid_token`);
+  try {
+    const user = await db.get('SELECT id, email FROM users WHERE email_verification_token = ?', [token]);
+    if (!user) {
+      return res.redirect(`${process.env.FRONTEND_URL || 'https://broplz.site'}/auth?error=invalid_or_expired_token`);
+    }
+    await db.run('UPDATE users SET is_email_verified = 1, email_verification_token = NULL WHERE id = ?', [user.id]);
+    console.log(`Email verified for ${user.email}`);
+    return res.redirect(`${process.env.FRONTEND_URL || 'https://broplz.site'}/auth?verified=true`);
+  } catch (err) {
+    console.error('Email verification error:', err.message);
+    return res.redirect(`${process.env.FRONTEND_URL || 'https://broplz.site'}/auth?error=server_error`);
   }
 });
 
@@ -515,6 +536,10 @@ app.post('/api/auth/login', async (req, res) => {
             const localUser = await db.get('SELECT * FROM users WHERE email = ?', [email]);
             if (localUser && localUser.password_hash && bcrypt.compareSync(password, localUser.password_hash)) {
               if (localUser.is_suspended) return res.status(403).json({ error: 'Your account has been suspended.' });
+              // Block login if email not verified
+              if (localUser.is_email_verified === 0 || localUser.is_email_verified === false) {
+                return res.status(403).json({ error: 'Please verify your email before signing in. Check your inbox for the verification link.' });
+              }
               const token = generateToken(localUser);
               const safeUser = {
                 id: localUser.id,
@@ -551,6 +576,11 @@ app.post('/api/auth/login', async (req, res) => {
       }
 
       let user = await db.get('SELECT * FROM users WHERE id = ?', [data.user.id]);
+
+      // Block login if our own email verification hasn't been completed
+      if (user && (user.is_email_verified === 0 || user.is_email_verified === false)) {
+        return res.status(403).json({ error: 'Please verify your email before signing in. Check your inbox for the verification link.' });
+      }
       
       // Fallback to checking by email for users registered before Supabase integration
       if (!user) {

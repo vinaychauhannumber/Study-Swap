@@ -90,18 +90,25 @@ async function initializeSchema() {
       await pool.query(pgSchema);
       console.log('Supabase PostgreSQL tables synchronized successfully.');
 
-      // Migration: drop NOT NULL constraints from profile columns so Google users
-      // can be created with null college/course/academic_year → redirected to /complete-profile
+      // Migration: drop NOT NULL constraints from profile columns
       try {
         await pool.query(`ALTER TABLE users ALTER COLUMN college DROP NOT NULL`);
         await pool.query(`ALTER TABLE users ALTER COLUMN course DROP NOT NULL`);
         await pool.query(`ALTER TABLE users ALTER COLUMN academic_year DROP NOT NULL`);
         console.log('Migration: college/course/academic_year NOT NULL constraints dropped.');
       } catch (migErr) {
-        // Columns may already be nullable — safe to ignore
         if (!migErr.message.includes('does not exist')) {
-          console.log('Migration note:', migErr.message);
+          console.log('Migration note (NOT NULL):', migErr.message);
         }
+      }
+
+      // Migration: add email verification columns
+      try {
+        await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS is_email_verified INTEGER DEFAULT 0`);
+        await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS email_verification_token TEXT`);
+        console.log('Migration: is_email_verified and email_verification_token columns added.');
+      } catch (migErr) {
+        console.log('Migration note (email verify cols):', migErr.message);
       }
     } catch (err) {
       console.error('Error synchronizing Supabase PostgreSQL schema:', err.message);

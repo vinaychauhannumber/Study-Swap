@@ -17,6 +17,7 @@ import Submission from './pages/Submission';
 import Profile from './pages/Profile';
 import AdminDashboard from './pages/AdminDashboard';
 import CompleteProfile from './pages/CompleteProfile';
+import VerifyEmail from './pages/VerifyEmail';
 
 // Protected Route Wrapper
 const ProtectedRoute = ({ children, allowedRoles, allowIncomplete }) => {
@@ -57,6 +58,7 @@ function MainApp() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />
           <Route path="/browse" element={<BrowseTasks />} />
           {/* Complete Profile Onboarding Route */}
           <Route path="/complete-profile" element={
