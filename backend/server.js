@@ -278,6 +278,7 @@ app.post('/api/auth/debug-register', async (req, res) => {
     let directFetchResult = null;
     try {
       const start = Date.now();
+      const randomEmail = `debugdirect_${Date.now()}_${Math.floor(Math.random() * 1000)}@test.com`;
       const resFetch = await fetch(`${process.env.SUPABASE_URL}/auth/v1/signup`, {
         method: 'POST',
         headers: { 
@@ -285,7 +286,7 @@ app.post('/api/auth/debug-register', async (req, res) => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          email: 'debugdirect@test.com',
+          email: randomEmail,
           password: 'DebugPassword123!'
         })
       });
