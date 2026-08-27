@@ -692,6 +692,19 @@ app.put('/api/users/profile', authMiddleware.authenticateToken, async (req, res)
   }
 });
 
+// TEMP ADMIN: Reset a user's profile to incomplete (forces /complete-profile redirect)
+app.post('/api/admin/reset-profile', async (req, res) => {
+  const { email, secret } = req.body;
+  if (secret !== 'broplz_reset_2026') return res.status(403).json({ error: 'Forbidden' });
+  try {
+    await db.run(`UPDATE users SET college = NULL, course = NULL, academic_year = NULL WHERE email = ?`, [email]);
+    const user = await db.get('SELECT id, email, full_name, college, course, academic_year FROM users WHERE email = ?', [email]);
+    res.json({ success: true, user });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Switch role endpoint
 app.put('/api/users/switch-role', authMiddleware.authenticateToken, async (req, res) => {
   const { role } = req.body;
