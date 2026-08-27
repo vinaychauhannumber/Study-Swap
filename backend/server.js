@@ -277,6 +277,18 @@ app.post('/api/auth/debug-register', async (req, res) => {
       password: password || 'Debug12345!'
     });
     let directFetchResult = null;
+    const userDebug = data?.user ? {
+      id: data.user.id,
+      email: data.user.email,
+      email_confirmed_at: data.user.email_confirmed_at,
+      confirmed_at: data.user.confirmed_at,
+      created_at: data.user.created_at,
+      role: data.user.role,
+      aud: data.user.aud,
+      user_metadata: data.user.user_metadata,
+      app_metadata: data.user.app_metadata,
+      hasSession: !!data?.session,
+    } : null;
     try {
       const start = Date.now();
       const randomEmail = `debugdirect_${Date.now()}_${Math.floor(Math.random() * 1000)}@test.com`;
@@ -341,7 +353,8 @@ app.post('/api/auth/debug-register', async (req, res) => {
       errorDetails,
       urlInfo,
       keyInfo,
-      directFetchResult
+      directFetchResult,
+      userDebug
     });
   } catch (err) {
     res.json({ threw: true, message: err.message });
