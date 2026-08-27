@@ -285,12 +285,31 @@ app.post('/api/auth/debug-register', async (req, res) => {
       stringified: JSON.stringify(error),
       toStringed: String(error)
     } : null;
+    const url = process.env.SUPABASE_URL;
+    const key = process.env.SUPABASE_ANON_KEY;
+    const urlInfo = url ? {
+      length: url.length,
+      startsWithHttps: url.startsWith('https://'),
+      endsWithSlash: url.endsWith('/'),
+      hasWhitespace: /\s/.test(url),
+      hasQuotes: url.includes('"') || url.includes("'"),
+      preview: url.substring(0, 15) + '...'
+    } : null;
+    const keyInfo = key ? {
+      length: key.length,
+      hasWhitespace: /\s/.test(key),
+      hasQuotes: key.includes('"') || key.includes("'"),
+      preview: key.substring(0, 15) + '...'
+    } : null;
+
     res.json({
       hasError: !!error,
       hasUser: !!data?.user,
       hasSession: !!data?.session,
       identities: data?.user?.identities?.length,
-      errorDetails
+      errorDetails,
+      urlInfo,
+      keyInfo
     });
   } catch (err) {
     res.json({ threw: true, message: err.message });
