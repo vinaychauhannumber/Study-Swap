@@ -202,6 +202,34 @@ export default function LandingPage() {
           ))}
         </div>
       </section>
+
+      {/* Popular Search Topics & Academic Aid Cloud (SEO) */}
+      <section className="max-w-4xl mx-auto space-y-6 pt-4 border-t border-[#FFE5BF]/30">
+        <div className="text-center space-y-1">
+          <h2 className="text-xl font-bold font-display text-black">Popular Assignment Help & Study Topics</h2>
+          <p className="text-xs text-black/60">Explore what students are solving and collaborating on across campuses.</p>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+          {[
+            "Assignment Help Platform", "Student Assignment Solver", "College Assignment Help",
+            "Online Assignment Help", "Student-to-Student Assignment Help", "Academic Task Platform",
+            "Get Assignments Done", "Assignment Help for College Students", "Assignment Solving Platform",
+            "Get college assignments done online", "Students helping students with assignments",
+            "Online assignment solving service", "Get assignments solved by students",
+            "Affordable assignment help online", "Homework Help", "StudySwap Assignment Help",
+            "StudySwap Student Help", "StudySwap Assignment Solver", "StudySwap for Students",
+            "StudySwap by Vinay Chauhan", "Vinay Chauhan Developer Portfolio"
+          ].map((tag, idx) => (
+            <span 
+              key={idx} 
+              className="text-[11px] px-3 py-1 rounded-full bg-[#FFFAF3] border border-[#FFE5BF]/60 text-black/75 hover:border-black/30 transition-colors shadow-sm"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
