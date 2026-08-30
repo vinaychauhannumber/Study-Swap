@@ -53,7 +53,7 @@ export default function LandingPage() {
 
         <div className="animate-fade-in-down inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-[#FFFAF3]/45 border border-[#FFE5BF]/40 text-xs font-semibold text-black animate-pulse-glow">
           <Sparkles size={13} className="animate-float" />
-          <span>StudySwap (BroPlz) • Student-to-Student Assignment Help & Solving Platform</span>
+          <span>BroPlz • Student-to-Student Assignment Help & Solving Platform</span>
         </div>
         
         <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-[1.1] font-display animate-fade-in-up delay-100">
@@ -62,7 +62,7 @@ export default function LandingPage() {
         </h1>
         
         <p className="text-base md:text-lg text-black/70 max-w-2xl mx-auto leading-relaxed animate-fade-in-up delay-200">
-          StudySwap connects college students with skilled peer helpers for fast, affordable online assignment help, coding debugging, presentation templates, research summaries, and academic tutoring.
+          BroPlz connects college students with skilled peer helpers for fast, affordable online assignment help, coding debugging, presentation templates, research summaries, and academic tutoring.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 animate-fade-in-up delay-300">
@@ -217,9 +217,9 @@ export default function LandingPage() {
             "Get Assignments Done", "Assignment Help for College Students", "Assignment Solving Platform",
             "Get college assignments done online", "Students helping students with assignments",
             "Online assignment solving service", "Get assignments solved by students",
-            "Affordable assignment help online", "Homework Help", "StudySwap Assignment Help",
-            "StudySwap Student Help", "StudySwap Assignment Solver", "StudySwap for Students",
-            "StudySwap by Vinay Chauhan", "Vinay Chauhan Developer Portfolio"
+            "Affordable assignment help online", "Homework Help", "BroPlz Assignment Help",
+            "BroPlz Student Help", "BroPlz Assignment Solver", "BroPlz for Students",
+            "BroPlz by Vinay Chauhan", "Vinay Chauhan Developer Portfolio"
           ].map((tag, idx) => (
             <span 
               key={idx} 

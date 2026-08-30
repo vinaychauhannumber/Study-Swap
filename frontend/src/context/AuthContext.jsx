@@ -5,6 +5,7 @@ const AuthContext = createContext();
 
 export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5005';
 export const API_BASE = `${BACKEND_URL}/api`;
+const TOKEN_KEY = 'broplz_token';
 
 // Initialize supabase safely — never throw at module level
 let supabase = null;
@@ -49,10 +50,10 @@ export const AuthProvider = ({ children }) => {
       if (response.ok && data.user) {
         safeSet(setUser)(data.user);
         safeSet(setToken)(authToken);
-        localStorage.setItem('studyswap_token', authToken);
+        localStorage.setItem(TOKEN_KEY, authToken);
       } else {
         // Token invalid — clear it silently
-        localStorage.removeItem('studyswap_token');
+        localStorage.removeItem(TOKEN_KEY);
         safeSet(setUser)(null);
         safeSet(setToken)(null);
       }
@@ -76,7 +77,7 @@ export const AuthProvider = ({ children }) => {
       if (isMounted.current) setLoading(false);
     }, 3000);
 
-    const storedToken = localStorage.getItem('studyswap_token');
+    const storedToken = localStorage.getItem(TOKEN_KEY) || localStorage.getItem('studyswap_token');
     if (storedToken) {
       fetchMeWithToken(storedToken);
     } else {
@@ -95,7 +96,7 @@ export const AuthProvider = ({ children }) => {
               fetchMeWithToken(session.access_token);
             }
           } else if (event === 'SIGNED_OUT') {
-            localStorage.removeItem('studyswap_token');
+            localStorage.removeItem(TOKEN_KEY);
             safeSet(setToken)(null);
             safeSet(setUser)(null);
             safeSet(setLoading)(false);
@@ -131,7 +132,7 @@ export const AuthProvider = ({ children }) => {
         const msg = typeof data.error === 'string' ? data.error : (data.error?.message || 'Login failed.');
         throw new Error(msg);
       }
-      localStorage.setItem('studyswap_token', data.token);
+      localStorage.setItem(TOKEN_KEY, data.token);
       setToken(data.token);
       setUser(data.user);
       return data.user;
@@ -161,7 +162,7 @@ export const AuthProvider = ({ children }) => {
       if (data.requiresConfirmation) {
         return { requiresConfirmation: true };
       }
-      localStorage.setItem('studyswap_token', data.token);
+      localStorage.setItem(TOKEN_KEY, data.token);
       setToken(data.token);
       setUser(data.user);
       return data.user;
@@ -239,7 +240,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem('studyswap_token');
+    localStorage.removeItem(TOKEN_KEY);
     setToken(null);
     setUser(null);
     setError(null);
@@ -251,7 +252,7 @@ export const AuthProvider = ({ children }) => {
   const updateProfile = async (profileData) => {
     setError(null);
     try {
-      const currentToken = token || localStorage.getItem('studyswap_token');
+      const currentToken = token || localStorage.getItem(TOKEN_KEY);
       const response = await fetch(`${API_BASE}/users/profile`, {
         method: 'PUT',
         headers: {
@@ -292,7 +293,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const refreshUser = async () => {
-    const currentToken = token || localStorage.getItem('studyswap_token');
+    const currentToken = token || localStorage.getItem(TOKEN_KEY);
     if (!currentToken) return;
     try {
       const response = await fetch(`${API_BASE}/auth/me`, {
@@ -318,7 +319,7 @@ export const AuthProvider = ({ children }) => {
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || 'Failed to switch role.');
-      localStorage.setItem('studyswap_token', data.token);
+      localStorage.setItem(TOKEN_KEY, data.token);
       setToken(data.token);
       setUser(data.user);
       return data.user;

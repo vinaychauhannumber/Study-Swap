@@ -115,7 +115,7 @@ function MainApp() {
         </Routes>
       </main>
       <footer className="py-6 border-t border-[#FFE5BF]/40 bg-[#FFFAF3]/40 text-center text-xs text-black/60 space-y-1">
-        <p>© 2026 StudySwap (BroPlz). Student-to-Student Assignment Help & Solving Platform.</p>
+        <p>© 2026 BroPlz. Student-to-Student Assignment Help & Solving Platform.</p>
         <p className="text-[11px] text-black/40">Engineered & Developed by <span className="font-semibold text-black/70">Vinay Chauhan</span> • Online College Assignment Help & Task Collaboration</p>
       </footer>
     </div>
