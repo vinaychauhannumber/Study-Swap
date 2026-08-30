@@ -114,8 +114,9 @@ function MainApp() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
-      <footer className="py-6 border-t border-slate-900 bg-slate-950/20 text-center text-xs text-slate-500">
-        <p>© 2026 BroPlz Platform. Student-to-Student Escrow Academic Collaboration Marketplace.</p>
+      <footer className="py-6 border-t border-[#FFE5BF]/40 bg-[#FFFAF3]/40 text-center text-xs text-black/60 space-y-1">
+        <p>© 2026 StudySwap (BroPlz). Student-to-Student Assignment Help & Solving Platform.</p>
+        <p className="text-[11px] text-black/40">Engineered & Developed by <span className="font-semibold text-black/70">Vinay Chauhan</span> • Online College Assignment Help & Task Collaboration</p>
       </footer>
     </div>
   );
