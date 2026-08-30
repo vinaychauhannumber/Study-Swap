@@ -98,7 +98,12 @@ export default function Auth() {
       <div className="glass rounded-3xl p-8 border border-[#FFE5BF] shadow-2xl space-y-6 animate-scale-in hover-glow">
         
         {/* Header */}
-        <div className="text-center space-y-2 animate-fade-in-up delay-100">
+        <div className="text-center space-y-2 animate-fade-in-up delay-100 flex flex-col items-center">
+          <img 
+            src="/logo.png" 
+            alt="BroPlz Logo" 
+            className="w-16 h-16 object-contain rounded-2xl shadow-md mb-1 hover:scale-105 transition-transform" 
+          />
           <div className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full bg-[#FFFAF3]/40 border border-[#FFE5BF]/40 text-[10px] font-semibold text-black animate-pulse-glow">
             <Sparkles size={11} className="animate-float" />
             <span>Secure Credentials Gateway</span>

@@ -31,9 +31,16 @@ export default function Navbar() {
   return (
     <header className="glass-header sticky top-0 z-50 px-6 py-4 flex items-center justify-between animate-fade-in-down">
       <div className="flex items-center space-x-3">
-        <Link to="/" className="flex flex-col">
-          <span className="text-2xl font-bold font-display tracking-tight text-gradient">BroPlz</span>
-          <span className="text-[10px] tracking-wide text-black/70 uppercase font-medium">Academic Collaboration</span>
+        <Link to="/" className="flex items-center space-x-3 group">
+          <img 
+            src="/logo.png" 
+            alt="BroPlz Logo" 
+            className="w-10 h-10 object-contain rounded-xl shadow-sm group-hover:scale-105 transition-transform" 
+          />
+          <div className="flex flex-col">
+            <span className="text-2xl font-bold font-display tracking-tight text-gradient leading-none">BroPlz</span>
+            <span className="text-[10px] tracking-wide text-black/70 uppercase font-medium mt-0.5">Academic Collaboration</span>
+          </div>
         </Link>
       </div>
 
