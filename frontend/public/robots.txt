@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
+Sitemap: https://www.broplz.site/sitemap.xml
 Sitemap: https://broplz.site/sitemap.xml
